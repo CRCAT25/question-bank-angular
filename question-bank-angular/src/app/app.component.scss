@@ -1,0 +1,20 @@
+.header-field{
+    height: 50px;
+    width: 100%;
+    background-color: #eb5a5a;
+}
+
+.nav-body-field{
+    display: flex;
+    height: calc(100vh - 50px);
+
+    .nav-field{
+        width: 15vw;
+        background-color: aquamarine;
+    }
+
+    .body-field{
+        width: 85vw;
+        background-color: bisque;
+    }
+}
