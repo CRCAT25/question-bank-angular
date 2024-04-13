@@ -1,0 +1,6 @@
+<div class="p-header">
+    <img class="logo" src=""/>
+    <div class="list-modole-lv1" *ngFor="let module of modules" (click)="onModuleClick(module.nameModule)">
+        {{module.nameModule}}
+    </div>
+</div>
