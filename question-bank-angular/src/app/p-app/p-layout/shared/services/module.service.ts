@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { ModuleDTO } from '../dto/module.dto';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { ModuleCategoryDTO } from '../dto/moduleCategory.dto';
+import { SubModuleCategoryDTO } from '../dto/subModuleCategory.dto';
+import { QuestionDTO } from '../../../p-questionbank/shared/question.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +15,9 @@ export class ModuleService {
     private _url: string = "../../../../assets/modules.json";
     private selectedModuleNameSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
     public selectedModuleName$: Observable<string> = this.selectedModuleNameSubject.asObservable();
+
+    private selectedSubModuleCategorySubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    public selectedSubModuleCategory$: Observable<string> = this.selectedSubModuleCategorySubject.asObservable();
 
     constructor(private http: HttpClient) { }
 
@@ -44,10 +49,25 @@ export class ModuleService {
         );
     }
 
+    setSelectedSubModuleCategory(nameSubModuleCategory: string) {
+        this.selectedSubModuleCategorySubject.next(nameSubModuleCategory);
+        return this.getSubModuleData(nameSubModuleCategory);
+    }
 
-    // Phương thức lấy tất cả các subModuleCategory theo moduleCategory bất kỳ
-    // getSubModuleCategoryByModuleCategory(): Observable<ModuleCategoryDTO[]>{
-
-    // }
+    getSubModuleData(nameSubModuleCategory: string): Observable<QuestionDTO[]> {
+        return this.Modules.pipe(
+            map(modules => {
+                for (const module of modules) {
+                    for (const moduleCategory of module.moduleCategory) {
+                        const subModuleCategory = moduleCategory.moduleCategory.find((subModule: { nameSubModuleCategory: string; }) => subModule.nameSubModuleCategory === nameSubModuleCategory);
+                        if (subModuleCategory) {
+                            return subModuleCategory.data;
+                        }
+                    }
+                }
+                return [];
+            })
+        );
+    }
 
 }

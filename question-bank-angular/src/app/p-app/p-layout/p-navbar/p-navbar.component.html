@@ -1,1 +1,41 @@
-<div class="p-navbar" *ngFor="let category of moduleCategory">{{ category.nameModuleCategory }}</div>
+<div class="p-navbar">
+    <div class="module-category-list" 
+        *ngFor="let category of moduleCategory" 
+        [ngClass]="{'module-category-item-active': isModuleCategoryActive(category.nameModuleCategory)}">
+
+        <div [ngClass]="{'module-category-item-line-vertical': isModuleCategoryActive(category.nameModuleCategory)}"></div>
+
+        <div class="module-category-item" (click)="setSelectedModuleCategory(category.nameModuleCategory)">
+            <div class="module-category-item_icon">
+                <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g filter="url(#filter0_d_428_923)">
+                    <path d="M15.053 0.342693H5.579C5.37316 0.338154 5.16841 0.371532 4.97684 0.440856C4.78526 0.510181 4.61074 0.61405 4.46357 0.746334C4.3164 0.878618 4.19956 1.03664 4.11994 1.21107C4.04033 1.38551 3.99954 1.57282 4 1.76197V11.7006H5.579V1.76197H15.053V0.342693ZM17.421 3.18217H8.737C8.53116 3.17763 8.32641 3.21101 8.13484 3.28033C7.94326 3.34966 7.76874 3.45352 7.62157 3.58581C7.4744 3.71809 7.35756 3.87611 7.27794 4.05055C7.19833 4.22498 7.15754 4.4123 7.158 4.60145V14.5401C7.15754 14.7292 7.19833 14.9165 7.27794 15.091C7.35756 15.2654 7.4744 15.4234 7.62157 15.5557C7.76874 15.688 7.94326 15.7919 8.13484 15.8612C8.32641 15.9305 8.53116 15.9639 8.737 15.9593H17.421C17.6268 15.9639 17.8316 15.9305 18.0232 15.8612C18.2147 15.7919 18.3893 15.688 18.5364 15.5557C18.6836 15.4234 18.8004 15.2654 18.8801 15.091C18.9597 14.9165 19.0005 14.7292 19 14.5401V4.60145C19.0005 4.4123 18.9597 4.22498 18.8801 4.05055C18.8004 3.87611 18.6836 3.71809 18.5364 3.58581C18.3893 3.45352 18.2147 3.34966 18.0232 3.28033C17.8316 3.21101 17.6268 3.17763 17.421 3.18217ZM17.421 14.5401H8.737V4.60145H17.421V14.5401Z" fill="white"/>
+                    </g>
+                    <defs>
+                    <filter id="filter0_d_428_923" x="0" y="0.342285" width="23" height="23.6174" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dy="4"/>
+                    <feGaussianBlur stdDeviation="2"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_428_923"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_428_923" result="shape"/>
+                    </filter>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="module-category-item_name">{{ category.nameModuleCategory }}</div>
+        </div>
+
+        <div class="sub-module-category-list" *ngIf="isModuleCategoryActive(category.nameModuleCategory)">
+            <div *ngFor="let sub of category.moduleCategory">
+                <div class="sub-module-category-item"
+                    (click)="setSelectedSubModuleCategory(sub.nameSubModuleCategory)"
+                    [ngClass]="{'sub-module-category-item-active': isSubModuleCategoryActive(sub.nameSubModuleCategory)}"
+                >{{sub.nameSubModuleCategory}}</div>
+            </div>
+        </div>
+
+    </div>
+</div>

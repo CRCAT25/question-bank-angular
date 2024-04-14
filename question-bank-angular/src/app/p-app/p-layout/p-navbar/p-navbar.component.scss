@@ -1,3 +1,62 @@
 .p-navbar{
     width: 100%;
+    font-size: 16px;
+
+    .module-category-item-active{
+        background-color: #474F63;
+    }
+
+    .module-category-list{
+        text-align: left;
+        cursor: pointer;
+        user-select: none;
+        color: #fff;
+        padding-left: 20px;
+        position: relative;
+        
+        .module-category-item-line-vertical{
+            width: 5px;
+            height: 50px;
+            background-color: #fff;
+            position: absolute;
+            left: 0;
+        }
+
+        .module-category-item{
+            height: 50px;
+            width: 100%;
+            display: flex;
+            gap: 7px;
+            text-transform: uppercase;
+            font-weight: 700;
+
+            &_icon, &_name{
+                height: 50px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                svg{
+                    margin-top: 4px;
+                }
+            }
+        }
+
+        .sub-module-category-list{
+
+            .sub-module-category-item-active{
+                color: #fff !important;
+            }
+
+            .sub-module-category-item{
+                height: 50px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding-left: 30px;
+                color: #959DB3;
+                font-weight: 700;
+            }
+        }
+    }
 }

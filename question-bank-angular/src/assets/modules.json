@@ -1,39 +1,47 @@
 {
     "Modules": [
         {
-            "nameModule": "Cấu hình",
-            "moduleCategory": []
+            "nameModule": "Dashboard",
+            "moduleCategory": [
+                {
+                    "nameModuleCategory": "Thống kê doanh thu",
+                    "moduleCategory": []
+                },
+                {
+                    "nameModuleCategory": "Năng suất",
+                    "moduleCategory": [
+                        {
+                            "nameSubModuleCategory": "Năng suất nhân sự",
+                            "data": []
+                        }
+                    ]
+                }
+            ]
         },
         {
             "nameModule": "Nhân sự",
             "moduleCategory": [
                 {
-                    "iconModuleCategory": "",
                     "nameModuleCategory": "Hồ sơ nhân sự",
                     "moduleCategory": [
                         {
-                            "iconSubModuleCategory": "",
                             "nameSubModuleCategory": "Danh sách nhân sự",
                             "data": []
                         }
                     ]
                 },
                 {
-                    "iconModuleCategory": "",
                     "nameModuleCategory": "Đánh giá nhân sự",
                     "moduleCategory": [
                         {
-                            "iconSubModuleCategory": "",
                             "nameSubModuleCategory": "Khung năng lực",
                             "data": []
                         },
                         {
-                            "iconSubModuleCategory": "",
                             "nameSubModuleCategory": "Từ điển năng lực",
                             "data": []
                         },
                         {
-                            "iconSubModuleCategory": "",
                             "nameSubModuleCategory": "Ngân hàng câu hỏi",
                             "data": [
                                 {
@@ -42,8 +50,7 @@
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty thương hiệu, hệ thống cửa hàng Hachi Hachi bắt đầu hoạt động",
                                     "time": "30s",
-                                    "status": "Đang soạn thảo",
-                                    "isChecked": false
+                                    "status": "Đang soạn thảo"
                                 },
                                 {
                                     "id": "Q.002",
@@ -51,8 +58,7 @@
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30s",
-                                    "status": "Gửi duyệt",
-                                    "isChecked": false
+                                    "status": "Gửi duyệt"
                                 },
                                 {
                                     "id": "Q.003",
@@ -60,8 +66,7 @@
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30s",
-                                    "status": "Gửi duyệt",
-                                    "isChecked": false
+                                    "status": "Gửi duyệt"
                                 },
                                 {
                                     "id": "Q.004",
@@ -69,8 +74,7 @@
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30s",
-                                    "status": "Gửi duyệt",
-                                    "isChecked": false
+                                    "status": "Gửi duyệt"
                                 },
                                 {
                                     "id": "Q.005",
@@ -78,8 +82,7 @@
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30s",
-                                    "status": "Gửi duyệt",
-                                    "isChecked": false
+                                    "status": "Gửi duyệt"
                                 }
                             ]
                         }

@@ -1,6 +1,19 @@
 <div class="p-header">
-    <img class="logo" src=""/>
-    <div class="list-modole-lv1" *ngFor="let module of modules" (click)="onModuleClick(module.nameModule)">
-        {{module.nameModule}}
+    <img class="logo" src="" />
+    <div class="modules">
+        <div class="modules_list" *ngFor="let module of modules">
+            <div class="modules_item" 
+                [ngClass]="{'text-active': isModuleActive(module.nameModule)}"
+                (click)="onModuleClick(module.nameModule)"
+            >
+                {{module.nameModule}}
+                <div class="modules_item_line_hor" *ngIf="isModuleActive(module.nameModule)"></div>
+            </div>
+            <div 
+                class="modules_item_line_ver" 
+                *ngIf="modules.indexOf(module) !== modules.length - 1">
+                <div></div>
+            </div>
+        </div>
     </div>
 </div>
