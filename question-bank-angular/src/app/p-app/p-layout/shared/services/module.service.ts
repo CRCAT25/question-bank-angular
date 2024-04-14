@@ -4,8 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ModuleDTO } from '../dto/module.dto';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { ModuleCategoryDTO } from '../dto/moduleCategory.dto';
-import { SubModuleCategoryDTO } from '../dto/subModuleCategory.dto';
-import { QuestionDTO } from '../../../p-questionbank/shared/question.dto';
+import { QuestionDTO } from '../../../p-content/p-questionbank/shared/question.dto';
 
 @Injectable({
     providedIn: 'root'

@@ -1,0 +1,24 @@
+.p-status {
+    display: flex;
+    gap: 15px;
+
+    .status-item {
+        height: 28px;
+        padding: 0 10px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        border: 1px solid #fff;
+        background-color: #fff;
+        border-radius: 14px;
+        cursor: pointer;
+        user-select: none;
+
+        div, input{
+            height: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}

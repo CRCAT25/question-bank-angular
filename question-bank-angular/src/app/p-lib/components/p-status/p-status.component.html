@@ -1,0 +1,13 @@
+<div class="p-status">
+    <div *ngFor="let status of statuses">
+      <ng-container *ngIf="status.id !== 4">
+        <div class="status-item" (click)="toggleCheckbox(status.id)">
+          <div>{{status.status}}</div>
+          <div>
+            <input type="checkbox" [checked]="isChecked(status.id)">
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  

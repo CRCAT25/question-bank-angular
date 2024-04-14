@@ -8,10 +8,17 @@
 
     .logo {
         width: 15vw;
+        display: flex;
+        justify-content: center;
+
+        img{
+            width: 150px;
+            height: 50px;
+        }
     }
 
     .modules {
-        width: 85vw;
+        width: calc(85vw - 15px);
         gap: 15px;
         display: flex;
         padding-left: 15px;
@@ -22,7 +29,7 @@
             cursor: pointer;
             user-select: none;
 
-            .text-active{
+            .text-active {
                 font-weight: 700;
                 color: $dark-green-color;
             }
@@ -50,7 +57,7 @@
                 justify-content: center;
                 text-transform: uppercase;
 
-                &:hover{
+                &:hover {
                     color: $dark-green-color;
                 }
 

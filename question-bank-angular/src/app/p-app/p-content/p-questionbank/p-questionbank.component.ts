@@ -1,6 +1,6 @@
+import { ModuleService } from '../../p-layout/shared/services/module.service';
 import { QuestionDTO } from './shared/question.dto';
 import { Component, OnInit } from '@angular/core';
-import { ModuleService } from '../p-layout/shared/services/module.service';
 
 @Component({
   selector: 'app-p-questionbank',
@@ -8,16 +8,14 @@ import { ModuleService } from '../p-layout/shared/services/module.service';
   styleUrl: './p-questionbank.component.scss'
 })
 export class PQuestionbankComponent implements OnInit{
-  public dataSubModuleCategory: QuestionDTO[] = [];
-  selectedSubModuleCategory: string = '';
+  public listQuestion: QuestionDTO[] = [];
 
   constructor(private moduleService: ModuleService) { }
 
   ngOnInit(): void {
     this.moduleService.selectedSubModuleCategory$.subscribe(sub => {
-      this.selectedSubModuleCategory = sub;
       this.moduleService.getSubModuleData(sub).subscribe(datas => {
-        this.dataSubModuleCategory = datas;
+        this.listQuestion = datas;
       });
     })
   }
