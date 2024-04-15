@@ -2,10 +2,12 @@
     "Modules": [
         {
             "nameModule": "Cấu hình",
+            "link": "/cauhinh",
             "moduleCategory": []
         },
         {
             "nameModule": "Dashboard",
+            "link": "/dashboard",
             "moduleCategory": [
                 {
                     "nameModuleCategory": "Dashboard Ecom",
@@ -15,26 +17,32 @@
         },
         {
             "nameModule": "Mua hàng",
+            "link": "/muahang",
             "moduleCategory": []
         },
         {
             "nameModule": "Điều phối",
+            "link": "/dieuphoi",
             "moduleCategory": []
         },
         {
             "nameModule": "Marketing",
+            "link": "/marketing",
             "moduleCategory": []
         },
         {
             "nameModule": "Ecommerce",
+            "link": "/ecommerce",
             "moduleCategory": []
         },
         {
             "nameModule": "Kinh doanh",
+            "link": "/kinhdoanh",
             "moduleCategory": []
         },
         {
             "nameModule": "Nhân sự",
+            "link": "/nhansu",
             "moduleCategory": [
                 {
                     "nameModuleCategory": "Hồ sơ nhân sự",

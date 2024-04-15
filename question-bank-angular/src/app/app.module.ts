@@ -5,11 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PHeaderComponent } from './p-app/p-layout/p-header/p-header.component';
 import { PNavbarComponent } from './p-app/p-layout/p-navbar/p-navbar.component';
-
 import { HttpClientModule } from '@angular/common/http';
-import { PContentComponent } from './p-app/p-content/p-content.component';
 import { PStatusComponent } from './p-lib/components/p-status/p-status.component';
-import { PQuestionbankComponent } from './p-app/p-content/personnel/p-questionbank/p-questionbank.component';
+import { PPersonnelComponent } from './p-app/p-personnel/p-personnel.component';
+import { PQuestionbankComponent } from './p-app/p-personnel/p-questionbank/p-questionbank.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +16,8 @@ import { PQuestionbankComponent } from './p-app/p-content/personnel/p-questionba
     PHeaderComponent,
     PNavbarComponent,
     PQuestionbankComponent,
-    PContentComponent,
     PStatusComponent,
+    PPersonnelComponent,
   ],
   imports: [
     BrowserModule,

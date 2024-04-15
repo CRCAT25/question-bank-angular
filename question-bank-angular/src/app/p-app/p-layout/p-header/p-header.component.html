@@ -13,7 +13,8 @@
     <div class="modules_list">
         <div class="modules" *ngFor="let module of modules">
             <div class="modules_item" [ngClass]="{'text-active': isModuleActive(module.nameModule)}"
-                (click)="onModuleClick(module.nameModule)">
+                (click)="onModuleClick(module.nameModule)"
+                [routerLink]="[module.link]">
                 {{module.nameModule}}
                 <div class="modules_item_line_hor" *ngIf="isModuleActive(module.nameModule)"></div>
             </div>
@@ -21,7 +22,6 @@
                 <div></div>
             </div>
         </div>
-
     </div>
 
     <div class="icons-header">
