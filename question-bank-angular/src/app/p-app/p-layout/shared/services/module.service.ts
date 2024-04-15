@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ModuleDTO } from '../dto/module.dto';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { ModuleCategoryDTO } from '../dto/moduleCategory.dto';
-import { QuestionDTO } from '../../../p-content/p-questionbank/shared/question.dto';
+import { QuestionDTO } from '../../../p-content/personnel/p-questionbank/shared/question.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +17,8 @@ export class ModuleService {
 
     private selectedSubModuleCategorySubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
     public selectedSubModuleCategory$: Observable<string> = this.selectedSubModuleCategorySubject.asObservable();
+
+    private preName: string = '';
 
     constructor(private http: HttpClient) { }
 
@@ -33,8 +35,16 @@ export class ModuleService {
     // Set giá trị selectedModuleNameSubject là name(nameModule được click). 
     // Sau khi giá trị được cập nhật, tất cả các subscriber của selectedModuleName$ sẽ nhận được thông báo về giá trị mới
     setSelectedModuleName(name: string) {
-        this.selectedModuleNameSubject.next(name);
-        // Lấy moduleCategory tương ứng với nameModule được chọn
+        if(this.preName !== name){
+            this.selectedSubModuleCategorySubject.next('');
+            this.selectedModuleNameSubject.next(name);
+            this.preName = name;
+            return this.getModuleCategoryByModule(name);
+        }
+        else{
+            this.selectedModuleNameSubject.next(name);
+            // Lấy moduleCategory tương ứng với nameModule được chọn
+        }
         return this.getModuleCategoryByModule(name);
     }
 

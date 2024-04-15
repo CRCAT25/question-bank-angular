@@ -1,4 +1,4 @@
-import { ModuleService } from '../../p-layout/shared/services/module.service';
+import { ModuleService } from '../../../p-layout/shared/services/module.service';
 import { QuestionDTO } from './shared/question.dto';
 import { Component, OnInit } from '@angular/core';
 

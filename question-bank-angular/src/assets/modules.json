@@ -1,22 +1,37 @@
 {
     "Modules": [
         {
+            "nameModule": "Cấu hình",
+            "moduleCategory": []
+        },
+        {
             "nameModule": "Dashboard",
             "moduleCategory": [
                 {
-                    "nameModuleCategory": "Thống kê doanh thu",
+                    "nameModuleCategory": "Dashboard Ecom",
                     "moduleCategory": []
-                },
-                {
-                    "nameModuleCategory": "Năng suất",
-                    "moduleCategory": [
-                        {
-                            "nameSubModuleCategory": "Năng suất nhân sự",
-                            "data": []
-                        }
-                    ]
                 }
             ]
+        },
+        {
+            "nameModule": "Mua hàng",
+            "moduleCategory": []
+        },
+        {
+            "nameModule": "Điều phối",
+            "moduleCategory": []
+        },
+        {
+            "nameModule": "Marketing",
+            "moduleCategory": []
+        },
+        {
+            "nameModule": "Ecommerce",
+            "moduleCategory": []
+        },
+        {
+            "nameModule": "Kinh doanh",
+            "moduleCategory": []
         },
         {
             "nameModule": "Nhân sự",

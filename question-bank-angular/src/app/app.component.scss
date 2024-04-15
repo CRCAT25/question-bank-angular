@@ -1,21 +1,20 @@
 @import '../styles.scss';
 .header-field{
-    height: 50px;
     width: 100%;
     background-color: white;
 }
 
 .nav-body-field{
     display: flex;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 55px);
 
     .nav-field{
-        width: 15vw;
+        width: 220px;
         background-color: #5A6276;
     }
 
     .body-field{
-        width: 85vw;
+        width: calc(100% - 220px);
         background-color: $background-color;
     }
 }
