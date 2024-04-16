@@ -10,22 +10,25 @@ import { ActivatedRoute, NavigationEnd, Route, Router } from '@angular/router';
 })
 export class PNavbarComponent implements OnInit {
   public moduleCategory: ModuleCategoryDTO[] = [];
-  public selectedModuleCategory: string = '';
+  public selectedModuleCategories: string[] = [];
   public selectedSubModuleCategory: string = '';
-  public currentURL: string ='';
 
   constructor(private moduleService: ModuleService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getCategoryModuleFromServer();
+    // set default khi khởi động component
+    this.setSelectedModuleCategory('Đánh giá nhân sự');
+    this.selectedSubModuleCategory = 'Ngân hàng câu hỏi';
   }
 
-  getCategoryModuleFromServer(){
+  // Lấy ModuleCategory và SubModuleCategory từ server thông qua service
+  getCategoryModuleFromServer() {
     this.moduleService.getCurrentUrl().subscribe(url => {
-      if(url === '' || url === '/'){
-        this.router.navigate(['nhan-su' + '/' + 'ngan-hang-cau-hoi'], {relativeTo: this.route})
+      if (url === '' || url === '/') {
+        this.router.navigate(['nhan-su' + '/' + 'ngan-hang-cau-hoi'], { relativeTo: this.route })
       }
-      else{
+      else {
         this.moduleService.getCategoryByModule('/' + url.split('/')[1]).subscribe((response) => {
           this.moduleCategory = response.moduleCategory; // Lưu dữ liệu nhận được từ server
         });
@@ -35,22 +38,27 @@ export class PNavbarComponent implements OnInit {
 
   // Thực hiện khi click vào ModuleCategory bất kỳ
   setSelectedModuleCategory(category: string): void {
-    this.selectedModuleCategory = category;
+    const index = this.selectedModuleCategories.indexOf(category);
+    if (index === -1) {
+      this.selectedModuleCategories.push(category);
+    } else {
+      this.selectedModuleCategories.splice(index, 1);
+    }
   }
 
   // Kiểm tra xem ModuleCategory đó có đang được active hay không
   isModuleCategoryActive(category: string) {
-    return this.selectedModuleCategory === category;
+    return this.selectedModuleCategories.includes(category);
   }
 
-  formatLink(link: string){
+  formatLink(link: string) {
     return link.split('/')[1];
   }
 
   // Thực hiện khi click vào SubModuleCategory bất kỳ
   setSelectedSubModuleCategory(sub: string, link: string): void {
     this.selectedSubModuleCategory = sub;
-    this.router.navigate(['nhan-su' + '/' + link], {relativeTo: this.route})
+    this.router.navigate([this.router.url.split('/')[1] + '/' + link], { relativeTo: this.route })
   }
 
   // Kiểm tra xem SubModuleCategory đó có đang được active hay không
