@@ -1,4 +1,4 @@
-export interface StatusDTO{
+export class StatusDTO{
     "id": number;
     "status": string;
 }

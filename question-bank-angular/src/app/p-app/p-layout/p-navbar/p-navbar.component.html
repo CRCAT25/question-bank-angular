@@ -31,10 +31,12 @@
         <div class="sub-module-category-list" *ngIf="isModuleCategoryActive(category.nameModuleCategory)">
             <div *ngFor="let sub of category.moduleCategory">
                 <div class="sub-module-category-item"
-                    (click)="setSelectedSubModuleCategory(sub.nameSubModuleCategory)"
+                    (click)="setSelectedSubModuleCategory(sub.nameSubModuleCategory, sub.link)" 
                     [ngClass]="{'sub-module-category-item-active': isSubModuleCategoryActive(sub.nameSubModuleCategory)}"
                 >{{sub.nameSubModuleCategory}}</div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- <router-outlet></router-outlet> -->

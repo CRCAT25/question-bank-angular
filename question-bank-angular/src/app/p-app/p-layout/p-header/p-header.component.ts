@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ModuleService } from '../shared/services/module.service';
-import { ModuleDTO } from '../shared/dto/module.dto';
+import { ModuleService } from '../../../p-lib/services/module.service';
+import { ModuleDTO } from '../../../p-lib/dto/module.dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-p-header',
@@ -12,21 +13,27 @@ export class PHeaderComponent implements OnInit {
   public activeModules: { [key: string]: boolean } = {};
   public itemActive = '';
 
-  constructor(private moduleService: ModuleService) { }
+  constructor(private moduleService: ModuleService, private router: Router) { }
 
   ngOnInit(): void {
-    this.moduleService.getModules().subscribe(modules => this.modules = modules);
+    this.getModulesFromServer();
+  }
+
+  getModulesFromServer() {
+    this.moduleService.getModules().subscribe((response) => {
+      this.modules = response; // Lưu dữ liệu nhận được từ server
+    });
   }
 
   // Thực hiện khi click vào Module bất kỳ
   onModuleClick(nameModule: string): void {
     this.itemActive = nameModule;
-    this.moduleService.setSelectedModuleName(nameModule);
+    this.moduleService.moduleActive = nameModule;
   }
 
   // Kiểm tra xem Module có đang được active hay không
   isModuleActive(nameModule: string): boolean {
-    // Check if the module is active or not
-    return nameModule === this.itemActive;
+    const currentURL = this.router.url;
+    return '/' + currentURL.split('/')[1] === nameModule;
   }
 }

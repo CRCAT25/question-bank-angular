@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ModuleService } from '../shared/services/module.service';
-import { ModuleCategoryDTO } from '../shared/dto/moduleCategory.dto';
+import { ModuleService } from '../../../p-lib/services/module.service';
+import { ModuleCategoryDTO } from '../../../p-lib/dto/moduleCategory.dto';
+import { ActivatedRoute, NavigationEnd, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-p-navbar',
@@ -9,16 +10,26 @@ import { ModuleCategoryDTO } from '../shared/dto/moduleCategory.dto';
 })
 export class PNavbarComponent implements OnInit {
   public moduleCategory: ModuleCategoryDTO[] = [];
-  selectedModuleName: string = '';
-  selectedModuleCategory: string = '';
-  selectedSubModuleCategory: string = '';
+  public selectedModuleCategory: string = '';
+  public selectedSubModuleCategory: string = '';
+  public currentURL: string ='';
 
-  constructor(private moduleService: ModuleService) { }
+  constructor(private moduleService: ModuleService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.moduleService.selectedModuleName$.subscribe(name => {
-      this.selectedModuleName = name;
-      this.moduleService.getModuleCategoryByModule(name).subscribe(name => this.moduleCategory = name);
+    this.getCategoryModuleFromServer();
+  }
+
+  getCategoryModuleFromServer(){
+    this.moduleService.getCurrentUrl().subscribe(url => {
+      if(url === '' || url === '/'){
+        this.router.navigate(['nhan-su' + '/' + 'ngan-hang-cau-hoi'], {relativeTo: this.route})
+      }
+      else{
+        this.moduleService.getCategoryByModule('/' + url.split('/')[1]).subscribe((response) => {
+          this.moduleCategory = response.moduleCategory; // Lưu dữ liệu nhận được từ server
+        });
+      }
     });
   }
 
@@ -32,10 +43,14 @@ export class PNavbarComponent implements OnInit {
     return this.selectedModuleCategory === category;
   }
 
+  formatLink(link: string){
+    return link.split('/')[1];
+  }
+
   // Thực hiện khi click vào SubModuleCategory bất kỳ
-  setSelectedSubModuleCategory(sub: string): void {
+  setSelectedSubModuleCategory(sub: string, link: string): void {
     this.selectedSubModuleCategory = sub;
-    this.moduleService.setSelectedSubModuleCategory(sub);
+    this.router.navigate(['nhan-su' + '/' + link], {relativeTo: this.route})
   }
 
   // Kiểm tra xem SubModuleCategory đó có đang được active hay không

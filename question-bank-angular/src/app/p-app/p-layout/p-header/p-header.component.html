@@ -12,11 +12,11 @@
 
     <div class="modules_list">
         <div class="modules" *ngFor="let module of modules">
-            <div class="modules_item" [ngClass]="{'text-active': isModuleActive(module.nameModule)}"
+            <div class="modules_item" [ngClass]="{'text-active': isModuleActive(module.link)}"
                 (click)="onModuleClick(module.nameModule)"
                 [routerLink]="[module.link]">
                 {{module.nameModule}}
-                <div class="modules_item_line_hor" *ngIf="isModuleActive(module.nameModule)"></div>
+                <div class="modules_item_line_hor" *ngIf="isModuleActive(module.link)"></div>
             </div>
             <div class="modules_item_line_ver" *ngIf="modules.indexOf(module) !== modules.length - 1">
                 <div></div>
@@ -52,6 +52,4 @@
             </svg>
         </div>
     </div>
-
-
 </div>

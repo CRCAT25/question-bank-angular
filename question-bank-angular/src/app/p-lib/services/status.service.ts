@@ -8,18 +8,12 @@ import { map, Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class StatusService {
-    // Tạo url link tới file modules.json trong folder assets
-    private _url: string = "../../../../assets/status.json";
+    private apiStatusUrl = 'http://localhost:3000/api/status'; // Đường dẫn API getStatus từ máy chủ Node.js
 
     constructor(private http: HttpClient) { }
 
-    // Tạo biến lưu trữ tất cả các status
-    Status: Observable<StatusDTO[]> = this.http.get<any>(this._url).pipe(
-        map(response => response.Status)
-    )
-
-    getStatus(): Observable<StatusDTO[]>{
-        return this.Status;
+    getStatus(): Observable<any> {
+        return this.http.get<any>(this.apiStatusUrl); // Gửi yêu cầu GET đến API
     }
 
 }

@@ -1,4 +1,4 @@
-import { ModuleService } from '../../p-layout/shared/services/module.service';
+import { ModuleService } from '../../../p-lib/services/module.service';
 import { QuestionDTO } from './shared/question.dto';
 import { Component, OnInit } from '@angular/core';
 
@@ -13,10 +13,10 @@ export class PQuestionbankComponent implements OnInit{
   constructor(private moduleService: ModuleService) { }
 
   ngOnInit(): void {
-    this.moduleService.selectedSubModuleCategory$.subscribe(sub => {
-      this.moduleService.getSubModuleData(sub).subscribe(datas => {
-        this.listQuestion = datas;
-      });
-    })
+    // this.moduleService.selectedSubModuleCategory$.subscribe(sub => {
+    //   this.moduleService.getSubModuleData(sub).subscribe(datas => {
+    //     this.listQuestion = datas;
+    //   });
+    // })
   }
 }
