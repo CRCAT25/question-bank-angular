@@ -1,0 +1,121 @@
+{
+    "Modules": [
+        {
+            "nameModule": "Cấu hình",
+            "link": "/cau-hinh",
+            "moduleCategory": []
+        },
+        {
+            "nameModule": "Dashboard",
+            "link": "/dashboard",
+            "moduleCategory": [
+                {
+                    "nameModuleCategory": "Dashboard Ecom",
+                    "moduleCategory": []
+                }
+            ]
+        },
+        {
+            "nameModule": "Mua hàng",
+            "link": "/mua-hang",
+            "moduleCategory": []
+        },
+        {
+            "nameModule": "Điều phối",
+            "link": "/dieu-phoi",
+            "moduleCategory": []
+        },
+        {
+            "nameModule": "Marketing",
+            "link": "/marketing",
+            "moduleCategory": []
+        },
+        {
+            "nameModule": "Ecommerce",
+            "link": "/ecommerce",
+            "moduleCategory": []
+        },
+        {
+            "nameModule": "Kinh doanh",
+            "link": "/kinh-doanh",
+            "moduleCategory": []
+        },
+        {
+            "nameModule": "Nhân sự",
+            "link": "/nhan-su",
+            "moduleCategory": [
+                {
+                    "nameModuleCategory": "Hồ sơ nhân sự",
+                    "moduleCategory": [
+                        {
+                            "nameSubModuleCategory": "Danh sách nhân sự",
+                            "link": "/danh-sach-nhan-su",
+                            "data": []
+                        }
+                    ]
+                },
+                {
+                    "nameModuleCategory": "Đánh giá nhân sự",
+                    "moduleCategory": [
+                        {
+                            "nameSubModuleCategory": "Khung năng lực",
+                            "link": "/khung-nang-luc",
+                            "data": []
+                        },
+                        {
+                            "nameSubModuleCategory": "Từ điển năng lực",
+                            "link": "/tu-dien-nang-luc",
+                            "data": []
+                        },
+                        {
+                            "nameSubModuleCategory": "Ngân hàng câu hỏi",
+                            "link": "/ngan-hang-cau-hoi",
+                            "data": [
+                                {
+                                    "id": "Q.001",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi có mặt từ năm nào? Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty thương hiệu, hệ thống cửa hàng Hachi Hachi bắt đầu hoạt động",
+                                    "time": "30s",
+                                    "status": "Đang soạn thảo"
+                                },
+                                {
+                                    "id": "Q.002",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.003",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.004",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.005",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
