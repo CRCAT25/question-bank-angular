@@ -95,7 +95,7 @@
         <div class="header-table grid-cols-7">
             <div class="col-span-4 field-check-all">
                 <div class="input-check-all">
-                    <input type="checkbox" />
+                    <input type="checkbox" (click)="onClickCheckAll()" [checked]="isAllCurrentItemChecked()" />
                 </div>
                 <div>
                     Câu hỏi
@@ -113,7 +113,7 @@
                 <div class="grid-cols-7 full-question"  *ngIf="isChecked(item.status)">
                     <div class="col-span-4 col-question">
                         <div class="col-question_checkbox">
-                            <input type="checkbox" />
+                            <input type="checkbox" (click)="checkItem(item.id)" [checked]="isInListCheckAll(item.id)" />
                         </div>
                         <div class="col-question_question">
                             <div class="col-question_question_name" title="{{item.question}}">{{item.question}}</div>

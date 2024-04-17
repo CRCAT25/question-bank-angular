@@ -16,6 +16,9 @@ export class PQuestionbankComponent implements OnInit {
   public listQuestion: QuestionDTO[] = [];
   public currentListQuestion: QuestionDTO[] = [];
   public searchText: string = '';
+  public toolBoxId: string = '';
+  public isCheckAll: boolean = false;
+  public checkedItems: string[] = []; // Mảng lưu trữ trạng thái checked của từng item
   public toolAvailable: { [key: string]: string[] }[] = [
     { 'Đang soạn thảo': ['Chỉnh sửa', 'Gửi duyệt', 'Xóa câu hỏi'] },
     { 'Gửi duyệt': ['Chỉnh sửa', 'Phê duyệt', 'Trả về'] },
@@ -24,7 +27,6 @@ export class PQuestionbankComponent implements OnInit {
     { 'Trả về': ['Chỉnh sửa', 'Gửi duyệt'] },
   ];
 
-  public toolBoxId: string = '';
 
 
   constructor(
@@ -163,6 +165,7 @@ export class PQuestionbankComponent implements OnInit {
     }
   }
 
+  // Sự kiện dùng để cập nhật trạng thái cho 1 câu hỏi
   updateStatus(id: string, newStatus: string): void {
     if (!(newStatus === 'Xem chi tiết' || newStatus === 'Chỉnh sửa')) {
       if (newStatus === 'Phê duyệt') {
@@ -176,7 +179,7 @@ export class PQuestionbankComponent implements OnInit {
         this.moduleService.deleteQuestion(id).subscribe(
           response => {
             // Xóa câu hỏi khỏi mảng listQuestion nếu xóa thành công
-            console.log(response.message); // Log kết quả trả về từ server (nếu cần)
+            // console.log(response.message); // Log kết quả trả về từ server (nếu cần)
             const deletedQuestionIndex = this.listQuestion.findIndex(question => question.id === id);
             if (deletedQuestionIndex !== -1) {
               this.listQuestion[deletedQuestionIndex].status = newStatus;
@@ -193,7 +196,7 @@ export class PQuestionbankComponent implements OnInit {
         // Gọi API để cập nhật trạng thái của câu hỏi
         this.moduleService.updateQuestionStatus(id, newStatus).subscribe(
           response => {
-            console.log(response.message); // Log kết quả trả về từ server (nếu cần)
+            // console.log(response.message); // Log kết quả trả về từ server (nếu cần)
             // Cập nhật trạng thái mới cho câu hỏi trong mảng listQuestion
             const updatedQuestionIndex = this.listQuestion.findIndex(question => question.id === id);
             if (updatedQuestionIndex !== -1) {
@@ -210,7 +213,50 @@ export class PQuestionbankComponent implements OnInit {
     }
     this.closeToolBox();
   }
-  
 
+  // Sự kiện khi click vào checkbox checkAll
+  onClickCheckAll() {
+    this.isCheckAll = !this.isCheckAll;
+    // this.checkedItems = this.currentListQuestion?.map(() => checked) || [];
+    if (this.isCheckAll) {
+      this.currentListQuestion?.forEach((item) => {
+        this.checkedItems.push(item.id); // Log những item được check
+      });
+    }
+    else {
+      this.checkedItems = [];
+    }
+    console.log(this.currentListQuestion.map(item => item.id))
+    console.log(this.checkedItems)
+  }
 
+  // Kiểm tra item đó có trong list được check hay không
+  isInListCheckAll(id: string): boolean {
+    return this.checkedItems.includes(id);
+  }
+
+  // Kiểm tra tất cả các item hiện tại check hay không
+  isAllCurrentItemChecked(): boolean {
+    let allChecked = true; // Mặc định là true
+
+    this.currentListQuestion.forEach(item => {
+      if (!this.checkedItems.includes(item.id)) {
+        allChecked = false; // Nếu có ít nhất một item không được chọn, đặt allChecked thành false
+      }
+    });
+
+    return allChecked; // Trả về giá trị sau khi kiểm tra tất cả các item
+  }
+
+  checkItem(id: string) {
+    if (!this.checkedItems.includes(id)) {
+      this.checkedItems.push(id)
+    }
+    else {
+      const index = this.checkedItems.indexOf(id);
+      if (index !== -1) {
+        this.checkedItems.splice(index, 1); // Loại bỏ nếu đã tồn tại
+      }
+    }
+  }
 }
