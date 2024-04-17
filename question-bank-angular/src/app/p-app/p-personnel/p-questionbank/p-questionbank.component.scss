@@ -6,6 +6,7 @@
 
     input {
         cursor: pointer;
+        font-family: "Mulish", sans-serif;
     }
 
     .status-and-buttons {
@@ -154,6 +155,7 @@
                         border: none;
                         border-radius: 4px;
                         width: 300px;
+                        cursor: auto !important;
                     }
 
                     svg.iconTim {

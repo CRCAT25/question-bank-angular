@@ -38,7 +38,7 @@ import { StatusColorPipe } from './p-lib/pipe/status-color.pipe';
     PEcommerceComponent,
     PBusinessComponent,
     PListPersonnelComponent,
-    StatusColorPipe
+    StatusColorPipe,
   ],
   imports: [
     BrowserModule,
