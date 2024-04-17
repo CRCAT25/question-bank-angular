@@ -220,6 +220,7 @@
             .full-question {
                 height: 60px;
                 box-shadow: $box-shadow4;
+                position: relative;
 
                 .col-question {
                     display: flex;
@@ -285,6 +286,23 @@
 
                     &_time {
                         font-weight: 700;
+                    }
+                }
+
+                .tool-box{
+                    position: absolute;
+                    right: 47px;
+                    z-index: 10;
+                    background-color: #BDC2D2;
+                    display: flex;
+                    flex-direction: column;
+                    top: 40%;
+                    width: 150px;
+
+                    &_item{
+                        padding: 8px 30px;
+                        cursor: pointer;
+                        color: #fff;
                     }
                 }
             }

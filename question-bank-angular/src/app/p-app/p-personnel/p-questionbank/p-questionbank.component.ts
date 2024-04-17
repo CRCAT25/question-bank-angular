@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModuleService } from '../../../p-lib/services/module.service';
 import { QuestionDTO } from './shared/question.dto';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { StatusService } from '../../../p-lib/services/status.service';
 import { StatusDTO } from '../../../p-lib/dto/status.dto';
 
@@ -16,6 +16,16 @@ export class PQuestionbankComponent implements OnInit {
   public listQuestion: QuestionDTO[] = [];
   public currentListQuestion: QuestionDTO[] = [];
   public searchText: string = '';
+  public toolAvailable: { [key: string]: string[] }[] = [
+    { 'Đang soạn thảo': ['Chỉnh sửa', 'Gửi duyệt', 'Xóa câu hỏi'] },
+    { 'Gửi duyệt': ['Chỉnh sửa', 'Phê duyệt', 'Trả về'] },
+    { 'Duyệt áp dụng': ['Xem chi tiết', 'Ngưng hiển thị'] },
+    { 'Ngưng áp dụng': ['Xem chi tiết', 'Phê duyệt', 'Trả về'] },
+    { 'Trả về': ['Chỉnh sửa', 'Gửi duyệt'] },
+  ];
+
+  public toolBoxId: string = '';
+
 
   constructor(
     private moduleService: ModuleService,
@@ -91,8 +101,6 @@ export class PQuestionbankComponent implements OnInit {
   searchButtonClick(): void {
     // Lấy giá trị từ input và gán cho textSearch
     this.searchText = (document.querySelector('.filters_container_search_input input') as HTMLInputElement).value;
-    console.log(this.currentListQuestion)
-    console.log(this.searchText)
     // Gọi hàm filterQuestions để lọc dữ liệu và hiển thị kết quả
     this.filterQuestions();
   }
@@ -109,5 +117,100 @@ export class PQuestionbankComponent implements OnInit {
     // Gọi hàm filterQuestions để áp dụng bộ lọc lại
     this.filterQuestions();
   }
+
+  // Lọc các status có thể tương tác của 1 status
+  toolBoxList(status: string) {
+    let listTool: string[] = [];
+    this.toolAvailable.forEach(tool => {
+      if (tool[status]) {
+        listTool = tool[status];
+        // console.log(tool[status])
+      }
+    });
+
+    return listTool;
+  }
+
+  // Mở toolBox
+  openToolBox(id: string) {
+    if (this.toolBoxId !== id) {
+      this.toolBoxId = id;
+    }
+    else {
+      this.toolBoxId = '';
+    }
+  }
+
+  // Sự kiện search ngay khi nhấn enter
+  onSearchKeyDown(event: KeyboardEvent): void {
+    if (event.key === "Enter") {
+      this.searchButtonClick(); // Gọi hàm searchButtonClick khi nhấn phím Enter
+    }
+  }
+
+  // Sự kiện đóng toolBox
+  closeToolBox(): void {
+    this.toolBoxId = '';
+  }
+
+  // Sự kiện khi click ra ngoài màn hình
+  @HostListener('document:click', ['$event'])
+  onClick(event: MouseEvent) {
+    // Kiểm tra xem phần tử được click có phải là other-pro_status_tool hay không
+    if (!(event.target as HTMLElement).closest('.other-pro_status_tool')) {
+      // Nếu không phải, đóng toolBox
+      this.closeToolBox();
+    }
+  }
+
+  updateStatus(id: string, newStatus: string): void {
+    if (!(newStatus === 'Xem chi tiết' || newStatus === 'Chỉnh sửa')) {
+      if (newStatus === 'Phê duyệt') {
+        newStatus = 'Duyệt áp dụng';
+      }
+      if (newStatus === 'Ngưng hiển thị') {
+        newStatus = 'Ngưng áp dụng'
+      }
+      // Gọi API để xóa câu hỏi nếu newStatus là 'Xóa câu hỏi'
+      if (newStatus === 'Xóa câu hỏi') {
+        this.moduleService.deleteQuestion(id).subscribe(
+          response => {
+            // Xóa câu hỏi khỏi mảng listQuestion nếu xóa thành công
+            console.log(response.message); // Log kết quả trả về từ server (nếu cần)
+            const deletedQuestionIndex = this.listQuestion.findIndex(question => question.id === id);
+            if (deletedQuestionIndex !== -1) {
+              this.listQuestion[deletedQuestionIndex].status = newStatus;
+              this.listQuestion.splice(deletedQuestionIndex, 1);
+            }
+            // Thực hiện các hành động khác sau khi xóa thành công (nếu cần)
+          },
+          error => {
+            console.error(error); // Log lỗi nếu có
+            // Xử lý lỗi hoặc thông báo cho người dùng (nếu cần)
+          }
+        );
+      } else {
+        // Gọi API để cập nhật trạng thái của câu hỏi
+        this.moduleService.updateQuestionStatus(id, newStatus).subscribe(
+          response => {
+            console.log(response.message); // Log kết quả trả về từ server (nếu cần)
+            // Cập nhật trạng thái mới cho câu hỏi trong mảng listQuestion
+            const updatedQuestionIndex = this.listQuestion.findIndex(question => question.id === id);
+            if (updatedQuestionIndex !== -1) {
+              this.listQuestion[updatedQuestionIndex].status = newStatus;
+            }
+            // Thực hiện các hành động khác sau khi cập nhật thành công (nếu cần)
+          },
+          error => {
+            console.error(error); // Log lỗi nếu có
+            // Xử lý lỗi hoặc thông báo cho người dùng (nếu cần)
+          }
+        );
+      }
+    }
+    this.closeToolBox();
+  }
+  
+
 
 }

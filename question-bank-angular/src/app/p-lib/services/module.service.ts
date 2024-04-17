@@ -10,6 +10,7 @@ export class ModuleService {
     moduleActive: string = '';
     cateModuleActive: string = '';
     subActive: string = '';
+    private apiUrl = 'http://localhost:3000';
     private apiModulesUrl = 'http://localhost:3000/api/modules'; // Đường dẫn API getModules từ máy chủ Node.js
     private apiModuleUrl = 'http://localhost:3000/api'; // Đường dẫn API getModules từ máy chủ Node.js
 
@@ -19,7 +20,7 @@ export class ModuleService {
 
 
     setCurrentUrl(url: string): void {
-        if(url){
+        if (url) {
             this.currentUrlSubject.next(url);
         }
     }
@@ -34,6 +35,21 @@ export class ModuleService {
 
     getCategoryByModule(url: string): Observable<any> {
         return this.http.get<any>(this.apiModuleUrl + url); // Gửi yêu cầu GET đến API
+    }
+
+    updateQuestionStatus(questionId: string, newStatus: string): Observable<any> {
+        const url = `${this.apiUrl}/updateQuestionStatus`; // Đường dẫn API cập nhật trạng thái
+        // Tạo body cho yêu cầu POST
+        const body = {
+            questionId: questionId,
+            newStatus: newStatus
+        };
+        // Gửi yêu cầu HTTP POST đến API để cập nhật trạng thái câu hỏi
+        return this.http.post<any>(url, body);
+    }
+
+    deleteQuestion(questionId: string): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/deleteQuestion`, { questionId });
     }
 
 }

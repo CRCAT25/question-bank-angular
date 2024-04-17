@@ -69,7 +69,7 @@
             <div class="filters_container_search">
                 <div class="text-reset" (click)="resetFilters()">Reset bộ lọc</div>
                 <div class="filters_container_search_input">
-                    <input #searchInput placeholder="Tìm theo mã và câu hỏi" />
+                    <input #searchInput placeholder="Tìm theo mã và câu hỏi" (keydown)="onSearchKeyDown($event)"/>
                     <svg class="iconTim" viewBox="0 0 512 512">
                         <title>Tìm kiếm sản phẩm</title>
                         <path
@@ -131,7 +131,7 @@
                         <div class="col-span-1 other-pro_status">
                             <div class="other-pro_status_name" [style.color]="item.status | statusColor">{{ item.status
                                 }}</div>
-                            <div class="other-pro_status_tool">
+                            <div class="other-pro_status_tool" (click)="openToolBox(item.id)">
                                 <svg width="16" height="3" viewBox="0 0 16 3" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -146,6 +146,12 @@
                                 </svg>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="tool-box" *ngIf="toolBoxId === item.id" (click)="$event.stopPropagation()">
+                        <ng-container *ngFor="let tool of toolBoxList(item.status)">
+                            <div class="tool-box_item" (click)="updateStatus(item.id, tool)">{{tool}}</div>
+                        </ng-container>
                     </div>
                 </div>
             </ng-container>
