@@ -25,7 +25,7 @@
                 padding: 0 10px;
                 display: flex;
                 justify-content: center;
-                gap: 5px;
+                gap: 10px;
                 border: 1px solid #fff;
                 background-color: #fff;
                 border-radius: 14px;
@@ -33,9 +33,7 @@
                 user-select: none;
                 box-shadow: 1px 3px 6px 1px rgba(143, 155, 166, 0.2);
 
-                div,
-                input {
-                    height: 28px;
+                div{
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -208,6 +206,7 @@
 
             .input-check-all {
                 padding: 0 15px;
+
             }
         }
 
@@ -312,3 +311,4 @@
         }
     }
 }
+

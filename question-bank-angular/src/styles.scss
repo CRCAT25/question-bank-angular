@@ -65,3 +65,25 @@ $text-color-filter: #5A6276;
 .text-center{
     text-align: center;
 }
+
+.input-check-layout{
+    width: 14px;
+    height: 14px;
+    border: 1px solid $grey-color;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bg-green{
+    background-color: #228645;
+    border: 1px solid #228645;
+}
+
+.icon-check{
+    color: white;
+    font-size: 11px;
+    text-align: center;
+}

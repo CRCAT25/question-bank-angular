@@ -7,7 +7,9 @@
                     <div class="status-item" (click)="toggleCheckbox(status.status)">
                         <div>{{status.status}}</div>
                         <div>
-                            <input type="checkbox" [checked]="isInListStatus(status.status)">
+                            <div class="input-check-layout" [ngClass]="{'bg-green': isInListStatus(status.status)}">
+                                <i *ngIf="isInListStatus(status.status)" class="fa fa-check icon-check"></i>
+                            </div>
                         </div>
                     </div>
                 </ng-container>
@@ -69,7 +71,7 @@
             <div class="filters_container_search">
                 <div class="text-reset" (click)="resetFilters()">Reset bộ lọc</div>
                 <div class="filters_container_search_input">
-                    <input #searchInput placeholder="Tìm theo mã và câu hỏi" (keydown)="onSearchKeyDown($event)"/>
+                    <input #searchInput placeholder="Tìm theo mã và câu hỏi" (keydown)="onSearchKeyDown($event)" />
                     <svg class="iconTim" viewBox="0 0 512 512">
                         <title>Tìm kiếm sản phẩm</title>
                         <path
@@ -95,7 +97,11 @@
         <div class="header-table grid-cols-7">
             <div class="col-span-4 field-check-all">
                 <div class="input-check-all">
-                    <input type="checkbox" (click)="onClickCheckAll()" [checked]="isAllCurrentItemChecked()" />
+                    <div class="input-check-layout" (click)="onClickCheckAll()"
+                        [ngClass]="{'bg-green': isAllCurrentItemChecked()}">
+                        <i *ngIf="isAllCurrentItemChecked()" class="fa fa-check icon-check"></i>
+                    </div>
+
                 </div>
                 <div>
                     Câu hỏi
@@ -110,10 +116,13 @@
 
         <div class="list-question">
             <ng-container *ngFor="let item of currentListQuestion">
-                <div class="grid-cols-7 full-question"  *ngIf="isChecked(item.status)">
+                <div class="grid-cols-7 full-question" *ngIf="isChecked(item.status)">
                     <div class="col-span-4 col-question">
                         <div class="col-question_checkbox">
-                            <input type="checkbox" (click)="checkItem(item.id)" [checked]="isInListCheckAll(item.id)" />
+                            <div class="input-check-layout" (click)="checkItem(item.id)"
+                                [ngClass]="{'bg-green': isInListCheckAll(item.id)}">
+                                <i *ngIf="isInListCheckAll(item.id)" class="fa fa-check icon-check"></i>
+                            </div>
                         </div>
                         <div class="col-question_question">
                             <div class="col-question_question_name" title="{{item.question}}">{{item.question}}</div>

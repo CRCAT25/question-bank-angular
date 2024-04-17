@@ -220,7 +220,9 @@ export class PQuestionbankComponent implements OnInit {
     // this.checkedItems = this.currentListQuestion?.map(() => checked) || [];
     if (this.isCheckAll) {
       this.currentListQuestion?.forEach((item) => {
-        this.checkedItems.push(item.id); // Log những item được check
+        if(!this.checkedItems.includes(item.id)){
+          this.checkedItems.push(item.id); // Log những item được check
+        }
       });
     }
     else {
@@ -238,10 +240,12 @@ export class PQuestionbankComponent implements OnInit {
   // Kiểm tra tất cả các item hiện tại check hay không
   isAllCurrentItemChecked(): boolean {
     let allChecked = true; // Mặc định là true
+    this.isCheckAll = true;
 
     this.currentListQuestion.forEach(item => {
       if (!this.checkedItems.includes(item.id)) {
         allChecked = false; // Nếu có ít nhất một item không được chọn, đặt allChecked thành false
+        this.isCheckAll = false;
       }
     });
 
