@@ -8,6 +8,7 @@ import { map, Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class StatusService {
+    selectedStatuses: number[] = [];
     private apiStatusUrl = 'http://localhost:3000/api/status'; // Đường dẫn API getStatus từ máy chủ Node.js
 
     constructor(private http: HttpClient) { }

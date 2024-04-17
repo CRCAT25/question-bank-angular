@@ -19,7 +19,7 @@ export class PNavbarComponent implements OnInit {
     this.getCategoryModuleFromServer();
     // set default khi khởi động component
     this.setSelectedModuleCategory('Đánh giá nhân sự');
-    this.selectedSubModuleCategory = 'Ngân hàng câu hỏi';
+    this.setSelectedSubModuleCategory('Ngân hàng câu hỏi', '/nhan-su/ngan-hang-cau-hoi');
   }
 
   // Lấy ModuleCategory và SubModuleCategory từ server thông qua service

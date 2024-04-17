@@ -8,6 +8,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class ModuleService {
     moduleActive: string = '';
+    cateModuleActive: string = '';
+    subActive: string = '';
     private apiModulesUrl = 'http://localhost:3000/api/modules'; // Đường dẫn API getModules từ máy chủ Node.js
     private apiModuleUrl = 'http://localhost:3000/api'; // Đường dẫn API getModules từ máy chủ Node.js
 

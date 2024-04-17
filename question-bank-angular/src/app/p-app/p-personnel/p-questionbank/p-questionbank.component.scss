@@ -14,6 +14,36 @@
         padding-bottom: 15px;
         border-bottom: 1px solid $grey-color;
 
+        .p-status {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+
+            .status-item {
+                height: 28px;
+                padding: 0 10px;
+                display: flex;
+                justify-content: center;
+                gap: 5px;
+                border: 1px solid #fff;
+                background-color: #fff;
+                border-radius: 14px;
+                cursor: pointer;
+                user-select: none;
+                box-shadow: 1px 3px 6px 1px rgba(143, 155, 166, 0.2);
+
+                div,
+                input {
+                    height: 28px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    cursor: pointer;
+                }
+            }
+        }
+
+
         .button {
             display: flex;
             gap: 15px;
@@ -59,7 +89,7 @@
                     color: #000;
                 }
 
-                path{
+                path {
                     fill: #000;
                 }
             }
@@ -73,7 +103,7 @@
                 padding: 0 8px !important;
                 box-shadow: $box-shadow2;
 
-                path{
+                path {
                     fill: #000;
                 }
             }
@@ -207,6 +237,10 @@
 
                     &_question {
 
+                        &_name {
+                            font-weight: 700;
+                        }
+
                         &_id-type {
                             display: flex;
                             gap: 8px;
@@ -240,11 +274,15 @@
                             justify-content: center;
                         }
 
-                        &_tool{
+                        &_tool {
                             padding: 0 15px;
                             cursor: pointer;
                             border-left: 1px solid #BDC2D2;
                         }
+                    }
+
+                    &_time {
+                        font-weight: 700;
                     }
                 }
             }

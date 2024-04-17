@@ -1,7 +1,18 @@
 <div class="p-questionbank">
     <!-- Các trạng thái và các button -->
     <div class="status-and-buttons">
-        <app-p-status></app-p-status>
+        <div class="p-status">
+            <div *ngFor="let status of statuses">
+                <ng-container *ngIf="status.id !== 4">
+                    <div class="status-item" (click)="toggleCheckbox(status.status)">
+                        <div>{{status.status}}</div>
+                        <div>
+                            <input type="checkbox" [checked]="isInListStatus(status.status)">
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
         <div class="button">
             <div class="button_import" title="Nhập file tại đây">
                 <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -99,13 +110,13 @@
 
         <div class="list-question">
             <ng-container *ngFor="let item of listQuestion">
-                <div class="grid-cols-7 full-question">
+                <div class="grid-cols-7 full-question"  *ngIf="isChecked(item.status)">
                     <div class="col-span-4 col-question">
                         <div class="col-question_checkbox">
                             <input type="checkbox" />
                         </div>
                         <div class="col-question_question">
-                            <div class="col-question_question_name">{{item.question}}</div>
+                            <div class="col-question_question_name" title="{{item.question}}">{{item.question}}</div>
                             <div class="col-question_question_id-type">
                                 <div class="col-question_question_id">{{item.id}}</div>
                                 <div class="line"></div>
@@ -115,10 +126,11 @@
                     </div>
 
                     <div class="col-span-3 grid-cols-3 other-pro">
-                        <div class="col-span-1 other-pro_group">{{item.group}}</div>
+                        <div class="col-span-1 other-pro_group" title="{{item.group}}">{{item.group}}</div>
                         <div class="col-span-1 other-pro_time text-center">{{item.time}}</div>
                         <div class="col-span-1 other-pro_status">
-                            <div class="other-pro_status_name">{{item.status}}</div>
+                            <div class="other-pro_status_name" [style.color]="item.status | statusColor">{{ item.status
+                                }}</div>
                             <div class="other-pro_status_tool">
                                 <svg width="16" height="3" viewBox="0 0 16 3" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
