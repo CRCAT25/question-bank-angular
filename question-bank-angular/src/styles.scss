@@ -8,6 +8,8 @@ body {
 
 $dark-green-color: #1A6634;
 $green-color: #008000;
+$red-color: #FD7676;
+$light-green-color: rgba(26, 102, 52, 0.7);
 $grey-color: #C4C4C4;
 $background-color: #F0F3F5;
 $grey-text: #959DB3;
@@ -69,7 +71,7 @@ $text-color-filter: #5A6276;
 .input-check-layout{
     width: 14px;
     height: 14px;
-    border: 1px solid $grey-color;
+    border: 1px solid $light-green-color;
     border-radius: 3px;
     cursor: pointer;
     display: flex;
@@ -77,13 +79,22 @@ $text-color-filter: #5A6276;
     justify-content: center;
 }
 
+.input-check-layout:hover{
+    background-color: $green-color;
+    border: 1px solid $green-color;
+}
+
 .bg-green{
-    background-color: #228645;
-    border: 1px solid #228645;
+    background-color: $green-color;
+    border: 1px solid $green-color;
 }
 
 .icon-check{
     color: white;
     font-size: 11px;
     text-align: center;
+}
+
+.item-checked{
+    background-color: $light-green-color;
 }

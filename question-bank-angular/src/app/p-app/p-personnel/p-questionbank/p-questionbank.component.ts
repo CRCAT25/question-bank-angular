@@ -18,6 +18,9 @@ export class PQuestionbankComponent implements OnInit {
   public searchText: string = '';
   public toolBoxId: string = '';
   public isCheckAll: boolean = false;
+  public isOpenPopupDelete: boolean = false;
+  public idDeleted: string = '';
+  public nameDeleted: string = '';
   public checkedItems: string[] = []; // Mảng lưu trữ trạng thái checked của từng item
   public toolAvailable: { [key: string]: string[] }[] = [
     { 'Đang soạn thảo': ['Chỉnh sửa', 'Gửi duyệt', 'Xóa câu hỏi'] },
@@ -166,7 +169,7 @@ export class PQuestionbankComponent implements OnInit {
   }
 
   // Sự kiện dùng để cập nhật trạng thái cho 1 câu hỏi
-  updateStatus(id: string, newStatus: string): void {
+  updateStatus(id: string, newStatus: string, question: string): void {
     if (!(newStatus === 'Xem chi tiết' || newStatus === 'Chỉnh sửa')) {
       if (newStatus === 'Phê duyệt') {
         newStatus = 'Duyệt áp dụng';
@@ -176,22 +179,9 @@ export class PQuestionbankComponent implements OnInit {
       }
       // Gọi API để xóa câu hỏi nếu newStatus là 'Xóa câu hỏi'
       if (newStatus === 'Xóa câu hỏi') {
-        this.moduleService.deleteQuestion(id).subscribe(
-          response => {
-            // Xóa câu hỏi khỏi mảng listQuestion nếu xóa thành công
-            // console.log(response.message); // Log kết quả trả về từ server (nếu cần)
-            const deletedQuestionIndex = this.listQuestion.findIndex(question => question.id === id);
-            if (deletedQuestionIndex !== -1) {
-              this.listQuestion[deletedQuestionIndex].status = newStatus;
-              this.listQuestion.splice(deletedQuestionIndex, 1);
-            }
-            // Thực hiện các hành động khác sau khi xóa thành công (nếu cần)
-          },
-          error => {
-            console.error(error); // Log lỗi nếu có
-            // Xử lý lỗi hoặc thông báo cho người dùng (nếu cần)
-          }
-        );
+        this.openPopupDelete();
+        this.idDeleted = id;
+        this.nameDeleted = question;
       } else {
         // Gọi API để cập nhật trạng thái của câu hỏi
         this.moduleService.updateQuestionStatus(id, newStatus).subscribe(
@@ -216,20 +206,22 @@ export class PQuestionbankComponent implements OnInit {
 
   // Sự kiện khi click vào checkbox checkAll
   onClickCheckAll() {
-    this.isCheckAll = !this.isCheckAll;
-    // this.checkedItems = this.currentListQuestion?.map(() => checked) || [];
-    if (this.isCheckAll) {
-      this.currentListQuestion?.forEach((item) => {
-        if(!this.checkedItems.includes(item.id)){
-          this.checkedItems.push(item.id); // Log những item được check
-        }
-      });
+    if(this.currentListQuestion.length !== 0){
+      this.isCheckAll = !this.isCheckAll;
+      // this.checkedItems = this.currentListQuestion?.map(() => checked) || [];
+      if (this.isCheckAll) {
+        this.currentListQuestion?.forEach((item) => {
+          if (!this.checkedItems.includes(item.id)) {
+            this.checkedItems.push(item.id); // Log những item được check
+          }
+        });
+      }
+      else {
+        this.checkedItems = [];
+      }
+      console.log(this.currentListQuestion.map(item => item.id))
+      console.log(this.checkedItems)
     }
-    else {
-      this.checkedItems = [];
-    }
-    console.log(this.currentListQuestion.map(item => item.id))
-    console.log(this.checkedItems)
   }
 
   // Kiểm tra item đó có trong list được check hay không
@@ -239,6 +231,9 @@ export class PQuestionbankComponent implements OnInit {
 
   // Kiểm tra tất cả các item hiện tại check hay không
   isAllCurrentItemChecked(): boolean {
+    if(this.currentListQuestion.length === 0){
+      return false;
+    }
     let allChecked = true; // Mặc định là true
     this.isCheckAll = true;
 
@@ -252,6 +247,7 @@ export class PQuestionbankComponent implements OnInit {
     return allChecked; // Trả về giá trị sau khi kiểm tra tất cả các item
   }
 
+  // Sự kiện khi click vào check của 1 câu hỏi
   checkItem(id: string) {
     if (!this.checkedItems.includes(id)) {
       this.checkedItems.push(id)
@@ -262,5 +258,37 @@ export class PQuestionbankComponent implements OnInit {
         this.checkedItems.splice(index, 1); // Loại bỏ nếu đã tồn tại
       }
     }
+  }
+
+  openPopupDelete() {
+    this.isOpenPopupDelete = true;
+  }
+
+  closePopupDelete() {
+    this.isOpenPopupDelete = false;
+  }
+
+
+
+  deleteQuestion(id: string) {
+    this.moduleService.deleteQuestion(id).subscribe(
+      response => {
+        // Xóa câu hỏi khỏi mảng listQuestion nếu xóa thành công
+        // console.log(response.message); // Log kết quả trả về từ server (nếu cần)
+        const deletedQuestionIndex = this.listQuestion.findIndex(question => question.id === id);
+        if (deletedQuestionIndex !== -1) {
+          this.listQuestion[deletedQuestionIndex].status = 'Xóa';
+          this.listQuestion.splice(deletedQuestionIndex, 1);
+        }
+        // Thực hiện các hành động khác sau khi xóa thành công (nếu cần)
+      },
+      error => {
+        console.error(error); // Log lỗi nếu có
+        // Xử lý lỗi hoặc thông báo cho người dùng (nếu cần)
+      }
+    );
+      this.idDeleted = ''
+      this.nameDeleted = ''
+      this.closePopupDelete();
   }
 }

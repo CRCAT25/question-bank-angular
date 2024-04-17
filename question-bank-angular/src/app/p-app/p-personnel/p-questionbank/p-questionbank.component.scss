@@ -3,6 +3,7 @@
 .p-questionbank {
     width: 100%;
     font-size: 14px;
+    position: relative;
 
     input {
         cursor: pointer;
@@ -33,12 +34,20 @@
                 user-select: none;
                 box-shadow: 1px 3px 6px 1px rgba(143, 155, 166, 0.2);
 
-                div{
+                div {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
                     cursor: pointer;
                 }
+            }
+
+            .status-item-checked {
+                border: 1px solid $light-green-color;
+            }
+
+            .status-item:hover {
+                border: 1px solid $green-color;
             }
         }
 
@@ -288,7 +297,7 @@
                     }
                 }
 
-                .tool-box{
+                .tool-box {
                     position: absolute;
                     right: 47px;
                     z-index: 10;
@@ -298,7 +307,7 @@
                     top: 40%;
                     width: 150px;
 
-                    &_item{
+                    &_item {
                         padding: 8px 30px;
                         cursor: pointer;
                         color: #fff;
@@ -310,5 +319,97 @@
 
         }
     }
-}
 
+    .popup-delete-background {
+        width: calc(100% + 30px);
+        height: calc(100vh - 55px);
+        background-color: #000;
+        opacity: 0.4;
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        z-index: 15;
+
+    }
+
+    .box-confirm-delete {
+        width: 400px;
+        background-color: white;
+        position: absolute;
+        z-index: 20;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+
+        &_header {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            border-bottom: 1px solid #DBDEE7;
+            height: 60px;
+
+            div {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                font-size: 15px;
+                font-weight: 700;
+                color: $red-color;
+            }
+        }
+
+        &_body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 14px;
+            gap: 20px;
+
+            &_question {
+                color: #36C8CF;
+                font-weight: 700;
+            }
+        }
+
+        &_footer {
+            display: flex;
+            border-top: 1px solid #DBDEE7;
+            height: 60px;
+
+            .btn-cancel {
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                cursor: pointer;
+            }
+
+            .btn-delete {
+                width: 50%;
+                background-color: $red-color;
+                color: #fff;
+                display: flex;
+                justify-content: center;
+                cursor: pointer;
+                gap: 8px;
+
+                div {
+                    height: 60px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    svg{
+                        width: 18px;
+                        height: 18px;
+                        padding-bottom: 2px;
+                    }
+                }
+            }
+        }
+    }
+}
