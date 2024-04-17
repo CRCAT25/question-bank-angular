@@ -1,3 +1,256 @@
-.p-questionbank{
+@import '../../../../styles.scss';
+
+.p-questionbank {
     width: 100%;
+    font-size: 14px;
+
+    input {
+        cursor: pointer;
+    }
+
+    .status-and-buttons {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 15px;
+        border-bottom: 1px solid $grey-color;
+
+        .button {
+            display: flex;
+            gap: 15px;
+            height: 30px;
+
+            div {
+                border-radius: 4px;
+                display: flex;
+                color: #fff;
+                font-size: 14px;
+                font-weight: 700;
+                padding: 0 4px;
+                cursor: pointer;
+
+                div {
+                    height: 30px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+            }
+
+            &_add {
+                background-color: $dark-green-color;
+                box-shadow: $box-shadow-blue;
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                    fill: #fff;
+                }
+
+                div {
+                    text-transform: uppercase;
+                }
+            }
+
+            &_export {
+                background-color: #fff;
+                box-shadow: $box-shadow2;
+
+                div {
+                    color: #000;
+                }
+
+                path{
+                    fill: #000;
+                }
+            }
+
+            &_import {
+                height: 30px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                background-color: #fff;
+                padding: 0 8px !important;
+                box-shadow: $box-shadow2;
+
+                path{
+                    fill: #000;
+                }
+            }
+        }
+    }
+
+    .filters {
+        display: flex;
+        gap: 10px;
+        padding: 15px 0;
+        border-bottom: 1px solid rgb(189, 194, 210, 0.5);
+
+        &_container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+
+            &_text,
+            &_search {
+                display: flex;
+                gap: 30px;
+            }
+
+            &_text {
+                color: #000;
+                font-weight: 700;
+            }
+
+            &_search {
+
+                .text-reset {
+                    text-decoration: underline;
+                    color: $green-color;
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+
+                &_input {
+                    position: relative;
+                    display: flex;
+                    gap: 5px;
+
+                    input {
+                        padding: 6px 20px 6px 30px;
+                        border: none;
+                        border-radius: 4px;
+                        width: 300px;
+                    }
+
+                    svg.iconTim {
+                        width: 16px;
+                        position: absolute;
+                        left: 10px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+
+                    .button_search {
+                        background-color: $dark-green-color;
+                        display: flex;
+                        gap: 5px;
+                        cursor: pointer;
+                        border-radius: 4px;
+                        padding: 6px;
+
+                        svg {
+                            fill: white;
+                            width: 16px;
+                        }
+
+                        div {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            color: white;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    .field-questions {
+        width: 100%;
+        padding-top: 15px;
+
+        .header-table {
+            padding: 10px 0;
+            font-weight: 700;
+            color: #000;
+
+            .field-check-all,
+            .field-status-toolbox {
+                display: flex;
+            }
+
+            .input-check-all {
+                padding: 0 15px;
+            }
+        }
+
+        .list-question {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            .full-question {
+                height: 60px;
+                box-shadow: $box-shadow4;
+
+                .col-question {
+                    display: flex;
+
+                    &_checkbox,
+                    &_question {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        gap: 5px;
+                    }
+
+                    &_checkbox {
+                        padding: 0 15px;
+                        height: 100%;
+                    }
+
+                    &_question {
+
+                        &_id-type {
+                            display: flex;
+                            gap: 8px;
+                        }
+
+                        .line {
+                            background-color: #BDC2D2;
+                            width: 1px;
+                        }
+                    }
+                }
+
+                .other-pro {
+
+                    &_group,
+                    &_time {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+
+                    &_status {
+                        display: flex;
+                        justify-content: right;
+                        gap: 30px;
+
+                        &_name,
+                        &_tool {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                        }
+
+                        &_tool{
+                            padding: 0 15px;
+                            cursor: pointer;
+                            border-left: 1px solid #BDC2D2;
+                        }
+                    }
+                }
+            }
+
+
+
+        }
+    }
 }

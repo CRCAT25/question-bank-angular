@@ -1,0 +1,14 @@
+<div class="p-button" [ngStyle]="{ 
+        'background-color': bgColor,
+        'color': textColor,
+        'width': width, 
+        'height': height, 
+        'font-size': textSize
+    }">
+    <div>
+        <ng-container *ngIf="classIcon">
+            <div [innerHTML]="classIcon" [style.width]="iconSize" [style.height]="iconSize" [style.color]="iconColor"></div>
+        </ng-container>
+        <div *ngIf="text">{{ text }}</div>
+    </div>
+</div>

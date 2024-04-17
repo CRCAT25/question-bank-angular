@@ -1,10 +1,67 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
-body{
+
+body {
     margin: 0;
     padding: 0;
     font-family: "Mulish", sans-serif;
 }
 
 $dark-green-color: #1A6634;
+$green-color: #008000;
 $grey-color: #C4C4C4;
 $background-color: #F0F3F5;
+$grey-text: #959DB3;
+$box-shadow1: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+$box-shadow2: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+$box-shadow3: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+$box-shadow4: rgba(17, 17, 26, 0.1) 0px 0px 16px;;
+$box-shadow-blue: rgba(65, 179, 255, 0.4) 0px 7px 15px 0px;
+$text-color-filter: #5A6276;
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 5px;
+    height: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $dark-green-color;
+    border-radius: 5px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #27994f;
+}
+
+// Tạo vòng lặp từ 1 đến 12
+@for $i from 1 through 12 {
+    // Tạo class với tên .col-span-N, trong đó N là số cột
+    .col-span-#{$i} {
+        grid-column: span $i;
+    }
+}
+
+// Tạo vòng lặp từ 1 đến 12 (hoặc số cột tối đa bạn muốn)
+@for $i from 1 through 12 {
+    // Tạo class với tên .grid-cols-N, trong đó N là số cột
+    .grid-cols-#{$i} {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(#{$i}, 1fr);
+    }
+}
+
+.text-center{
+    text-align: center;
+}

@@ -5,6 +5,7 @@
 
         <div [ngClass]="{'module-category-item-line-vertical': isModuleCategoryActive(category.nameModuleCategory)}"></div>
 
+        <!-- Hiển thị tên ModuleCategory -->
         <div class="module-category-item" (click)="setSelectedModuleCategory(category.nameModuleCategory)">
             <div class="module-category-item_icon">
                 <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,6 +29,7 @@
             <div class="module-category-item_name">{{ category.nameModuleCategory }}</div>
         </div>
 
+        <!-- Hiển thị các subItem của mỗi ModuleCategory -->
         <div class="sub-module-category-list" *ngIf="isModuleCategoryActive(category.nameModuleCategory)">
             <div *ngFor="let sub of category.moduleCategory">
                 <div class="sub-module-category-item"

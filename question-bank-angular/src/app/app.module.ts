@@ -19,6 +19,7 @@ import { PMarketingComponent } from './p-app/p-marketing/p-marketing.component';
 import { PEcommerceComponent } from './p-app/p-ecommerce/p-ecommerce.component';
 import { PBusinessComponent } from './p-app/p-business/p-business.component';
 import { PListPersonnelComponent } from './p-app/p-personnel/p-list-personnel/p-list-personnel.component';
+import { PButtonComponent } from './p-lib/components/p-button/p-button.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { PListPersonnelComponent } from './p-app/p-personnel/p-list-personnel/p-
     PEcommerceComponent,
     PBusinessComponent,
     PListPersonnelComponent,
+    PButtonComponent,
   ],
   imports: [
     BrowserModule,

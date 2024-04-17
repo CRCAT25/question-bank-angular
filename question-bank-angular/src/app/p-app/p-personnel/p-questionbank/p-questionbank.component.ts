@@ -7,16 +7,18 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './p-questionbank.component.html',
   styleUrl: './p-questionbank.component.scss'
 })
-export class PQuestionbankComponent implements OnInit{
+export class PQuestionbankComponent implements OnInit {
   public listQuestion: QuestionDTO[] = [];
 
   constructor(private moduleService: ModuleService) { }
 
   ngOnInit(): void {
-    // this.moduleService.selectedSubModuleCategory$.subscribe(sub => {
-    //   this.moduleService.getSubModuleData(sub).subscribe(datas => {
-    //     this.listQuestion = datas;
-    //   });
-    // })
+    this.moduleService.getCurrentUrl().subscribe(url => {
+      if (url) {
+        this.moduleService.getCategoryByModule('/' + url.split('/')[1] + '/' + url.split('/')[2]).subscribe(item => {
+          this.listQuestion = item.data;
+        })
+      }
+    })
   }
 }
