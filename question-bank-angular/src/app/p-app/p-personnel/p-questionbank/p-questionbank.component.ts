@@ -555,6 +555,9 @@ export class PQuestionbankComponent implements OnInit {
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage += 1;
+      if(this.currentPage === this.startPage + 4){
+        this.startPage += 4;
+      }
     }
     this.calculateTotalPages();
   }
@@ -563,7 +566,13 @@ export class PQuestionbankComponent implements OnInit {
   backPage(): void {
     if (this.currentPage > 1) {
       this.currentPage -= 1;
+      if(this.currentPage === this.startPage - 1){
+        this.startPage -= 4;
+      }
     }
+
+    console.log(this.currentPage)
+    console.log(this.startPage)
     this.calculateTotalPages();
   }
 
@@ -577,22 +586,26 @@ export class PQuestionbankComponent implements OnInit {
   // Sự kiện tiến đến trang cuối cùng
   lastPage(): void {
     this.currentPage = this.totalPages;
-    this.startPage = Math.floor(this.totalPages / 4) * 4 + 1;
+    if(this.totalPages > 4){
+      this.startPage = Math.floor(this.totalPages / 4) * 4 + 1;
+    }
     this.calculateTotalPages();
   }
 
   // Hàm dấu 3 chấm next
   dotsNext(): void {
-    if (this.startPage + 4 > this.totalPages) {
-      this.startPage = Math.floor(this.totalPages / 4) * 4 + 1;
+    if(this.totalPages > 4){
+      if (this.startPage + 4 > this.totalPages) {
+        this.startPage = Math.floor(this.totalPages / 4) * 4 + 1;
+      }
+      else {
+        this.startPage += 4;
+      }
+      this.currentPage = this.startPage;
+  
+      // Tính toán lại danh sách câu hỏi cho trang hiện tại
+      this.calculateTotalPages();
     }
-    else {
-      this.startPage += 4;
-    }
-    this.currentPage = this.startPage;
-
-    // Tính toán lại danh sách câu hỏi cho trang hiện tại
-    this.calculateTotalPages();
   }
 
   // Hàm dấu 3 chấm back
