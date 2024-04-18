@@ -3,7 +3,7 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: "Mulish", sans-serif;
+    font-family: "Mulish", sans-serif !important;
 }
 
 $dark-green-color: #1A6634;
@@ -18,7 +18,9 @@ $box-shadow2: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10p
 $box-shadow3: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 $box-shadow4: rgba(17, 17, 26, 0.1) 0px 0px 16px;;
 $box-shadow-blue: rgba(65, 179, 255, 0.4) 0px 7px 15px 0px;
+$box-shadow-green: rgba(26, 102, 52, 0.4) 0px 7px 15px 0px;
 $text-color-filter: #5A6276;
+$border-input-grey: #DBDEE7;
 
 /* width */
 ::-webkit-scrollbar {
@@ -120,3 +122,5 @@ input {
     cursor: pointer;
     font-family: "Mulish", sans-serif;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

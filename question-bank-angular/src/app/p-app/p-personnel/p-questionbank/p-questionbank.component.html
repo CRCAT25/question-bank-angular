@@ -1,319 +1,412 @@
-<div class="p-questionbank">
-    <!-- Các trạng thái và các button -->
-    <div class="status-and-buttons">
-        <div class="p-status">
-            <div *ngFor="let status of statuses">
-                <ng-container *ngIf="status.id !== 4">
-                    <div class="status-item" (click)="toggleCheckbox(status.status)"
-                        [ngClass]="{'status-item-checked': isInListStatus(status.status)}">
-                        <div>{{status.status}}</div>
-                        <div>
-                            <div class="input-check-layout" [ngClass]="{'bg-green': isInListStatus(status.status)}">
-                                <i *ngIf="isInListStatus(status.status)" class="fa fa-check icon-check"></i>
-                            </div>
-                        </div>
-                    </div>
-                </ng-container>
-            </div>
-        </div>
-        <div class="button">
-            <div class="button_import" title="Nhập file tại đây">
-                <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mat-drawer-container class="p-question-container">
+    <mat-drawer #drawer class="drawer-container" position="end" opened="true">
+        <!-- Nội dung của drawer -->
+        <div class="drawer-container_header">
+            <div>
+                <svg width="20" height="20" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
-                        d="M13.8 7.01709H10.973V8.70409H13.8C14.636 8.70409 15.3 9.12609 15.3 9.51309V17.0001C15.3 17.3871 14.638 17.8091 13.8 17.8091H3.17C2.334 17.8091 1.67 17.3871 1.67 17.0001V9.51709C1.67 9.13009 2.332 8.70809 3.17 8.70809H5.992V7.01709H3.17C1.393 7.01709 0 8.10709 0 9.51709V17.0041C0 18.4101 1.393 19.5041 3.17 19.5041H13.83C15.607 19.5041 17 18.4141 17 17.0041V9.51709C16.965 8.11109 15.572 7.01709 13.8 7.01709Z"
-                        fill="#959DB3" />
+                        d="M15 10.8091H11.132C10.4416 10.8091 9.88196 11.3789 9.88196 12.0818V14.4186C9.88196 15.1215 10.4416 15.6913 11.132 15.6913H15C15.6903 15.6913 16.25 15.1215 16.25 14.4186V12.0818C16.25 11.3789 15.6903 10.8091 15 10.8091Z"
+                        stroke="#1A6634" stroke-width="1.5" />
                     <path
-                        d="M6.00388 4.71408C6.11534 4.71584 6.22599 4.69495 6.32913 4.65266C6.43227 4.61037 6.52574 4.54758 6.60388 4.46808L7.65888 3.41308V11.9901C7.65498 12.1033 7.67391 12.2161 7.71455 12.3219C7.75518 12.4276 7.81669 12.5241 7.8954 12.6056C7.97411 12.687 8.06842 12.7518 8.1727 12.7961C8.27698 12.8403 8.3891 12.8631 8.50238 12.8631C8.61566 12.8631 8.72778 12.8403 8.83206 12.7961C8.93634 12.7518 9.03065 12.687 9.10936 12.6056C9.18807 12.5241 9.24958 12.4276 9.29021 12.3219C9.33085 12.2161 9.34978 12.1033 9.34588 11.9901V3.34308L10.4709 4.46808C10.6301 4.62709 10.8459 4.71641 11.0709 4.71641C11.2959 4.71641 11.5117 4.62709 11.6709 4.46808C11.8247 4.30619 11.9105 4.0914 11.9105 3.86808C11.9105 3.64475 11.8247 3.42996 11.6709 3.26808L9.13188 0.742075C9.05374 0.662575 8.96027 0.599776 8.85713 0.557489C8.75399 0.515202 8.64334 0.494309 8.53188 0.496075C8.42042 0.494309 8.30977 0.515202 8.20663 0.557489C8.10349 0.599776 8.01002 0.662575 7.93188 0.742075L5.40588 3.27308C5.25204 3.43496 5.16626 3.64975 5.16626 3.87308C5.16626 4.0964 5.25204 4.31119 5.40588 4.47308C5.56539 4.63133 5.78119 4.7198 6.00588 4.71908L6.00388 4.71408Z"
-                        fill="#959DB3" />
+                        d="M5.868 10.8091H2C1.30964 10.8091 0.75 11.3789 0.75 12.0818V14.4186C0.75 15.1215 1.30964 15.6913 2 15.6913H5.868C6.55836 15.6913 7.118 15.1215 7.118 14.4186V12.0818C7.118 11.3789 6.55836 10.8091 5.868 10.8091Z"
+                        stroke="#1A6634" stroke-width="1.5" />
+                    <path
+                        d="M10.434 0.92749H6.56604C5.87568 0.92749 5.31604 1.49732 5.31604 2.20024V4.53701C5.31604 5.23993 5.87568 5.80976 6.56604 5.80976H10.434C11.1244 5.80976 11.684 5.23993 11.684 4.53701V2.20024C11.684 1.49732 11.1244 0.92749 10.434 0.92749Z"
+                        stroke="#1A6634" stroke-width="1.5" />
+                    <path d="M3.93396 10.8194V8.1792H13.076V10.8194" stroke="#1A6634" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M8.50586 5.71484V8.32149" stroke="#1A6634" stroke-width="1.5" />
                 </svg>
             </div>
-            <div class="button_export" title="Xuất file tại đây">
-                <div>
-                    <svg width="18" height="17" viewBox="0 0 18 17" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M14.043 3.55005H11.2159V5.23705H14.043C14.879 5.23705 15.543 5.65905 15.543 6.04605V13.533C15.543 13.92 14.881 14.342 14.043 14.342H3.41274C2.57673 14.342 1.91271 13.92 1.91271 13.533V6.05005C1.91271 5.66305 2.57473 5.24105 3.41274 5.24105H6.23481V3.55005H3.41274C1.63571 3.55005 0.242676 4.64005 0.242676 6.05005V13.537C0.242676 14.943 1.63571 16.037 3.41274 16.037H14.073C15.85 16.037 17.243 14.947 17.243 13.537V6.05005C17.208 4.64405 15.815 3.55005 14.043 3.55005Z"
-                            fill="#959DB3" />
-                        <path
-                            d="M11.3093 8.14908C11.1979 8.14732 11.0872 8.16821 10.9841 8.2105C10.8809 8.25279 10.7875 8.31558 10.7093 8.39508L9.6543 9.45008L9.6543 0.873085C9.6582 0.759871 9.63927 0.647032 9.59863 0.54129C9.55799 0.435548 9.49649 0.339067 9.41777 0.2576C9.33906 0.176131 9.24475 0.111341 9.14047 0.0670919C9.03619 0.0228424 8.92407 3.8147e-05 8.81078 3.8147e-05C8.6975 3.8147e-05 8.58538 0.0228424 8.48109 0.0670919C8.37681 0.111341 8.2825 0.176131 8.20379 0.2576C8.12508 0.339067 8.06357 0.435548 8.02293 0.54129C7.9823 0.647032 7.96337 0.759871 7.96726 0.873085L7.96726 9.52008L6.84224 8.39508C6.68305 8.23607 6.46724 8.14675 6.24223 8.14675C6.01722 8.14675 5.80141 8.23607 5.64221 8.39508C5.48837 8.55697 5.40259 8.77176 5.40259 8.99508C5.40259 9.21841 5.48837 9.4332 5.64221 9.59508L8.18127 12.1211C8.25941 12.2006 8.35288 12.2634 8.45602 12.3057C8.55916 12.348 8.66982 12.3689 8.78128 12.3671C8.89274 12.3689 9.0034 12.348 9.10654 12.3057C9.20968 12.2634 9.30315 12.2006 9.38129 12.1211L11.9073 9.59008C12.0612 9.4282 12.147 9.21341 12.147 8.99008C12.147 8.76676 12.0612 8.55197 11.9073 8.39008C11.7478 8.23183 11.532 8.14335 11.3073 8.14408L11.3093 8.14908Z"
-                            fill="#959DB3" />
-                    </svg>
-                </div>
-                <div>Template</div>
-            </div>
-            <div class="button_add" title="Thêm mới">
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                        <path
-                            d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-                    </svg>
-                </div>
-                <div>Thêm mới</div>
-            </div>
-        </div>
-        <ng-container *ngIf="checkedItems.length > 0">
-            <div class="status-and-buttons_disabled"></div>
-        </ng-container>
-    </div>
-
-    <!-- Filter -->
-    <div class="filters">
-        <div>
-            <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M6.22953 16C6.10003 16 5.97172 15.9752 5.85153 15.927C5.65287 15.8457 5.48278 15.7073 5.36281 15.5293C5.24283 15.3513 5.17835 15.1417 5.17753 14.927V10.857L0.343534 6.265C0.185521 6.11369 0.0755585 5.9192 0.0273653 5.7058C-0.0208279 5.4924 -0.00511853 5.26953 0.0725336 5.065C0.14362 4.86299 0.274889 4.6876 0.44867 4.56245C0.622452 4.4373 0.830404 4.36839 1.04453 4.365H2.36053V1.092C2.35571 0.807656 2.46387 0.533009 2.66127 0.328296C2.85867 0.123584 3.1292 0.00551974 3.41353 0L9.37753 0C9.66169 0.00578099 9.93197 0.123959 10.1292 0.328643C10.3263 0.533327 10.4344 0.807826 10.4295 1.092V1.82H11.8295C12.1139 1.82552 12.3844 1.94358 12.5818 2.1483C12.7792 2.35301 12.8874 2.62766 12.8825 2.912V4.369H13.9455C14.1614 4.37159 14.3714 4.43999 14.5474 4.56507C14.7234 4.69015 14.8571 4.86595 14.9305 5.069C15.0062 5.27554 15.0198 5.49973 14.9695 5.71387C14.9192 5.92802 14.8073 6.12275 14.6475 6.274L9.73853 11.031V12.2C9.73506 12.469 9.63416 12.7277 9.45453 12.928L7.00153 15.654C6.90432 15.7626 6.78535 15.8495 6.65234 15.9091C6.51934 15.9687 6.37528 15.9997 6.22953 16ZM1.04153 5.461L6.21953 10.376V14.927L8.67553 12.2V10.557L13.9345 5.457L1.04153 5.461ZM3.41353 1.092V4.369H11.8335V2.912H9.37753V1.092H3.41353Z"
-                    fill="#959DB3" />
-            </svg>
+            <div>NGÂN HÀNG CÂU HỎI</div>
         </div>
 
-        <div class="filters_container">
-            <div class="filters_container_text">
-                <div>LỌC DỮ LIỆU</div>
-                <div>Tìm kiếm</div>
-            </div>
+        <div class="drawer-container_body">
+            <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+                <div class="question-name-field">
+                    <label class="title-question-name" for="question-name">Tên câu hỏi </label>
+                    <input id="question-name" type="text" formControlName="questionName" required>
+                </div>
 
-            <div class="filters_container_search">
-                <div class="text-reset" (click)="resetFilters()">Reset bộ lọc</div>
-                <div class="filters_container_search_input">
-                    <input #searchInput placeholder="Tìm theo mã và câu hỏi" (keydown)="onSearchKeyDown($event)" />
-                    <svg class="iconTim" viewBox="0 0 512 512">
-                        <title>Tìm kiếm sản phẩm</title>
-                        <path
-                            d="M365.3 320h-22.7l-26.7-26.7C338.5 265.7 352 230.4 352 192c0-88.4-71.6-160-160-160S32 103.6 32 192s71.6 160 160 160c38.4 0 73.7-13.5 101.3-36.1l26.7 26.7v22.7L434.7 480l45.3-45.3zM64 192c0-70.7 57.3-128 128-128s128 57.3 128 128-57.3 128-128 128S64 262.7 64 192">
-                        </path>
-                    </svg>
-                    <div class="button_search" title="Tìm kiếm" (click)="searchButtonClick()">
-                        <svg viewBox="0 0 512 512">
-                            <title>Tìm kiếm sản phẩm</title>
-                            <path
-                                d="M365.3 320h-22.7l-26.7-26.7C338.5 265.7 352 230.4 352 192c0-88.4-71.6-160-160-160S32 103.6 32 192s71.6 160 160 160c38.4 0 73.7-13.5 101.3-36.1l26.7 26.7v22.7L434.7 480l45.3-45.3zM64 192c0-70.7 57.3-128 128-128s128 57.3 128 128-57.3 128-128 128S64 262.7 64 192">
-                            </path>
-                        </svg>
-                        <div>Tìm</div>
+                <div class="question-id-group-field">
+                    <div class="question-id-field">
+                        <label class="title-question-id" for="question-id">Mã câu hỏi </label>
+                        <input id="question-id" type="text" formControlName="questionId" required>
+                    </div>
+                    
+                    <div class="question-group-field">
+                        <label class="title-question-name" for="question-name">Phân nhóm </label>
+                        <div id="question-group">-- Chọn --</div>
+                        <i class="fa fa-angle-down question-group-icon"></i>
                     </div>
                 </div>
-            </div>
+
+                <div class="question-type-field">
+                    <div class="question-type">
+                        <label class="title-question-type" for="question-type">Loại câu hỏi </label>
+                        <div id="question-type">-- Chọn --</div>
+                        <i class="fa fa-angle-down question-type-icon"></i>
+                    </div>
+                </div>
+
+                <div class="question-cal-point-field">
+                    <div class="question-cal-point">
+                        <label class="title-question-cal-point" for="question-cal-point">Cách tính điểm </label>
+                        <div id="question-cal-point">-- Chọn --</div>
+                        <i class="fa fa-angle-down question-cal-point-icon"></i>
+                    </div>
+                </div>
+
+                <div class="question-time-field">
+                    <label class="title-question-time" for="question-time">Thời gian làm bài (giây) </label>
+                    <input id="question-time" type="text" formControlName="questiontime">
+                </div>
+
+                <div class="question-status-field">
+                    <label class="title-question-status" for="question-status">Tình trạng </label>
+                    <div id="question-status">Đang soạn thảo</div>
+                    <i class="fa fa-angle-down question-status-icon"></i>
+                </div>
+                
+            </form>
         </div>
 
-        <ng-container *ngIf="checkedItems.length > 0">
-            <div class="status-and-buttons_disabled"></div>
-        </ng-container>
-    </div>
-
-    <!-- ListQuestion -->
-    <div class="field-questions">
-        <div class="header-table grid-cols-7">
-            <div class="col-span-4 field-check-all">
-                <div class="input-check-all">
-                    <div class="input-check-layout" (click)="onClickCheckAll()"
-                        [ngClass]="{'bg-green': isAllCurrentItemChecked()}">
-                        <i *ngIf="isAllCurrentItemChecked()" class="fa fa-check icon-check"></i>
-                    </div>
-                </div>
-                <div>
-                    Câu hỏi
-                </div>
-            </div>
-            <div class="col-span-3 grid-cols-3">
-                <div class="col-span-1">Phân nhóm</div>
-                <div class="col-span-1 text-center">Thời gian làm</div>
-                <div class="col-span-1 text-center">Tình trạng</div>
-            </div>
+        <div class="drawer-container_footer">
+            <div class="drawer-container_footer_btn-close">ĐÓNG</div>
+            <div class="drawer-container_footer_btn-add">THÊM MỚI</div>
         </div>
+    </mat-drawer>
 
-        <div class="list-question">
-            <ng-container *ngFor="let item of currentListQuestion">
-                <div class="grid-cols-7 full-question" *ngIf="isChecked(item.status)"
-                    [ngClass]="{'item-checked': isInListCheckAll(item.id)}">
-                    <div class="col-span-4 col-question">
-                        <div class="col-question_checkbox">
-                            <div class="input-check-layout" (click)="checkItem(item.id, item.status)"
-                                [ngClass]="{'bg-green': isInListCheckAll(item.id)}">
-                                <i *ngIf="isInListCheckAll(item.id)" class="fa fa-check icon-check"></i>
-                            </div>
-                        </div>
-                        <div class="col-question_question">
-                            <div class="col-question_question_name" title="{{item.question}}">{{item.question}}</div>
-                            <div class="col-question_question_id-type">
-                                <div class="col-question_question_id">{{item.id}}</div>
-                                <div class="line"></div>
-                                <div class="col-question_question_type">Loại câu hỏi: {{item.typeQuestion}}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-span-3 grid-cols-3 other-pro">
-                        <div class="col-span-1 other-pro_group" title="{{item.group}}">{{item.group}}</div>
-                        <div class="col-span-1 other-pro_time text-center">{{item.time}}</div>
-                        <div class="col-span-1 other-pro_status">
-                            <div class="other-pro_status_name" [style.color]="item.status | statusColor">{{ item.status
-                                }}</div>
-                            <div class="other-pro_status_tool" (click)="openToolBox(item.id)">
-                                <svg width="16" height="3" viewBox="0 0 16 3" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M2 3C2.82843 3 3.5 2.32843 3.5 1.5C3.5 0.671573 2.82843 0 2 0C1.17157 0 0.5 0.671573 0.5 1.5C0.5 2.32843 1.17157 3 2 3Z"
-                                        fill="#959DB3" />
-                                    <path
-                                        d="M8 3C8.82843 3 9.5 2.32843 9.5 1.5C9.5 0.671573 8.82843 0 8 0C7.17157 0 6.5 0.671573 6.5 1.5C6.5 2.32843 7.17157 3 8 3Z"
-                                        fill="#959DB3" />
-                                    <path
-                                        d="M14 3C14.8284 3 15.5 2.32843 15.5 1.5C15.5 0.671573 14.8284 0 14 0C13.1716 0 12.5 0.671573 12.5 1.5C12.5 2.32843 13.1716 3 14 3Z"
-                                        fill="#959DB3" />
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tool-box" *ngIf="toolBoxId === item.id" (click)="$event.stopPropagation()">
-                        <ng-container *ngFor="let tool of toolBoxList(item.status)">
-                            <div class="tool-box_item" (click)="updateStatus(item.id, tool, item.question)">
-                                <div class="tool-box_item_icon"><img [src]="'assets/' + (tool | toolIcon)" alt=""></div>
-                                <div class="tool-box_item_tool">{{tool}}</div>
+    <mat-drawer-content>
+        <!-- Nội dung chính của ứng dụng -->
+        <div class="p-questionbank">
+            <div class="status-and-buttons">
+                <div class="p-status">
+                    <div *ngFor="let status of statuses">
+                        <ng-container *ngIf="status.id !== 4">
+                            <div class="status-item" (click)="toggleCheckbox(status.status)"
+                                [ngClass]="{'status-item-checked': isInListStatus(status.status)}">
+                                <div>{{status.status}}</div>
+                                <div>
+                                    <div class="input-check-layout"
+                                        [ngClass]="{'bg-green': isInListStatus(status.status)}">
+                                        <i *ngIf="isInListStatus(status.status)" class="fa fa-check icon-check"></i>
+                                    </div>
+                                </div>
                             </div>
                         </ng-container>
                     </div>
                 </div>
-            </ng-container>
-
-            <ng-container *ngIf="currentListQuestion.length === 0">
-                <div class="full-question not-found-question">
-                    Không tìm thấy dữ liệu nào
+                <div class="button">
+                    <div class="button_import" title="Nhập file tại đây">
+                        <svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13.8 7.01709H10.973V8.70409H13.8C14.636 8.70409 15.3 9.12609 15.3 9.51309V17.0001C15.3 17.3871 14.638 17.8091 13.8 17.8091H3.17C2.334 17.8091 1.67 17.3871 1.67 17.0001V9.51709C1.67 9.13009 2.332 8.70809 3.17 8.70809H5.992V7.01709H3.17C1.393 7.01709 0 8.10709 0 9.51709V17.0041C0 18.4101 1.393 19.5041 3.17 19.5041H13.83C15.607 19.5041 17 18.4141 17 17.0041V9.51709C16.965 8.11109 15.572 7.01709 13.8 7.01709Z"
+                                fill="#959DB3" />
+                            <path
+                                d="M6.00388 4.71408C6.11534 4.71584 6.22599 4.69495 6.32913 4.65266C6.43227 4.61037 6.52574 4.54758 6.60388 4.46808L7.65888 3.41308V11.9901C7.65498 12.1033 7.67391 12.2161 7.71455 12.3219C7.75518 12.4276 7.81669 12.5241 7.8954 12.6056C7.97411 12.687 8.06842 12.7518 8.1727 12.7961C8.27698 12.8403 8.3891 12.8631 8.50238 12.8631C8.61566 12.8631 8.72778 12.8403 8.83206 12.7961C8.93634 12.7518 9.03065 12.687 9.10936 12.6056C9.18807 12.5241 9.24958 12.4276 9.29021 12.3219C9.33085 12.2161 9.34978 12.1033 9.34588 11.9901V3.34308L10.4709 4.46808C10.6301 4.62709 10.8459 4.71641 11.0709 4.71641C11.2959 4.71641 11.5117 4.62709 11.6709 4.46808C11.8247 4.30619 11.9105 4.0914 11.9105 3.86808C11.9105 3.64475 11.8247 3.42996 11.6709 3.26808L9.13188 0.742075C9.05374 0.662575 8.96027 0.599776 8.85713 0.557489C8.75399 0.515202 8.64334 0.494309 8.53188 0.496075C8.42042 0.494309 8.30977 0.515202 8.20663 0.557489C8.10349 0.599776 8.01002 0.662575 7.93188 0.742075L5.40588 3.27308C5.25204 3.43496 5.16626 3.64975 5.16626 3.87308C5.16626 4.0964 5.25204 4.31119 5.40588 4.47308C5.56539 4.63133 5.78119 4.7198 6.00588 4.71908L6.00388 4.71408Z"
+                                fill="#959DB3" />
+                        </svg>
+                    </div>
+                    <div class="button_export" title="Xuất file tại đây">
+                        <div>
+                            <svg width="18" height="17" viewBox="0 0 18 17" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M14.043 3.55005H11.2159V5.23705H14.043C14.879 5.23705 15.543 5.65905 15.543 6.04605V13.533C15.543 13.92 14.881 14.342 14.043 14.342H3.41274C2.57673 14.342 1.91271 13.92 1.91271 13.533V6.05005C1.91271 5.66305 2.57473 5.24105 3.41274 5.24105H6.23481V3.55005H3.41274C1.63571 3.55005 0.242676 4.64005 0.242676 6.05005V13.537C0.242676 14.943 1.63571 16.037 3.41274 16.037H14.073C15.85 16.037 17.243 14.947 17.243 13.537V6.05005C17.208 4.64405 15.815 3.55005 14.043 3.55005Z"
+                                    fill="#959DB3" />
+                                <path
+                                    d="M11.3093 8.14908C11.1979 8.14732 11.0872 8.16821 10.9841 8.2105C10.8809 8.25279 10.7875 8.31558 10.7093 8.39508L9.6543 9.45008L9.6543 0.873085C9.6582 0.759871 9.63927 0.647032 9.59863 0.54129C9.55799 0.435548 9.49649 0.339067 9.41777 0.2576C9.33906 0.176131 9.24475 0.111341 9.14047 0.0670919C9.03619 0.0228424 8.92407 3.8147e-05 8.81078 3.8147e-05C8.6975 3.8147e-05 8.58538 0.0228424 8.48109 0.0670919C8.37681 0.111341 8.2825 0.176131 8.20379 0.2576C8.12508 0.339067 8.06357 0.435548 8.02293 0.54129C7.9823 0.647032 7.96337 0.759871 7.96726 0.873085L7.96726 9.52008L6.84224 8.39508C6.68305 8.23607 6.46724 8.14675 6.24223 8.14675C6.01722 8.14675 5.80141 8.23607 5.64221 8.39508C5.48837 8.55697 5.40259 8.77176 5.40259 8.99508C5.40259 9.21841 5.48837 9.4332 5.64221 9.59508L8.18127 12.1211C8.25941 12.2006 8.35288 12.2634 8.45602 12.3057C8.55916 12.348 8.66982 12.3689 8.78128 12.3671C8.89274 12.3689 9.0034 12.348 9.10654 12.3057C9.20968 12.2634 9.30315 12.2006 9.38129 12.1211L11.9073 9.59008C12.0612 9.4282 12.147 9.21341 12.147 8.99008C12.147 8.76676 12.0612 8.55197 11.9073 8.39008C11.7478 8.23183 11.532 8.14335 11.3073 8.14408L11.3093 8.14908Z"
+                                    fill="#959DB3" />
+                            </svg>
+                        </div>
+                        <div>Template</div>
+                    </div>
+                    <div class="button_add" title="Thêm mới" (click)="drawer.toggle()">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                <path
+                                    d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                            </svg>
+                        </div>
+                        <div>Thêm mới</div>
+                    </div>
                 </div>
-            </ng-container>
-        </div>
-    </div>
-
-    <!-- Popup show list tools of questions -->
-    <div class="popup-list-tools" *ngIf="listGeneralTool.length > 0">
-        <div class="popup-list-tools_count">
-            <div class="popup-list-tools_count_number">{{checkedItems.length}}</div>
-            <div>Đã chọn</div>
-        </div>
-        <div class="popup-list-tools_tool" *ngFor="let tool of listGeneralTool" (click)="updateManyQuestions(tool)">
-            <div class="popup-list-tools_tool_icon"><img [src]="'assets/' + (tool | toolIconOutline)" alt=""></div>
-            <div class="popup-list-tools_tool_text">{{tool}}</div>
-        </div>
-        <div class="popup-list-tools_line">
-            <div></div>
-        </div>
-        <div class="popup-list-tools_close" (click)="closePopupCheckMany()">
-            <img src="../../../../assets/iconClose.svg" />
-        </div>
-    </div>
-
-    <!-- Popup confirm delete -->
-    <div class="popup-delete-background" *ngIf="isOpenPopupDelete"></div>
-    <div class="box-confirm-delete" *ngIf="isOpenPopupDelete">
-        <div class="box-confirm-delete_header">
-            <div>
-                <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M10.908 13.854C10.5888 13.8631 10.2857 13.9963 10.0631 14.2254C9.84057 14.4544 9.71606 14.7611 9.71606 15.0805C9.71606 15.3999 9.84057 15.7066 10.0631 15.9357C10.2857 16.1647 10.5888 16.2979 10.908 16.307C11.2273 16.2979 11.5304 16.1647 11.7529 15.9357C11.9755 15.7066 12.1 15.3999 12.1 15.0805C12.1 14.7611 11.9755 14.4544 11.7529 14.2254C11.5304 13.9963 11.2273 13.8631 10.908 13.854Z"
-                        fill="#FD7676" />
-                    <path
-                        d="M21.2749 17.983C21.6205 17.397 21.8037 16.7294 21.8056 16.049C21.8076 15.3687 21.6282 14.7001 21.2859 14.112L14.2659 1.96204C13.9282 1.37029 13.4402 0.878291 12.8511 0.535883C12.2621 0.193475 11.593 0.0128176 10.9117 0.0122086C10.2304 0.0115995 9.56096 0.191061 8.97131 0.532415C8.38166 0.873769 7.8927 1.36489 7.55394 1.95604L0.52194 14.123C0.181922 14.7128 0.00313154 15.3816 0.00354074 16.0624C0.00394994 16.7431 0.183544 17.4117 0.524271 18.0011C0.864998 18.5904 1.35485 19.0797 1.9446 19.4197C2.53434 19.7597 3.2032 19.9385 3.88394 19.938H17.9019C18.5873 19.9418 19.2612 19.7626 19.8541 19.4189C20.447 19.0752 20.9375 18.5796 21.2749 17.983ZM19.7509 17.112C19.565 17.4381 19.2959 17.709 18.9711 17.897C18.6462 18.085 18.2773 18.1833 17.9019 18.182H3.87794C3.50791 18.1842 3.14393 18.0881 2.82315 17.9036C2.50236 17.7192 2.23625 17.4529 2.05194 17.132C1.86112 16.808 1.76 16.4389 1.75894 16.0629C1.75789 15.6868 1.85695 15.3172 2.04594 14.992L9.07194 2.83004C9.25628 2.50681 9.52286 2.23811 9.84461 2.05121C10.1664 1.86431 10.5318 1.76586 10.9039 1.76586C11.276 1.76586 11.6415 1.86431 11.9633 2.05121C12.285 2.23811 12.5516 2.50681 12.7359 2.83004L19.7629 14.992C19.9499 15.3141 20.0474 15.6802 20.0454 16.0525C20.0435 16.4249 19.9422 16.79 19.7519 17.11L19.7509 17.112Z"
-                        fill="#FD7676" />
-                    <path
-                        d="M10.6 5.33803C10.3164 5.42421 10.0696 5.60245 9.89861 5.84459C9.72765 6.08673 9.64227 6.37894 9.65597 6.67503C9.68697 7.06103 9.71096 7.45403 9.74196 7.84003C9.82796 9.31803 9.90797 10.765 9.99297 12.24C10.0021 12.4761 10.1037 12.6991 10.2758 12.861C10.4479 13.0228 10.6768 13.1105 10.913 13.105C11.1538 13.1059 11.3852 13.0119 11.5574 12.8435C11.7295 12.6751 11.8285 12.4458 11.833 12.205C11.8279 11.9047 11.8383 11.6043 11.864 11.305C11.919 10.361 11.974 9.40503 12.03 8.46503C12.061 7.85203 12.116 7.23803 12.14 6.62503C12.1444 6.41542 12.107 6.20702 12.03 6.01202C11.9087 5.7493 11.6998 5.537 11.439 5.41163C11.1782 5.28626 10.8819 5.25564 10.601 5.32503L10.6 5.33803Z"
-                        fill="#FD7676" />
-                </svg>
-            </div>
-            <div>XÓA CÂU HỎI</div>
-        </div>
-        <div class="box-confirm-delete_body">
-            <div>
-                <div>Bạn chắc chắn muốn xóa phân nhóm</div>
-                <div class="box-confirm-delete_body_question">
-                    <ng-container *ngIf="nameDeleted">
-                        {{nameDeleted}}
-                    </ng-container>
-
-                    <ng-container *ngIf="listIdDeleted">
-                        <div *ngFor="let question of listIdDeleted">{{question}}</div>
-                    </ng-container>
-                </div>
-            </div>
-            <div>Đơn vị bị xóa sẽ <span [ngStyle]="{'color': '#FD7676'}">KHÔNG</span> thể khôi phục lại.</div>
-        </div>
-        <div class="box-confirm-delete_footer">
-            <div class="btn-cancel" (click)="closePopupDelete()">KHÔNG XÓA</div>
-            <div class="btn-delete" *ngIf="nameDeleted" (click)="deleteQuestion(idDeleted)">
-                <div>
-                    <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M12.5 17H2.11497C1.80677 16.9971 1.51231 16.8721 1.29617 16.6524C1.08002 16.4327 0.959835 16.1362 0.961967 15.828V3.71599H0.576967C0.42155 3.71599 0.272499 3.65425 0.162602 3.54435C0.0527059 3.43446 -0.0090332 3.2854 -0.0090332 3.12999C-0.0090332 2.97457 0.0527059 2.82552 0.162602 2.71562C0.272499 2.60573 0.42155 2.54399 0.576967 2.54399H3.87697C4.1529 1.799 4.64927 1.15577 5.29997 0.699988C5.94406 0.246773 6.7124 0.00354004 7.49997 0.00354004C8.28753 0.00354004 9.05588 0.246773 9.69997 0.699988C10.3503 1.15655 10.846 1.8005 11.121 2.54599H14.421C14.5764 2.54599 14.7254 2.60773 14.8353 2.71762C14.9452 2.82752 15.007 2.97657 15.007 3.13199C15.007 3.2874 14.9452 3.43646 14.8353 3.54635C14.7254 3.65625 14.5764 3.71799 14.421 3.71799H13.651V15.828C13.6531 16.1358 13.5332 16.432 13.3175 16.6517C13.1018 16.8713 12.8078 16.9966 12.5 17ZM10.385 8.59999C10.5392 8.60131 10.6865 8.66376 10.7947 8.77363C10.9029 8.8835 10.963 9.0318 10.962 9.18599V15.828H12.5V3.71599H2.11497V15.828H3.65397V9.18599C3.65397 9.11022 3.66889 9.03518 3.69789 8.96518C3.72689 8.89517 3.76939 8.83157 3.82297 8.77799C3.87655 8.72441 3.94015 8.68191 4.01016 8.65291C4.08016 8.62391 4.15519 8.60899 4.23097 8.60899C4.30674 8.60899 4.38177 8.62391 4.45178 8.65291C4.52178 8.68191 4.58539 8.72441 4.63897 8.77799C4.69255 8.83157 4.73505 8.89517 4.76405 8.96518C4.79304 9.03518 4.80797 9.11022 4.80797 9.18599V15.828H6.73097V6.84099C6.73097 6.68796 6.79176 6.5412 6.89997 6.43299C7.00817 6.32478 7.15494 6.26399 7.30797 6.26399C7.461 6.26399 7.60776 6.32478 7.71597 6.43299C7.82418 6.5412 7.88497 6.68796 7.88497 6.84099V15.827H9.80797V9.18599C9.8069 9.0318 9.86706 8.8835 9.97524 8.77363C10.0834 8.66376 10.2308 8.60131 10.385 8.59999ZM7.49997 1.17599C7.00665 1.13175 6.51158 1.23899 6.0808 1.48342C5.65002 1.72784 5.30402 2.09782 5.08897 2.54399H9.91097C9.69195 2.10103 9.34515 1.73391 8.91537 1.49006C8.48558 1.2462 7.99256 1.1368 7.49997 1.17599Z"
-                            fill="white" />
-                    </svg>
-                </div>
-
-                <div>
-                    XÓA
-                </div>
-            </div>
-
-            <div class="btn-delete" *ngIf="listIdDeleted" (click)="deleteManyQuestion()">
-                <div>
-                    <svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M12.5 17H2.11497C1.80677 16.9971 1.51231 16.8721 1.29617 16.6524C1.08002 16.4327 0.959835 16.1362 0.961967 15.828V3.71599H0.576967C0.42155 3.71599 0.272499 3.65425 0.162602 3.54435C0.0527059 3.43446 -0.0090332 3.2854 -0.0090332 3.12999C-0.0090332 2.97457 0.0527059 2.82552 0.162602 2.71562C0.272499 2.60573 0.42155 2.54399 0.576967 2.54399H3.87697C4.1529 1.799 4.64927 1.15577 5.29997 0.699988C5.94406 0.246773 6.7124 0.00354004 7.49997 0.00354004C8.28753 0.00354004 9.05588 0.246773 9.69997 0.699988C10.3503 1.15655 10.846 1.8005 11.121 2.54599H14.421C14.5764 2.54599 14.7254 2.60773 14.8353 2.71762C14.9452 2.82752 15.007 2.97657 15.007 3.13199C15.007 3.2874 14.9452 3.43646 14.8353 3.54635C14.7254 3.65625 14.5764 3.71799 14.421 3.71799H13.651V15.828C13.6531 16.1358 13.5332 16.432 13.3175 16.6517C13.1018 16.8713 12.8078 16.9966 12.5 17ZM10.385 8.59999C10.5392 8.60131 10.6865 8.66376 10.7947 8.77363C10.9029 8.8835 10.963 9.0318 10.962 9.18599V15.828H12.5V3.71599H2.11497V15.828H3.65397V9.18599C3.65397 9.11022 3.66889 9.03518 3.69789 8.96518C3.72689 8.89517 3.76939 8.83157 3.82297 8.77799C3.87655 8.72441 3.94015 8.68191 4.01016 8.65291C4.08016 8.62391 4.15519 8.60899 4.23097 8.60899C4.30674 8.60899 4.38177 8.62391 4.45178 8.65291C4.52178 8.68191 4.58539 8.72441 4.63897 8.77799C4.69255 8.83157 4.73505 8.89517 4.76405 8.96518C4.79304 9.03518 4.80797 9.11022 4.80797 9.18599V15.828H6.73097V6.84099C6.73097 6.68796 6.79176 6.5412 6.89997 6.43299C7.00817 6.32478 7.15494 6.26399 7.30797 6.26399C7.461 6.26399 7.60776 6.32478 7.71597 6.43299C7.82418 6.5412 7.88497 6.68796 7.88497 6.84099V15.827H9.80797V9.18599C9.8069 9.0318 9.86706 8.8835 9.97524 8.77363C10.0834 8.66376 10.2308 8.60131 10.385 8.59999ZM7.49997 1.17599C7.00665 1.13175 6.51158 1.23899 6.0808 1.48342C5.65002 1.72784 5.30402 2.09782 5.08897 2.54399H9.91097C9.69195 2.10103 9.34515 1.73391 8.91537 1.49006C8.48558 1.2462 7.99256 1.1368 7.49997 1.17599Z"
-                            fill="white" />
-                    </svg>
-                </div>
-
-                <div>
-                    XÓA
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="listNotifi.length > 0" class="notifications">
-        {{listNotifi[listNotifi.length - 1]}}
-        <ng-container *ngIf="listNotifi.length > 3">
-            {{listNotifi[0]}} {{listNotifi[1]}} {{listNotifi[2]}} ...
-        </ng-container>
-        <ng-container *ngIf="listNotifi.length <= 3">
-            <ng-container *ngFor="let item of listNotifi">
-                <ng-container *ngIf="listNotifi[listNotifi.length - 1] !== item">
-                    {{item}}
+                <ng-container *ngIf="checkedItems.length > 0">
+                    <div class="status-and-buttons_disabled"></div>
                 </ng-container>
-            </ng-container>
-        </ng-container>
+            </div>
 
-        thành công
-    </div>
-
-    <div class="p-questionbank_footer">
-        <div class="p-questionbank_footer_content">
-            <div class="p-questionbank_footer_content_show">
-                <div class="footer-text">Hiển thị mỗi trang</div>
-                <div class="footer-box" (click)="openDropUp()">
-                    <span>{{ itemPerPage }}</span>
-                    <ng-container *ngIf="!isOpenDropUp">
-                        <span><i class="fa fa-angle-down"></i></span>
-                    </ng-container>
-                    <ng-container *ngIf="isOpenDropUp">
-                        <span><i class="fa fa-angle-up"></i></span>
-                    </ng-container>
+            <!-- Filter -->
+            <div class="filters">
+                <div>
+                    <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M6.22953 16C6.10003 16 5.97172 15.9752 5.85153 15.927C5.65287 15.8457 5.48278 15.7073 5.36281 15.5293C5.24283 15.3513 5.17835 15.1417 5.17753 14.927V10.857L0.343534 6.265C0.185521 6.11369 0.0755585 5.9192 0.0273653 5.7058C-0.0208279 5.4924 -0.00511853 5.26953 0.0725336 5.065C0.14362 4.86299 0.274889 4.6876 0.44867 4.56245C0.622452 4.4373 0.830404 4.36839 1.04453 4.365H2.36053V1.092C2.35571 0.807656 2.46387 0.533009 2.66127 0.328296C2.85867 0.123584 3.1292 0.00551974 3.41353 0L9.37753 0C9.66169 0.00578099 9.93197 0.123959 10.1292 0.328643C10.3263 0.533327 10.4344 0.807826 10.4295 1.092V1.82H11.8295C12.1139 1.82552 12.3844 1.94358 12.5818 2.1483C12.7792 2.35301 12.8874 2.62766 12.8825 2.912V4.369H13.9455C14.1614 4.37159 14.3714 4.43999 14.5474 4.56507C14.7234 4.69015 14.8571 4.86595 14.9305 5.069C15.0062 5.27554 15.0198 5.49973 14.9695 5.71387C14.9192 5.92802 14.8073 6.12275 14.6475 6.274L9.73853 11.031V12.2C9.73506 12.469 9.63416 12.7277 9.45453 12.928L7.00153 15.654C6.90432 15.7626 6.78535 15.8495 6.65234 15.9091C6.51934 15.9687 6.37528 15.9997 6.22953 16ZM1.04153 5.461L6.21953 10.376V14.927L8.67553 12.2V10.557L13.9345 5.457L1.04153 5.461ZM3.41353 1.092V4.369H11.8335V2.912H9.37753V1.092H3.41353Z"
+                            fill="#959DB3" />
+                    </svg>
                 </div>
-                <div class="dropdown-content" *ngIf="isOpenDropUp">
-                    <div (click)="changeItemsPerPage(num)" *ngFor="let num of remainingList">{{ num }}</div>
+
+                <div class="filters_container">
+                    <div class="filters_container_text">
+                        <div>LỌC DỮ LIỆU</div>
+                        <div>Tìm kiếm</div>
+                    </div>
+
+                    <div class="filters_container_search">
+                        <div class="text-reset" (click)="resetFilters()">Reset bộ lọc</div>
+                        <div class="filters_container_search_input">
+                            <input #searchInput placeholder="Tìm theo mã và câu hỏi"
+                                (keydown)="onSearchKeyDown($event)" />
+                            <svg class="iconTim" viewBox="0 0 512 512">
+                                <title>Tìm kiếm sản phẩm</title>
+                                <path
+                                    d="M365.3 320h-22.7l-26.7-26.7C338.5 265.7 352 230.4 352 192c0-88.4-71.6-160-160-160S32 103.6 32 192s71.6 160 160 160c38.4 0 73.7-13.5 101.3-36.1l26.7 26.7v22.7L434.7 480l45.3-45.3zM64 192c0-70.7 57.3-128 128-128s128 57.3 128 128-57.3 128-128 128S64 262.7 64 192">
+                                </path>
+                            </svg>
+                            <div class="button_search" title="Tìm kiếm" (click)="searchButtonClick()">
+                                <svg viewBox="0 0 512 512">
+                                    <title>Tìm kiếm sản phẩm</title>
+                                    <path
+                                        d="M365.3 320h-22.7l-26.7-26.7C338.5 265.7 352 230.4 352 192c0-88.4-71.6-160-160-160S32 103.6 32 192s71.6 160 160 160c38.4 0 73.7-13.5 101.3-36.1l26.7 26.7v22.7L434.7 480l45.3-45.3zM64 192c0-70.7 57.3-128 128-128s128 57.3 128 128-57.3 128-128 128S64 262.7 64 192">
+                                    </path>
+                                </svg>
+                                <div>Tìm</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-container *ngIf="checkedItems.length > 0">
+                    <div class="status-and-buttons_disabled"></div>
+                </ng-container>
+            </div>
+
+            <!-- ListQuestion -->
+            <div class="field-questions">
+                <div class="header-table grid-cols-7">
+                    <div class="col-span-4 field-check-all">
+                        <div class="input-check-all">
+                            <div class="input-check-layout" (click)="onClickCheckAll()"
+                                [ngClass]="{'bg-green': isAllCurrentItemChecked()}">
+                                <i *ngIf="isAllCurrentItemChecked()" class="fa fa-check icon-check"></i>
+                            </div>
+                        </div>
+                        <div>
+                            Câu hỏi
+                        </div>
+                    </div>
+                    <div class="col-span-3 grid-cols-3">
+                        <div class="col-span-1">Phân nhóm</div>
+                        <div class="col-span-1 text-center">Thời gian làm</div>
+                        <div class="col-span-1 text-center">Tình trạng</div>
+                    </div>
+                </div>
+
+                <div class="list-question">
+                    <ng-container *ngFor="let item of currentListQuestion">
+                        <div class="grid-cols-7 full-question" *ngIf="isChecked(item.status)"
+                            [ngClass]="{'item-checked': isInListCheckAll(item.id)}">
+                            <div class="col-span-4 col-question">
+                                <div class="col-question_checkbox">
+                                    <div class="input-check-layout" (click)="checkItem(item.id, item.status)"
+                                        [ngClass]="{'bg-green': isInListCheckAll(item.id)}">
+                                        <i *ngIf="isInListCheckAll(item.id)" class="fa fa-check icon-check"></i>
+                                    </div>
+                                </div>
+                                <div class="col-question_question">
+                                    <div class="col-question_question_name" title="{{item.question}}">{{item.question}}
+                                    </div>
+                                    <div class="col-question_question_id-type">
+                                        <div class="col-question_question_id">{{item.id}}</div>
+                                        <div class="line"></div>
+                                        <div class="col-question_question_type">Loại câu hỏi: {{item.typeQuestion}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-span-3 grid-cols-3 other-pro">
+                                <div class="col-span-1 other-pro_group" title="{{item.group}}">{{item.group}}</div>
+                                <div class="col-span-1 other-pro_time text-center">{{item.time}}</div>
+                                <div class="col-span-1 other-pro_status">
+                                    <div class="other-pro_status_name" [style.color]="item.status | statusColor">{{
+                                        item.status
+                                        }}</div>
+                                    <div class="other-pro_status_tool" (click)="openToolBox(item.id)">
+                                        <svg width="16" height="3" viewBox="0 0 16 3" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M2 3C2.82843 3 3.5 2.32843 3.5 1.5C3.5 0.671573 2.82843 0 2 0C1.17157 0 0.5 0.671573 0.5 1.5C0.5 2.32843 1.17157 3 2 3Z"
+                                                fill="#959DB3" />
+                                            <path
+                                                d="M8 3C8.82843 3 9.5 2.32843 9.5 1.5C9.5 0.671573 8.82843 0 8 0C7.17157 0 6.5 0.671573 6.5 1.5C6.5 2.32843 7.17157 3 8 3Z"
+                                                fill="#959DB3" />
+                                            <path
+                                                d="M14 3C14.8284 3 15.5 2.32843 15.5 1.5C15.5 0.671573 14.8284 0 14 0C13.1716 0 12.5 0.671573 12.5 1.5C12.5 2.32843 13.1716 3 14 3Z"
+                                                fill="#959DB3" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tool-box" *ngIf="toolBoxId === item.id" (click)="$event.stopPropagation()">
+                                <ng-container *ngFor="let tool of toolBoxList(item.status)">
+                                    <div class="tool-box_item" (click)="updateStatus(item.id, tool, item.question)">
+                                        <div class="tool-box_item_icon"><img [src]="'assets/' + (tool | toolIcon)"
+                                                alt=""></div>
+                                        <div class="tool-box_item_tool">{{tool}}</div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="currentListQuestion.length === 0">
+                        <div class="full-question not-found-question">
+                            Không tìm thấy dữ liệu nào
+                        </div>
+                    </ng-container>
                 </div>
             </div>
-            <div class="p-questionbank_footer_content_pagination">
-                <div class="first" (click)="firstPage()">Đầu</div>
-                <div class="back" (click)="backPage()"><i class="fa fa-angle-left"></i></div>
-                <div class="dots-back" (click)="dotsBack()">...</div>
-                <div class="list-item-page">
-                    <ng-container *ngFor="let page of listTotalPages.slice(startPage - 1, startPage + 3)">
-                        <div class="item-page" (click)="setCurrentPage(page)" [ngClass]="{'current-page': currentPage === page}">{{ page }}</div>
-                    </ng-container>
+
+            <!-- Popup show list tools of questions -->
+            <div class="popup-list-tools" *ngIf="listGeneralTool.length > 0">
+                <div class="popup-list-tools_count">
+                    <div class="popup-list-tools_count_number">{{checkedItems.length}}</div>
+                    <div>Đã chọn</div>
                 </div>
-                <div class="dots-next" (click)="dotsNext()">...</div>
-                <div class="next" (click)="nextPage()"><i class="fa fa-angle-right"></i></div>
-                <div class="last" (click)="lastPage()">Cuối</div>
+                <div class="popup-list-tools_tool" *ngFor="let tool of listGeneralTool"
+                    (click)="updateManyQuestions(tool)">
+                    <div class="popup-list-tools_tool_icon"><img [src]="'assets/' + (tool | toolIconOutline)" alt="">
+                    </div>
+                    <div class="popup-list-tools_tool_text">{{tool}}</div>
+                </div>
+                <div class="popup-list-tools_line">
+                    <div></div>
+                </div>
+                <div class="popup-list-tools_close" (click)="closePopupCheckMany()">
+                    <img src="../../../../assets/iconClose.svg" />
+                </div>
+            </div>
+
+            <!-- Popup confirm delete -->
+            <div class="popup-delete-background" *ngIf="isOpenPopupDelete"></div>
+            <div class="box-confirm-delete" *ngIf="isOpenPopupDelete">
+                <div class="box-confirm-delete_header">
+                    <div>
+                        <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10.908 13.854C10.5888 13.8631 10.2857 13.9963 10.0631 14.2254C9.84057 14.4544 9.71606 14.7611 9.71606 15.0805C9.71606 15.3999 9.84057 15.7066 10.0631 15.9357C10.2857 16.1647 10.5888 16.2979 10.908 16.307C11.2273 16.2979 11.5304 16.1647 11.7529 15.9357C11.9755 15.7066 12.1 15.3999 12.1 15.0805C12.1 14.7611 11.9755 14.4544 11.7529 14.2254C11.5304 13.9963 11.2273 13.8631 10.908 13.854Z"
+                                fill="#FD7676" />
+                            <path
+                                d="M21.2749 17.983C21.6205 17.397 21.8037 16.7294 21.8056 16.049C21.8076 15.3687 21.6282 14.7001 21.2859 14.112L14.2659 1.96204C13.9282 1.37029 13.4402 0.878291 12.8511 0.535883C12.2621 0.193475 11.593 0.0128176 10.9117 0.0122086C10.2304 0.0115995 9.56096 0.191061 8.97131 0.532415C8.38166 0.873769 7.8927 1.36489 7.55394 1.95604L0.52194 14.123C0.181922 14.7128 0.00313154 15.3816 0.00354074 16.0624C0.00394994 16.7431 0.183544 17.4117 0.524271 18.0011C0.864998 18.5904 1.35485 19.0797 1.9446 19.4197C2.53434 19.7597 3.2032 19.9385 3.88394 19.938H17.9019C18.5873 19.9418 19.2612 19.7626 19.8541 19.4189C20.447 19.0752 20.9375 18.5796 21.2749 17.983ZM19.7509 17.112C19.565 17.4381 19.2959 17.709 18.9711 17.897C18.6462 18.085 18.2773 18.1833 17.9019 18.182H3.87794C3.50791 18.1842 3.14393 18.0881 2.82315 17.9036C2.50236 17.7192 2.23625 17.4529 2.05194 17.132C1.86112 16.808 1.76 16.4389 1.75894 16.0629C1.75789 15.6868 1.85695 15.3172 2.04594 14.992L9.07194 2.83004C9.25628 2.50681 9.52286 2.23811 9.84461 2.05121C10.1664 1.86431 10.5318 1.76586 10.9039 1.76586C11.276 1.76586 11.6415 1.86431 11.9633 2.05121C12.285 2.23811 12.5516 2.50681 12.7359 2.83004L19.7629 14.992C19.9499 15.3141 20.0474 15.6802 20.0454 16.0525C20.0435 16.4249 19.9422 16.79 19.7519 17.11L19.7509 17.112Z"
+                                fill="#FD7676" />
+                            <path
+                                d="M10.6 5.33803C10.3164 5.42421 10.0696 5.60245 9.89861 5.84459C9.72765 6.08673 9.64227 6.37894 9.65597 6.67503C9.68697 7.06103 9.71096 7.45403 9.74196 7.84003C9.82796 9.31803 9.90797 10.765 9.99297 12.24C10.0021 12.4761 10.1037 12.6991 10.2758 12.861C10.4479 13.0228 10.6768 13.1105 10.913 13.105C11.1538 13.1059 11.3852 13.0119 11.5574 12.8435C11.7295 12.6751 11.8285 12.4458 11.833 12.205C11.8279 11.9047 11.8383 11.6043 11.864 11.305C11.919 10.361 11.974 9.40503 12.03 8.46503C12.061 7.85203 12.116 7.23803 12.14 6.62503C12.1444 6.41542 12.107 6.20702 12.03 6.01202C11.9087 5.7493 11.6998 5.537 11.439 5.41163C11.1782 5.28626 10.8819 5.25564 10.601 5.32503L10.6 5.33803Z"
+                                fill="#FD7676" />
+                        </svg>
+                    </div>
+                    <div>XÓA CÂU HỎI</div>
+                </div>
+                <div class="box-confirm-delete_body">
+                    <div>
+                        <div>Bạn chắc chắn muốn xóa phân nhóm</div>
+                        <div class="box-confirm-delete_body_question">
+                            <ng-container *ngIf="nameDeleted">
+                                {{nameDeleted}}
+                            </ng-container>
+
+                            <ng-container *ngIf="listIdDeleted">
+                                <div *ngFor="let question of listIdDeleted">{{question}}</div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div>Đơn vị bị xóa sẽ <span [ngStyle]="{'color': '#FD7676'}">KHÔNG</span> thể khôi phục lại.</div>
+                </div>
+                <div class="box-confirm-delete_footer">
+                    <div class="btn-cancel" (click)="closePopupDelete()">KHÔNG XÓA</div>
+                    <div class="btn-delete" *ngIf="nameDeleted" (click)="deleteQuestion(idDeleted)">
+                        <div>
+                            <svg width="15" height="17" viewBox="0 0 15 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.5 17H2.11497C1.80677 16.9971 1.51231 16.8721 1.29617 16.6524C1.08002 16.4327 0.959835 16.1362 0.961967 15.828V3.71599H0.576967C0.42155 3.71599 0.272499 3.65425 0.162602 3.54435C0.0527059 3.43446 -0.0090332 3.2854 -0.0090332 3.12999C-0.0090332 2.97457 0.0527059 2.82552 0.162602 2.71562C0.272499 2.60573 0.42155 2.54399 0.576967 2.54399H3.87697C4.1529 1.799 4.64927 1.15577 5.29997 0.699988C5.94406 0.246773 6.7124 0.00354004 7.49997 0.00354004C8.28753 0.00354004 9.05588 0.246773 9.69997 0.699988C10.3503 1.15655 10.846 1.8005 11.121 2.54599H14.421C14.5764 2.54599 14.7254 2.60773 14.8353 2.71762C14.9452 2.82752 15.007 2.97657 15.007 3.13199C15.007 3.2874 14.9452 3.43646 14.8353 3.54635C14.7254 3.65625 14.5764 3.71799 14.421 3.71799H13.651V15.828C13.6531 16.1358 13.5332 16.432 13.3175 16.6517C13.1018 16.8713 12.8078 16.9966 12.5 17ZM10.385 8.59999C10.5392 8.60131 10.6865 8.66376 10.7947 8.77363C10.9029 8.8835 10.963 9.0318 10.962 9.18599V15.828H12.5V3.71599H2.11497V15.828H3.65397V9.18599C3.65397 9.11022 3.66889 9.03518 3.69789 8.96518C3.72689 8.89517 3.76939 8.83157 3.82297 8.77799C3.87655 8.72441 3.94015 8.68191 4.01016 8.65291C4.08016 8.62391 4.15519 8.60899 4.23097 8.60899C4.30674 8.60899 4.38177 8.62391 4.45178 8.65291C4.52178 8.68191 4.58539 8.72441 4.63897 8.77799C4.69255 8.83157 4.73505 8.89517 4.76405 8.96518C4.79304 9.03518 4.80797 9.11022 4.80797 9.18599V15.828H6.73097V6.84099C6.73097 6.68796 6.79176 6.5412 6.89997 6.43299C7.00817 6.32478 7.15494 6.26399 7.30797 6.26399C7.461 6.26399 7.60776 6.32478 7.71597 6.43299C7.82418 6.5412 7.88497 6.68796 7.88497 6.84099V15.827H9.80797V9.18599C9.8069 9.0318 9.86706 8.8835 9.97524 8.77363C10.0834 8.66376 10.2308 8.60131 10.385 8.59999ZM7.49997 1.17599C7.00665 1.13175 6.51158 1.23899 6.0808 1.48342C5.65002 1.72784 5.30402 2.09782 5.08897 2.54399H9.91097C9.69195 2.10103 9.34515 1.73391 8.91537 1.49006C8.48558 1.2462 7.99256 1.1368 7.49997 1.17599Z"
+                                    fill="white" />
+                            </svg>
+                        </div>
+
+                        <div>
+                            XÓA
+                        </div>
+                    </div>
+
+                    <div class="btn-delete" *ngIf="listIdDeleted" (click)="deleteManyQuestion()">
+                        <div>
+                            <svg width="15" height="17" viewBox="0 0 15 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.5 17H2.11497C1.80677 16.9971 1.51231 16.8721 1.29617 16.6524C1.08002 16.4327 0.959835 16.1362 0.961967 15.828V3.71599H0.576967C0.42155 3.71599 0.272499 3.65425 0.162602 3.54435C0.0527059 3.43446 -0.0090332 3.2854 -0.0090332 3.12999C-0.0090332 2.97457 0.0527059 2.82552 0.162602 2.71562C0.272499 2.60573 0.42155 2.54399 0.576967 2.54399H3.87697C4.1529 1.799 4.64927 1.15577 5.29997 0.699988C5.94406 0.246773 6.7124 0.00354004 7.49997 0.00354004C8.28753 0.00354004 9.05588 0.246773 9.69997 0.699988C10.3503 1.15655 10.846 1.8005 11.121 2.54599H14.421C14.5764 2.54599 14.7254 2.60773 14.8353 2.71762C14.9452 2.82752 15.007 2.97657 15.007 3.13199C15.007 3.2874 14.9452 3.43646 14.8353 3.54635C14.7254 3.65625 14.5764 3.71799 14.421 3.71799H13.651V15.828C13.6531 16.1358 13.5332 16.432 13.3175 16.6517C13.1018 16.8713 12.8078 16.9966 12.5 17ZM10.385 8.59999C10.5392 8.60131 10.6865 8.66376 10.7947 8.77363C10.9029 8.8835 10.963 9.0318 10.962 9.18599V15.828H12.5V3.71599H2.11497V15.828H3.65397V9.18599C3.65397 9.11022 3.66889 9.03518 3.69789 8.96518C3.72689 8.89517 3.76939 8.83157 3.82297 8.77799C3.87655 8.72441 3.94015 8.68191 4.01016 8.65291C4.08016 8.62391 4.15519 8.60899 4.23097 8.60899C4.30674 8.60899 4.38177 8.62391 4.45178 8.65291C4.52178 8.68191 4.58539 8.72441 4.63897 8.77799C4.69255 8.83157 4.73505 8.89517 4.76405 8.96518C4.79304 9.03518 4.80797 9.11022 4.80797 9.18599V15.828H6.73097V6.84099C6.73097 6.68796 6.79176 6.5412 6.89997 6.43299C7.00817 6.32478 7.15494 6.26399 7.30797 6.26399C7.461 6.26399 7.60776 6.32478 7.71597 6.43299C7.82418 6.5412 7.88497 6.68796 7.88497 6.84099V15.827H9.80797V9.18599C9.8069 9.0318 9.86706 8.8835 9.97524 8.77363C10.0834 8.66376 10.2308 8.60131 10.385 8.59999ZM7.49997 1.17599C7.00665 1.13175 6.51158 1.23899 6.0808 1.48342C5.65002 1.72784 5.30402 2.09782 5.08897 2.54399H9.91097C9.69195 2.10103 9.34515 1.73391 8.91537 1.49006C8.48558 1.2462 7.99256 1.1368 7.49997 1.17599Z"
+                                    fill="white" />
+                            </svg>
+                        </div>
+
+                        <div>
+                            XÓA
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="listNotifi.length > 0" class="notifications">
+                {{listNotifi[listNotifi.length - 1]}}
+                <ng-container *ngIf="listNotifi.length > 3">
+                    {{listNotifi[0]}} {{listNotifi[1]}} {{listNotifi[2]}} ...
+                </ng-container>
+                <ng-container *ngIf="listNotifi.length <= 3">
+                    <ng-container *ngFor="let item of listNotifi">
+                        <ng-container *ngIf="listNotifi[listNotifi.length - 1] !== item">
+                            {{item}}
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+
+                thành công
+            </div>
+
+            <div class="p-questionbank_footer">
+                <div class="p-questionbank_footer_content">
+                    <div class="p-questionbank_footer_content_show">
+                        <div class="footer-text">Hiển thị mỗi trang</div>
+                        <div class="footer-box" (click)="openDropUp()">
+                            <span>{{ itemPerPage }}</span>
+                            <ng-container *ngIf="!isOpenDropUp">
+                                <span><i class="fa fa-angle-down"></i></span>
+                            </ng-container>
+                            <ng-container *ngIf="isOpenDropUp">
+                                <span><i class="fa fa-angle-up"></i></span>
+                            </ng-container>
+                        </div>
+                        <div class="dropdown-content" *ngIf="isOpenDropUp">
+                            <div (click)="changeItemsPerPage(num)" *ngFor="let num of remainingList">{{ num }}</div>
+                        </div>
+                    </div>
+                    <div class="p-questionbank_footer_content_pagination">
+                        <div class="first" (click)="firstPage()">Đầu</div>
+                        <div class="back" (click)="backPage()"><i class="fa fa-angle-left"></i></div>
+                        <div class="dots-back" (click)="dotsBack()">...</div>
+                        <div class="list-item-page">
+                            <ng-container *ngFor="let page of listTotalPages.slice(startPage - 1, startPage + 3)">
+                                <div class="item-page" (click)="setCurrentPage(page)"
+                                    [ngClass]="{'current-page': currentPage === page}">{{ page }}</div>
+                            </ng-container>
+                        </div>
+                        <div class="dots-next" (click)="dotsNext()">...</div>
+                        <div class="next" (click)="nextPage()"><i class="fa fa-angle-right"></i></div>
+                        <div class="last" (click)="lastPage()">Cuối</div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </mat-drawer-content>
+</mat-drawer-container>

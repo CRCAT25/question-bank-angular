@@ -21,6 +21,13 @@ import { PListPersonnelComponent } from './p-app/p-personnel/p-list-personnel/p-
 import { StatusColorPipe } from './p-lib/pipe/status-color.pipe';
 import { ToolIconPipe } from './p-lib/pipe/tool-icon.pipe';
 import { ToolIconOutlinePipe } from './p-lib/pipe/tool-icon-outline.pipe';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -47,10 +54,17 @@ import { ToolIconOutlinePipe } from './p-lib/pipe/tool-icon-outline.pipe';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatButtonModule,
+    ReactiveFormsModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

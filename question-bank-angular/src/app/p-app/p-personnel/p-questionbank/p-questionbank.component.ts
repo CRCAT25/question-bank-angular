@@ -4,6 +4,7 @@ import { QuestionDTO } from './shared/question.dto';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { StatusService } from '../../../p-lib/services/status.service';
 import { StatusDTO } from '../../../p-lib/dto/status.dto';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-p-questionbank',
@@ -44,10 +45,16 @@ export class PQuestionbankComponent implements OnInit {
     { 'Trả về': ['Chỉnh sửa', 'Gửi duyệt'] },
   ];
 
+  questionForm = this.formBuilder.group({
+    questionName: ['', Validators.required],
+    questionId: ['', Validators.required],
+  });
+  
   constructor(
     private moduleService: ModuleService,
     private router: Router,
-    private statusService: StatusService
+    private statusService: StatusService,
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -181,6 +188,10 @@ export class PQuestionbankComponent implements OnInit {
     if (!(event.target as HTMLElement).closest('.other-pro_status_tool')) {
       // Nếu không phải, đóng toolBox
       this.closeToolBox();
+    }
+    if (!(event.target as HTMLElement).closest('.footer-box') && !(event.target as HTMLElement).closest('.fa')) {
+      // Nếu không phải, đóng toolBox
+      this.closeDropUp();
     }
     if (!(event.target as HTMLElement).closest('.footer-box') && !(event.target as HTMLElement).closest('.fa')) {
       // Nếu không phải, đóng toolBox
@@ -629,5 +640,9 @@ export class PQuestionbankComponent implements OnInit {
   setCurrentPage(page: number) {
     this.currentPage = page;
     this.calculateTotalPages();
+  }
+  
+  onSubmit(){
+
   }
 }
