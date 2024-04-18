@@ -19,6 +19,7 @@ export class PQuestionbankComponent implements OnInit {
   public toolBoxId: string = '';
   public isCheckAll: boolean = false;
   public isOpenPopupDelete: boolean = false;
+  public listNotifi: string[] = [];
   public idDeleted: string = '';
   public nameDeleted: string = '';
   public listIdDeleted: string[] = [];
@@ -170,6 +171,7 @@ export class PQuestionbankComponent implements OnInit {
 
   // Sự kiện dùng để cập nhật trạng thái cho 1 câu hỏi
   updateStatus(id: string, newStatus: string, question: string): void {
+    this.listNotifi = [];
     if (!(newStatus === 'Xem chi tiết' || newStatus === 'Chỉnh sửa')) {
       if (newStatus === 'Phê duyệt') {
         newStatus = 'Duyệt áp dụng';
@@ -186,6 +188,7 @@ export class PQuestionbankComponent implements OnInit {
         // Gọi API để cập nhật trạng thái của câu hỏi
         this.moduleService.updateQuestionStatus(id, newStatus).subscribe(
           response => {
+            this.showNotifi(id, [], newStatus);
             // console.log(response.message); // Log kết quả trả về từ server (nếu cần)
             // Cập nhật trạng thái mới cho câu hỏi trong mảng listQuestion
             const updatedQuestionIndex = this.listQuestion.findIndex(question => question.id === id);
@@ -297,19 +300,24 @@ export class PQuestionbankComponent implements OnInit {
     });
   }
 
+  // Sự kiện mở popup delete cofirm 
   openPopupDelete() {
     this.isOpenPopupDelete = true;
   }
 
+  // Sự kiện đóng popup delete cofirm 
   closePopupDelete() {
     this.isOpenPopupDelete = false;
   }
 
+  // Sự kiện xóa 1 câu hỏi
   deleteQuestion(id: string) {
+    this.listNotifi = [];
     this.moduleService.deleteQuestion(id).subscribe(
       response => {
         // Xóa câu hỏi khỏi mảng listQuestion nếu xóa thành công
         // console.log(response.message); // Log kết quả trả về từ server (nếu cần)
+        this.showNotifi(id, [], 'Xóa');
         const deletedQuestionIndex = this.listQuestion.findIndex(question => question.id === id);
         if (deletedQuestionIndex !== -1) {
           this.listQuestion[deletedQuestionIndex].status = 'Xóa';
@@ -327,6 +335,7 @@ export class PQuestionbankComponent implements OnInit {
     this.closePopupDelete();
   }
 
+  // Đóng popup khi có nhiều câu hỏi được chọn
   closePopupCheckMany() {
     this.checkedItems = [];
     this.isCheckAll = false;
@@ -335,6 +344,7 @@ export class PQuestionbankComponent implements OnInit {
 
   // Hàm được gọi khi cần cập nhật nhiều câu hỏi
   updateManyQuestions(newStatus: string): void {
+    this.listNotifi = [];
     if (newStatus !== 'Xóa câu hỏi') {
       let allowedStatuses: string[] = [];
 
@@ -379,6 +389,7 @@ export class PQuestionbankComponent implements OnInit {
       this.moduleService.updateManyQuestionStatus(filteredQuestionIds, newStatus)
         .subscribe(
           response => {
+            this.showNotifi('', filteredQuestionIds, newStatus);
             // Xử lý phản hồi từ server (nếu cần)
             filteredQuestionIds.forEach(itemId => {
               // Lấy câu hỏi được chọn từ listQuestion
@@ -397,7 +408,7 @@ export class PQuestionbankComponent implements OnInit {
           }
         );
     }
-    else{
+    else {
       let allowedStatuses: string[] = ['Đang soạn thảo'];
       // Lọc danh sách các câu hỏi thỏa mãn điều kiện
       this.listIdDeleted = this.checkedItems.filter(itemId => {
@@ -411,30 +422,42 @@ export class PQuestionbankComponent implements OnInit {
     }
   }
 
+  // Sự kiện xóa nhiều câu hỏi
   deleteManyQuestion() {
-
+    this.listNotifi = [];
     // Thực hiện gọi API để cập nhật trạng thái cho danh sách các câu hỏi đã lọc
     const list = this.listIdDeleted;
     this.moduleService.deleteManyQuestions(this.listIdDeleted)
-    .subscribe(
-      response => {
-        // Xử lý phản hồi từ server (nếu cần)
-        list.forEach(item => {
-          const deletedQuestionIndex = this.listQuestion.findIndex(question => question.id === item);
-          if (deletedQuestionIndex !== -1) {
-            this.listQuestion[deletedQuestionIndex].status = 'Xóa câu hỏi';
-            this.listQuestion.splice(deletedQuestionIndex, 1);
-          }
-        })
-      },
-      error => {
-        // Xử lý lỗi (nếu có)
-        console.error(error);
-      }
-    );
+      .subscribe(
+        response => {
+          // Xử lý phản hồi từ server (nếu cần)
+          this.showNotifi('', list, 'Xóa');
+          list.forEach(item => {
+            const deletedQuestionIndex = this.listQuestion.findIndex(question => question.id === item);
+            if (deletedQuestionIndex !== -1) {
+              this.listQuestion[deletedQuestionIndex].status = 'Xóa câu hỏi';
+              this.listQuestion.splice(deletedQuestionIndex, 1);
+            }
+          })
+        },
+        error => {
+          // Xử lý lỗi (nếu có)
+          console.error(error);
+        }
+      );
     this.closePopupCheckMany();
     this.listIdDeleted = [];
     this.closePopupDelete();
+  }
+
+  showNotifi(item: string, list: string[], status: string){
+    if(item !== ''){
+      this.listNotifi.push(item);
+    }
+    if(list.length !== 0){
+      this.listNotifi = list;
+    }
+    this.listNotifi.push(status);
   }
 
 }

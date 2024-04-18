@@ -51,6 +51,9 @@
                 <div>Thêm mới</div>
             </div>
         </div>
+        <ng-container *ngIf="checkedItems.length > 0">
+            <div class="status-and-buttons_disabled"></div>
+        </ng-container>
     </div>
 
     <!-- Filter -->
@@ -91,6 +94,10 @@
                 </div>
             </div>
         </div>
+
+        <ng-container *ngIf="checkedItems.length > 0">
+            <div class="status-and-buttons_disabled"></div>
+        </ng-container>
     </div>
 
     <!-- ListQuestion -->
@@ -139,7 +146,8 @@
                         <div class="col-span-1 other-pro_group" title="{{item.group}}">{{item.group}}</div>
                         <div class="col-span-1 other-pro_time text-center">{{item.time}}</div>
                         <div class="col-span-1 other-pro_status">
-                            <div class="other-pro_status_name" [style.color]="item.status | statusColor">{{ item.status }}</div>
+                            <div class="other-pro_status_name" [style.color]="item.status | statusColor">{{ item.status
+                                }}</div>
                             <div class="other-pro_status_tool" (click)="openToolBox(item.id)">
                                 <svg width="16" height="3" viewBox="0 0 16 3" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -167,6 +175,12 @@
                     </div>
                 </div>
             </ng-container>
+
+            <ng-container *ngIf="currentListQuestion.length === 0">
+                <div class="full-question not-found-question">
+                    Không tìm thấy dữ liệu nào
+                </div>
+            </ng-container>
         </div>
     </div>
 
@@ -184,7 +198,7 @@
             <div></div>
         </div>
         <div class="popup-list-tools_close" (click)="closePopupCheckMany()">
-            <img src="../../../../assets/iconClose.svg"/>
+            <img src="../../../../assets/iconClose.svg" />
         </div>
     </div>
 
@@ -252,5 +266,21 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div *ngIf="listNotifi.length > 0" class="notifications">
+        {{listNotifi[listNotifi.length - 1]}}
+        <ng-container *ngIf="listNotifi.length > 3">
+            {{listNotifi[0]}} {{listNotifi[1]}} {{listNotifi[2]}} ...
+        </ng-container>
+        <ng-container *ngIf="listNotifi.length <= 3">
+            <ng-container *ngFor="let item of listNotifi">
+                <ng-container *ngIf="listNotifi[listNotifi.length - 1] !== item">
+                    {{item}}
+                </ng-container>
+            </ng-container>
+        </ng-container>
+
+        thành công
     </div>
 </div>
