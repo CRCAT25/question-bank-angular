@@ -21,6 +21,8 @@ export class PQuestionbankComponent implements OnInit {
   public isOpenPopupDelete: boolean = false;
   public idDeleted: string = '';
   public nameDeleted: string = '';
+  public listIdDeleted: string[] = [];
+  public listGeneralTool: string[] = [];
   public checkedItems: string[] = []; // Mảng lưu trữ trạng thái checked của từng item
   public toolAvailable: { [key: string]: string[] }[] = [
     { 'Đang soạn thảo': ['Chỉnh sửa', 'Gửi duyệt', 'Xóa câu hỏi'] },
@@ -204,7 +206,7 @@ export class PQuestionbankComponent implements OnInit {
 
   // Sự kiện khi click vào checkbox checkAll
   onClickCheckAll() {
-    if(this.currentListQuestion.length !== 0){
+    if (this.currentListQuestion.length !== 0) {
       this.isCheckAll = !this.isCheckAll;
       // this.checkedItems = this.currentListQuestion?.map(() => checked) || [];
       if (this.isCheckAll) {
@@ -217,8 +219,23 @@ export class PQuestionbankComponent implements OnInit {
       else {
         this.checkedItems = [];
       }
-      console.log(this.currentListQuestion.map(item => item.id))
-      console.log(this.checkedItems)
+      // Xóa danh sách công cụ hiện tại
+      this.listGeneralTool = [];
+
+      // Duyệt qua danh sách các item đã chọn và thêm các công cụ của chúng vào listGeneralTool
+      this.checkedItems.forEach(itemId => {
+        const selectedItem = this.currentListQuestion.find(item => item.id === itemId);
+        if (selectedItem) {
+          const selectedStatus = selectedItem.status;
+          const availableToolsForItem = this.toolBoxList(selectedStatus);
+          availableToolsForItem.forEach(tool => {
+            // Kiểm tra xem công cụ đã tồn tại trong listGeneralTool và không phải là 'Xem chi tiết' hoặc 'Chỉnh sửa'
+            if (!this.listGeneralTool.includes(tool) && tool !== 'Xem chi tiết' && tool !== 'Chỉnh sửa') {
+              this.listGeneralTool.push(tool);
+            }
+          });
+        }
+      });
     }
   }
 
@@ -229,7 +246,7 @@ export class PQuestionbankComponent implements OnInit {
 
   // Kiểm tra tất cả các item hiện tại check hay không
   isAllCurrentItemChecked(): boolean {
-    if(this.currentListQuestion.length === 0){
+    if (this.currentListQuestion.length === 0) {
       return false;
     }
     let allChecked = true; // Mặc định là true
@@ -246,16 +263,38 @@ export class PQuestionbankComponent implements OnInit {
   }
 
   // Sự kiện khi click vào check của 1 câu hỏi
-  checkItem(id: string) {
+  checkItem(id: string, status: string) {
+    // Tìm công cụ có sẵn cho mục hiện tại
+    const availableTools = this.toolBoxList(status);
+
+    // Kiểm tra nếu id không tồn tại trong danh sách checkedItems, thêm vào danh sách
     if (!this.checkedItems.includes(id)) {
-      this.checkedItems.push(id)
-    }
-    else {
+      this.checkedItems.push(id);
+    } else {
+      // Nếu id đã tồn tại, loại bỏ khỏi danh sách
       const index = this.checkedItems.indexOf(id);
       if (index !== -1) {
-        this.checkedItems.splice(index, 1); // Loại bỏ nếu đã tồn tại
+        this.checkedItems.splice(index, 1);
       }
     }
+
+    // Xóa danh sách công cụ hiện tại
+    this.listGeneralTool = [];
+
+    // Duyệt qua danh sách các item đã chọn và thêm các công cụ của chúng vào listGeneralTool
+    this.checkedItems.forEach(itemId => {
+      const selectedItem = this.currentListQuestion.find(item => item.id === itemId);
+      if (selectedItem) {
+        const selectedStatus = selectedItem.status;
+        const availableToolsForItem = this.toolBoxList(selectedStatus);
+        availableToolsForItem.forEach(tool => {
+          // Kiểm tra xem công cụ đã tồn tại trong listGeneralTool và không phải là 'Xem chi tiết' hoặc 'Chỉnh sửa'
+          if (!this.listGeneralTool.includes(tool) && tool !== 'Xem chi tiết' && tool !== 'Chỉnh sửa') {
+            this.listGeneralTool.push(tool);
+          }
+        });
+      }
+    });
   }
 
   openPopupDelete() {
@@ -265,8 +304,6 @@ export class PQuestionbankComponent implements OnInit {
   closePopupDelete() {
     this.isOpenPopupDelete = false;
   }
-
-
 
   deleteQuestion(id: string) {
     this.moduleService.deleteQuestion(id).subscribe(
@@ -285,8 +322,119 @@ export class PQuestionbankComponent implements OnInit {
         // Xử lý lỗi hoặc thông báo cho người dùng (nếu cần)
       }
     );
-      this.idDeleted = ''
-      this.nameDeleted = ''
-      this.closePopupDelete();
+    this.idDeleted = ''
+    this.nameDeleted = ''
+    this.closePopupDelete();
   }
+
+  closePopupCheckMany() {
+    this.checkedItems = [];
+    this.isCheckAll = false;
+    this.listGeneralTool = [];
+  }
+
+  // Hàm được gọi khi cần cập nhật nhiều câu hỏi
+  updateManyQuestions(newStatus: string): void {
+    if (newStatus !== 'Xóa câu hỏi') {
+      let allowedStatuses: string[] = [];
+
+      // Xác định các trạng thái được phép update dựa trên newStatus
+      switch (newStatus) {
+        case 'Gửi duyệt':
+          allowedStatuses = ['Đang soạn thảo', 'Trả về'];
+          break;
+        case 'Phê duyệt':
+          allowedStatuses = ['Gửi duyệt', 'Ngưng áp dụng'];
+          break;
+        case 'Ngưng hiển thị':
+          allowedStatuses = ['Duyệt áp dụng'];
+          break;
+        case 'Trả về':
+          allowedStatuses = ['Gửi duyệt', 'Ngưng áp dụng'];
+          break;
+        default:
+          break;
+      }
+
+      if (newStatus === 'Phê duyệt') {
+        newStatus = 'Duyệt áp dụng';
+      }
+      if (newStatus === 'Ngưng hiển thị') {
+        newStatus = 'Ngưng áp dụng'
+      }
+
+      // Lọc danh sách các câu hỏi thỏa mãn điều kiện
+      const filteredQuestionIds: string[] = this.checkedItems.filter(itemId => {
+        const selectedQuestion = this.listQuestion.find(question => question.id === itemId);
+        return selectedQuestion && allowedStatuses.includes(selectedQuestion.status);
+      });
+
+      // Kiểm tra xem danh sách câu hỏi đã lọc có rỗng không
+      if (filteredQuestionIds.length === 0) {
+        console.log('Không có câu hỏi thỏa mãn điều kiện.');
+        return;
+      }
+
+      // Thực hiện gọi API để cập nhật trạng thái cho danh sách các câu hỏi đã lọc
+      this.moduleService.updateManyQuestionStatus(filteredQuestionIds, newStatus)
+        .subscribe(
+          response => {
+            // Xử lý phản hồi từ server (nếu cần)
+            filteredQuestionIds.forEach(itemId => {
+              // Lấy câu hỏi được chọn từ listQuestion
+              const selectedQuestion = this.listQuestion.find(question => question.id === itemId);
+              if (selectedQuestion) {
+                // Cập nhật trạng thái mới cho các câu hỏi trong listQuestion
+                selectedQuestion.status = newStatus;
+              }
+            });
+
+            this.closePopupCheckMany();
+          },
+          error => {
+            // Xử lý lỗi (nếu có)
+            console.error(error);
+          }
+        );
+    }
+    else{
+      let allowedStatuses: string[] = ['Đang soạn thảo'];
+      // Lọc danh sách các câu hỏi thỏa mãn điều kiện
+      this.listIdDeleted = this.checkedItems.filter(itemId => {
+        const selectedQuestion = this.listQuestion.find(question => question.id === itemId);
+        return selectedQuestion && allowedStatuses.includes(selectedQuestion.status);
+      });
+
+      this.openPopupDelete();
+      // console.log(this.listIdDeleted)
+      // this.deleteManyQuestion();
+    }
+  }
+
+  deleteManyQuestion() {
+
+    // Thực hiện gọi API để cập nhật trạng thái cho danh sách các câu hỏi đã lọc
+    const list = this.listIdDeleted;
+    this.moduleService.deleteManyQuestions(this.listIdDeleted)
+    .subscribe(
+      response => {
+        // Xử lý phản hồi từ server (nếu cần)
+        list.forEach(item => {
+          const deletedQuestionIndex = this.listQuestion.findIndex(question => question.id === item);
+          if (deletedQuestionIndex !== -1) {
+            this.listQuestion[deletedQuestionIndex].status = 'Xóa câu hỏi';
+            this.listQuestion.splice(deletedQuestionIndex, 1);
+          }
+        })
+      },
+      error => {
+        // Xử lý lỗi (nếu có)
+        console.error(error);
+      }
+    );
+    this.closePopupCheckMany();
+    this.listIdDeleted = [];
+    this.closePopupDelete();
+  }
+
 }

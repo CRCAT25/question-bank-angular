@@ -4,11 +4,7 @@
     width: 100%;
     font-size: 14px;
     position: relative;
-
-    input {
-        cursor: pointer;
-        font-family: "Mulish", sans-serif;
-    }
+    height: calc(100vh - 70px);
 
     .status-and-buttons {
         display: flex;
@@ -155,14 +151,15 @@
                 &_input {
                     position: relative;
                     display: flex;
-                    gap: 5px;
+                    gap: 8px;
 
                     input {
                         padding: 6px 20px 6px 30px;
                         border: none;
                         border-radius: 4px;
-                        width: 300px;
+                        width: 310px;
                         cursor: auto !important;
+                        box-shadow: $box-shadow2;
                     }
 
                     svg.iconTim {
@@ -180,6 +177,7 @@
                         cursor: pointer;
                         border-radius: 4px;
                         padding: 6px;
+                        box-shadow: $box-shadow-blue;
 
                         svg {
                             fill: white;
@@ -202,6 +200,7 @@
     .field-questions {
         width: 100%;
         padding-top: 15px;
+        height: 70vh;
 
         .header-table {
             padding: 10px 0;
@@ -223,7 +222,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
 
             .full-question {
                 height: 60px;
@@ -345,8 +344,10 @@
         background-color: white;
         position: absolute;
         z-index: 20;
-        left: 50%;
-        transform: translateX(-50%);
+        left: 40%;
+        transform: translateY(-50%);
+        top: 50%;
+
         display: flex;
         flex-direction: column;
 
@@ -420,4 +421,67 @@
             }
         }
     }
+
+    .popup-list-tools{
+        display: flex;
+        position: absolute;
+        z-index: 18;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%);
+        border-radius: 4px;
+        box-shadow: $box-shadow3;
+        background-color: #fff;
+
+        &_tool, &_count, &_close{
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column ;
+            justify-content: center;
+            text-align: center;
+        }
+
+        &_count{
+            background-color: $green-color;
+            border-radius: 4px 0 0 4px;
+            color: #fff;
+
+            &_number{
+                font-size: 24px;
+            }
+        }
+
+        &_tool:hover, &_close:hover{
+            background-color: #e0e0e0;
+        }
+
+        &_tool, &_close{
+            cursor: pointer;
+            background-color: #fff;
+        }
+        
+        &_line{
+            width: 1px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            div{
+                width: 1px;
+                height: 50px;
+                background-color: #BDC2D2;
+            }
+        }
+
+        &_close{
+            border-radius: 0 4px 4px 0;
+        }
+
+    }
+}
+
+
+input {
+    cursor: pointer;
+    font-family: "Mulish", sans-serif;
 }

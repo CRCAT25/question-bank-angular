@@ -52,4 +52,20 @@ export class ModuleService {
         return this.http.post<any>(`${this.apiUrl}/deleteQuestion`, { questionId });
     }
 
+    updateManyQuestionStatus(listQuestionId: string[], newStatus: string): Observable<any> {
+        const url = `${this.apiUrl}/updateManyQuestionStatus`; // Đường dẫn API cập nhật trạng thái cho nhiều câu hỏi
+        const body = {
+            listQuestionId: listQuestionId,
+            newStatus: newStatus
+        };
+        return this.http.post<any>(url, body);
+    }
+
+    deleteManyQuestions(listQuestionId: string[]): Observable<any> {
+        const url = `${this.apiUrl}/deleteManyQuestions`; // Đường dẫn API xóa nhiều câu hỏi
+        const body = {
+            listQuestionId: listQuestionId
+        };
+        return this.http.post<any>(url, body);
+    }
 }
