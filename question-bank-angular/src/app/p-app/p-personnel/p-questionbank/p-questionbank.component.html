@@ -283,4 +283,25 @@
 
         thành công
     </div>
+
+    <div class="p-questionbank_footer">
+        <div class="p-questionbank_footer_content">
+            <div class="p-questionbank_footer_content_show">
+                <div class="footer-text">Hiển thị mỗi trang</div>
+                <div class="footer-box" (click)="openDropUp()">
+                    <span>{{ itemPerPage }}</span>
+                    <ng-container *ngIf="!isOpenDropUp">
+                        <span><i class="fa fa-angle-down"></i></span>
+                    </ng-container>
+                    <ng-container *ngIf="isOpenDropUp">
+                        <span><i class="fa fa-angle-up"></i></span>
+                    </ng-container>
+                </div>
+                <div class="dropdown-content" *ngIf="isOpenDropUp">
+                    <div (click)="changeItemsPerPage(num)" *ngFor="let num of remainingList">{{ num }}</div>
+                </div>
+            </div>
+            <div class="p-questionbank_footer_content_pagination">Phân trang</div>
+        </div>
+    </div>    
 </div>

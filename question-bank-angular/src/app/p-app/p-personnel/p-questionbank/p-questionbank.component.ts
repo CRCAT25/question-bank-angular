@@ -19,11 +19,16 @@ export class PQuestionbankComponent implements OnInit {
   public toolBoxId: string = '';
   public isCheckAll: boolean = false;
   public isOpenPopupDelete: boolean = false;
+  public isOpenDropUp: boolean = false;
   public listNotifi: string[] = [];
   public idDeleted: string = '';
   public nameDeleted: string = '';
   public listIdDeleted: string[] = [];
   public listGeneralTool: string[] = [];
+  public listItemPerPage: number[] = [25, 50, 75, 100];
+  public itemPerPage: number = 25;
+  public selectedItemIndex: number = 0;
+  public remainingList: number[] = [];
   public checkedItems: string[] = []; // Mảng lưu trữ trạng thái checked của từng item
   public toolAvailable: { [key: string]: string[] }[] = [
     { 'Đang soạn thảo': ['Chỉnh sửa', 'Gửi duyệt', 'Xóa câu hỏi'] },
@@ -99,8 +104,10 @@ export class PQuestionbankComponent implements OnInit {
     this.currentListQuestion = this.listQuestion.filter(item =>
       this.isChecked(item.status) &&
       (item.id.toLowerCase().includes(searchTextLower) || // Tìm kiếm theo mã câu hỏi
-        item.question.toLowerCase().includes(searchTextLower)) // Tìm kiếm theo câu hỏi
+        item.question.toLowerCase().includes(searchTextLower))// Tìm kiếm theo câu hỏi
     );
+
+    this.currentListQuestion = this.currentListQuestion.slice(0, this.itemPerPage);
   }
 
   // Sự kiện được gọi khi search câu hỏi
@@ -166,6 +173,10 @@ export class PQuestionbankComponent implements OnInit {
     if (!(event.target as HTMLElement).closest('.other-pro_status_tool')) {
       // Nếu không phải, đóng toolBox
       this.closeToolBox();
+    }
+    if (!(event.target as HTMLElement).closest('.footer-box') && !(event.target as HTMLElement).closest('.fa')) {
+      // Nếu không phải, đóng toolBox
+      this.closeDropUp();
     }
   }
 
@@ -450,14 +461,42 @@ export class PQuestionbankComponent implements OnInit {
     this.closePopupDelete();
   }
 
-  showNotifi(item: string, list: string[], status: string){
-    if(item !== ''){
+  showNotifi(item: string, list: string[], status: string) {
+    if (item !== '') {
       this.listNotifi.push(item);
     }
-    if(list.length !== 0){
+    if (list.length !== 0) {
       this.listNotifi = list;
     }
     this.listNotifi.push(status);
   }
 
+  openDropUp() {
+    this.isOpenDropUp = !this.isOpenDropUp;
+    if (this.isOpenDropUp) {
+      this.remainingList = this.listItemPerPage.filter((item, index) => index !== this.selectedItemIndex);
+      this.remainingList.sort((a, b) => b - a); // Sắp xếp tăng dần
+    } else {
+      this.remainingList = [];
+    }
+  }
+
+  closeDropUp() {
+    this.isOpenDropUp = false;
+  }
+
+  changeItemsPerPage(itemPerPage: number) {
+    this.itemPerPage = itemPerPage;
+    this.selectedItemIndex = this.listItemPerPage.indexOf(itemPerPage);
+    this.isOpenDropUp = false;
+    // Cập nhật lại danh sách câu hỏi hiển thị theo itemPerPage
+    const searchTextLower = this.searchText.toLowerCase();
+    console.log(this.itemPerPage)
+    this.currentListQuestion = this.listQuestion.filter(item =>
+      this.isChecked(item.status) &&
+      (item.id.toLowerCase().includes(searchTextLower) || // Tìm kiếm theo mã câu hỏi
+        item.question.toLowerCase().includes(searchTextLower))// Tìm kiếm theo câu hỏi
+    );
+    this.currentListQuestion = this.currentListQuestion.slice(0, this.itemPerPage);
+  }
 }
