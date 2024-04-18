@@ -229,37 +229,49 @@ export class PQuestionbankComponent implements OnInit {
   // Sự kiện khi click vào checkbox checkAll
   onClickCheckAll() {
     if (this.currentListQuestion.length !== 0) {
-      this.isCheckAll = !this.isCheckAll;
-      // this.checkedItems = this.currentListQuestion?.map(() => checked) || [];
-      if (this.isCheckAll) {
-        this.currentListQuestion?.forEach((item) => {
-          if (!this.checkedItems.includes(item.id)) {
-            this.checkedItems.push(item.id); // Log những item được check
-          }
-        });
-      }
-      else {
-        this.checkedItems = [];
-      }
-      // Xóa danh sách công cụ hiện tại
-      this.listGeneralTool = [];
-
-      // Duyệt qua danh sách các item đã chọn và thêm các công cụ của chúng vào listGeneralTool
-      this.checkedItems.forEach(itemId => {
-        const selectedItem = this.currentListQuestion.find(item => item.id === itemId);
-        if (selectedItem) {
-          const selectedStatus = selectedItem.status;
-          const availableToolsForItem = this.toolBoxList(selectedStatus);
-          availableToolsForItem.forEach(tool => {
-            // Kiểm tra xem công cụ đã tồn tại trong listGeneralTool và không phải là 'Xem chi tiết' hoặc 'Chỉnh sửa'
-            if (!this.listGeneralTool.includes(tool) && tool !== 'Xem chi tiết' && tool !== 'Chỉnh sửa') {
-              this.listGeneralTool.push(tool);
-            }
-          });
+        // Kiểm tra xem đang ở chế độ checkAll hay không
+        if (this.isCheckAll) {
+            // Xóa các mục đã chọn khỏi danh sách nếu chúng đã tồn tại
+            this.currentListQuestion?.forEach((item) => {
+                const index = this.checkedItems.indexOf(item.id);
+                if (index !== -1) {
+                    this.checkedItems.splice(index, 1);
+                }
+            });
+        } else {
+            // Thêm các mục chưa chọn vào danh sách
+            this.currentListQuestion?.forEach((item) => {
+                if (!this.checkedItems.includes(item.id)) {
+                    this.checkedItems.push(item.id);
+                }
+            });
         }
-      });
+        this.isCheckAll = !this.isCheckAll;
+
+        // Xóa danh sách công cụ hiện tại
+        this.listGeneralTool = [];
+
+        // Duyệt qua danh sách các item đã chọn và thêm các công cụ của chúng vào listGeneralTool
+        this.checkedItems.forEach(itemId => {
+            const searchTextLower = this.searchText.toLowerCase();
+            const selectedItem = this.listQuestion.filter(item =>
+                this.isChecked(item.status) &&
+                (item.id.toLowerCase().includes(searchTextLower) || // Tìm kiếm theo mã câu hỏi
+                    item.question.toLowerCase().includes(searchTextLower))).find(item => item.id === itemId);
+            if (selectedItem) {
+                const selectedStatus = selectedItem.status;
+                const availableToolsForItem = this.toolBoxList(selectedStatus);
+                availableToolsForItem.forEach(tool => {
+                    // Kiểm tra xem công cụ đã tồn tại trong listGeneralTool và không phải là 'Xem chi tiết' hoặc 'Chỉnh sửa'
+                    if (!this.listGeneralTool.includes(tool) && tool !== 'Xem chi tiết' && tool !== 'Chỉnh sửa') {
+                        this.listGeneralTool.push(tool);
+                    }
+                });
+            }
+        });
     }
-  }
+}
+
 
   // Kiểm tra item đó có trong list được check hay không
   isInListCheckAll(id: string): boolean {
@@ -286,9 +298,6 @@ export class PQuestionbankComponent implements OnInit {
 
   // Sự kiện khi click vào check của 1 câu hỏi
   checkItem(id: string, status: string) {
-    // Tìm công cụ có sẵn cho mục hiện tại
-    const availableTools = this.toolBoxList(status);
-
     // Kiểm tra nếu id không tồn tại trong danh sách checkedItems, thêm vào danh sách
     if (!this.checkedItems.includes(id)) {
       this.checkedItems.push(id);
@@ -305,7 +314,11 @@ export class PQuestionbankComponent implements OnInit {
 
     // Duyệt qua danh sách các item đã chọn và thêm các công cụ của chúng vào listGeneralTool
     this.checkedItems.forEach(itemId => {
-      const selectedItem = this.currentListQuestion.find(item => item.id === itemId);
+      const searchTextLower = this.searchText.toLowerCase();
+      const selectedItem = this.listQuestion.filter(item =>
+        this.isChecked(item.status) &&
+        (item.id.toLowerCase().includes(searchTextLower) || // Tìm kiếm theo mã câu hỏi
+          item.question.toLowerCase().includes(searchTextLower))).find(item => item.id === itemId);
       if (selectedItem) {
         const selectedStatus = selectedItem.status;
         const availableToolsForItem = this.toolBoxList(selectedStatus);
@@ -317,6 +330,9 @@ export class PQuestionbankComponent implements OnInit {
         });
       }
     });
+
+    console.log(this.checkedItems)
+    console.log(this.listGeneralTool)
   }
 
   // Sự kiện mở popup delete cofirm 
@@ -523,7 +539,7 @@ export class PQuestionbankComponent implements OnInit {
 
     this.listTotalPages = Array.from({ length: this.totalPages }, (_, index) => index + 1);
     if (this.currentPage > this.totalPages) {
-      this.currentPage = 1;
+      this.currentPage = this.totalPages;
     }
 
     this.startIndex = (this.currentPage - 1) * this.itemPerPage;
@@ -567,30 +583,33 @@ export class PQuestionbankComponent implements OnInit {
 
   // Hàm dấu 3 chấm next
   dotsNext(): void {
-    if(this.startPage + 4 > this.totalPages){
+    if (this.startPage + 4 > this.totalPages) {
       this.startPage = Math.floor(this.totalPages / 4) * 4 + 1;
     }
-    else{
+    else {
       this.startPage += 4;
     }
     this.currentPage = this.startPage;
-  
+
     // Tính toán lại danh sách câu hỏi cho trang hiện tại
     this.calculateTotalPages();
   }
 
   // Hàm dấu 3 chấm back
   dotsBack(): void {
-    if(this.startPage - 4 < 0){
-      this.startPage = 1;
-    }
-    else{
-      this.startPage -= 4;
-    }
-    this.currentPage = this.startPage;
+    if(this.currentPage > 4){
+      if (this.startPage - 4 < 0) {
+        this.startPage = 1;
+        this.currentPage = this.startPage;
+      }
+      else {
+        this.startPage -= 4;
+        this.currentPage = this.startPage + 3;
+      }
   
-    // Tính toán lại danh sách câu hỏi cho trang hiện tại
-    this.calculateTotalPages();
+      // Tính toán lại danh sách câu hỏi cho trang hiện tại
+      this.calculateTotalPages();
+    }
   }
 
   // Hàm set trang hiện tại
