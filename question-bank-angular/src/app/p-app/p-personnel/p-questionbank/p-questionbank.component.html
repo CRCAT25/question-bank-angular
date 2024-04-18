@@ -301,7 +301,19 @@
                     <div (click)="changeItemsPerPage(num)" *ngFor="let num of remainingList">{{ num }}</div>
                 </div>
             </div>
-            <div class="p-questionbank_footer_content_pagination">Phân trang</div>
+            <div class="p-questionbank_footer_content_pagination">
+                <div class="first" (click)="firstPage()">Đầu</div>
+                <div class="back" (click)="backPage()"><i class="fa fa-angle-left"></i></div>
+                <div class="dots-back" (click)="dotsBack()">...</div>
+                <div class="list-item-page">
+                    <ng-container *ngFor="let page of listTotalPages.slice(startPage - 1, startPage + 3)">
+                        <div class="item-page" (click)="setCurrentPage(page)" [ngClass]="{'current-page': currentPage === page}">{{ page }}</div>
+                    </ng-container>
+                </div>
+                <div class="dots-next" (click)="dotsNext()">...</div>
+                <div class="next" (click)="nextPage()"><i class="fa fa-angle-right"></i></div>
+                <div class="last" (click)="lastPage()">Cuối</div>
+            </div>
         </div>
-    </div>    
+    </div>
 </div>

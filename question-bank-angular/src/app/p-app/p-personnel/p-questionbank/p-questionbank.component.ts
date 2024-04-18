@@ -29,6 +29,12 @@ export class PQuestionbankComponent implements OnInit {
   public itemPerPage: number = 25;
   public selectedItemIndex: number = 0;
   public remainingList: number[] = [];
+  public currentPage: number = 1;
+  public totalPages: number = 1;
+  public startIndex: number = 0; // Chỉ mục bắt đầu của dữ liệu trên trang hiện tại
+  public endIndex: number = this.itemPerPage - 1; // Chỉ mục kết thúc của dữ liệu trên trang hiện tại
+  public startPage: number = 1; // Chỉ mục kết thúc của dữ liệu trên trang hiện tại
+  public listTotalPages: number[] = [];
   public checkedItems: string[] = []; // Mảng lưu trữ trạng thái checked của từng item
   public toolAvailable: { [key: string]: string[] }[] = [
     { 'Đang soạn thảo': ['Chỉnh sửa', 'Gửi duyệt', 'Xóa câu hỏi'] },
@@ -49,6 +55,7 @@ export class PQuestionbankComponent implements OnInit {
     this.moduleService.getCategoryByModule(this.router.url).subscribe(item => {
       this.listQuestion = item.data;
       this.filterQuestions(); // Gọi hàm lọc sau khi nhận được danh sách câu hỏi
+      this.calculateTotalPages();
     });
   }
 
@@ -108,6 +115,7 @@ export class PQuestionbankComponent implements OnInit {
     );
 
     this.currentListQuestion = this.currentListQuestion.slice(0, this.itemPerPage);
+    this.calculateTotalPages();
   }
 
   // Sự kiện được gọi khi search câu hỏi
@@ -461,6 +469,7 @@ export class PQuestionbankComponent implements OnInit {
     this.closePopupDelete();
   }
 
+  // Sự kiện hiển thị thông báo khi update status
   showNotifi(item: string, list: string[], status: string) {
     if (item !== '') {
       this.listNotifi.push(item);
@@ -471,6 +480,7 @@ export class PQuestionbankComponent implements OnInit {
     this.listNotifi.push(status);
   }
 
+  // Sự kiện mở dropup
   openDropUp() {
     this.isOpenDropUp = !this.isOpenDropUp;
     if (this.isOpenDropUp) {
@@ -481,22 +491,111 @@ export class PQuestionbankComponent implements OnInit {
     }
   }
 
+  // Sự kiện đóng dropup
   closeDropUp() {
     this.isOpenDropUp = false;
   }
 
+  // Sự kiện hiển thị số item trên 1 trang
   changeItemsPerPage(itemPerPage: number) {
     this.itemPerPage = itemPerPage;
     this.selectedItemIndex = this.listItemPerPage.indexOf(itemPerPage);
     this.isOpenDropUp = false;
     // Cập nhật lại danh sách câu hỏi hiển thị theo itemPerPage
     const searchTextLower = this.searchText.toLowerCase();
-    console.log(this.itemPerPage)
     this.currentListQuestion = this.listQuestion.filter(item =>
       this.isChecked(item.status) &&
       (item.id.toLowerCase().includes(searchTextLower) || // Tìm kiếm theo mã câu hỏi
         item.question.toLowerCase().includes(searchTextLower))// Tìm kiếm theo câu hỏi
     );
     this.currentListQuestion = this.currentListQuestion.slice(0, this.itemPerPage);
+    this.calculateTotalPages();
+  }
+
+  // Sự kiện tính toán về pagination
+  calculateTotalPages(): void {
+    const searchTextLower = this.searchText.toLowerCase();
+    this.totalPages = Math.ceil(this.listQuestion.filter(item =>
+      this.isChecked(item.status) &&
+      (item.id.toLowerCase().includes(searchTextLower) || // Tìm kiếm theo mã câu hỏi
+        item.question.toLowerCase().includes(searchTextLower))// Tìm kiếm theo câu hỏi
+    ).length / this.itemPerPage)
+
+    this.listTotalPages = Array.from({ length: this.totalPages }, (_, index) => index + 1);
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = 1;
+    }
+
+    this.startIndex = (this.currentPage - 1) * this.itemPerPage;
+    this.endIndex = (this.currentPage * this.itemPerPage);
+
+    this.currentListQuestion = this.listQuestion.filter(item =>
+      this.isChecked(item.status) &&
+      (item.id.toLowerCase().includes(searchTextLower) || // Tìm kiếm theo mã câu hỏi
+        item.question.toLowerCase().includes(searchTextLower))).slice(this.startIndex, this.endIndex);
+  }
+
+  // Sự kiện tiến trang
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage += 1;
+    }
+    this.calculateTotalPages();
+  }
+
+  // Sự kiện lùi trang
+  backPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage -= 1;
+    }
+    this.calculateTotalPages();
+  }
+
+  // Sự kiện tiến đến trang đầu tiên
+  firstPage(): void {
+    this.currentPage = 1;
+    this.startPage = 1;
+    this.calculateTotalPages();
+  }
+
+  // Sự kiện tiến đến trang cuối cùng
+  lastPage(): void {
+    this.currentPage = this.totalPages;
+    this.startPage = Math.floor(this.totalPages / 4) * 4 + 1;
+    this.calculateTotalPages();
+  }
+
+  // Hàm dấu 3 chấm next
+  dotsNext(): void {
+    if(this.startPage + 4 > this.totalPages){
+      this.startPage = Math.floor(this.totalPages / 4) * 4 + 1;
+    }
+    else{
+      this.startPage += 4;
+    }
+    this.currentPage = this.startPage;
+  
+    // Tính toán lại danh sách câu hỏi cho trang hiện tại
+    this.calculateTotalPages();
+  }
+
+  // Hàm dấu 3 chấm back
+  dotsBack(): void {
+    if(this.startPage - 4 < 0){
+      this.startPage = 1;
+    }
+    else{
+      this.startPage -= 4;
+    }
+    this.currentPage = this.startPage;
+  
+    // Tính toán lại danh sách câu hỏi cho trang hiện tại
+    this.calculateTotalPages();
+  }
+
+  // Hàm set trang hiện tại
+  setCurrentPage(page: number) {
+    this.currentPage = page;
+    this.calculateTotalPages();
   }
 }
