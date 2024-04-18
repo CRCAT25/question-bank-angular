@@ -19,6 +19,7 @@ import { PEcommerceComponent } from './p-app/p-ecommerce/p-ecommerce.component';
 import { PBusinessComponent } from './p-app/p-business/p-business.component';
 import { PListPersonnelComponent } from './p-app/p-personnel/p-list-personnel/p-list-personnel.component';
 import { StatusColorPipe } from './p-lib/pipe/status-color.pipe';
+import { ToolIconPipe } from './p-lib/pipe/tool-icon.pipe';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { StatusColorPipe } from './p-lib/pipe/status-color.pipe';
     PBusinessComponent,
     PListPersonnelComponent,
     StatusColorPipe,
+    ToolIconPipe
   ],
   imports: [
     BrowserModule,

@@ -30,8 +30,6 @@ export class PQuestionbankComponent implements OnInit {
     { 'Trả về': ['Chỉnh sửa', 'Gửi duyệt'] },
   ];
 
-
-
   constructor(
     private moduleService: ModuleService,
     private router: Router,

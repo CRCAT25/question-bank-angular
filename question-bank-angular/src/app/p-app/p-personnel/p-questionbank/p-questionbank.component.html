@@ -102,7 +102,6 @@
                         [ngClass]="{'bg-green': isAllCurrentItemChecked()}">
                         <i *ngIf="isAllCurrentItemChecked()" class="fa fa-check icon-check"></i>
                     </div>
-
                 </div>
                 <div>
                     Câu hỏi
@@ -161,7 +160,9 @@
 
                     <div class="tool-box" *ngIf="toolBoxId === item.id" (click)="$event.stopPropagation()">
                         <ng-container *ngFor="let tool of toolBoxList(item.status)">
-                            <div class="tool-box_item" (click)="updateStatus(item.id, tool, item.question)">{{tool}}
+                            <div class="tool-box_item" (click)="updateStatus(item.id, tool, item.question)">
+                                <div class="tool-box_item_icon"><img [src]="'assets/' + (tool | toolIcon)" alt=""></div>
+                                <div class="tool-box_item_tool">{{tool}}</div>
                             </div>
                         </ng-container>
                     </div>
@@ -170,9 +171,9 @@
         </div>
     </div>
 
-    <div class="popup-delete-background" *ngIf="isOpenPopupDelete">
-    </div>
-    <Div class="box-confirm-delete" *ngIf="isOpenPopupDelete">
+    <!-- Popup confirm delete -->
+    <div class="popup-delete-background" *ngIf="isOpenPopupDelete"></div>
+    <div class="box-confirm-delete" *ngIf="isOpenPopupDelete">
         <div class="box-confirm-delete_header">
             <div>
                 <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -216,5 +217,5 @@
                 </div>
             </div>
         </div>
-    </Div>
+    </div>
 </div>
