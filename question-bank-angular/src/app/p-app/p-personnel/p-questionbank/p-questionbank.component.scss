@@ -661,12 +661,14 @@
                     color: #000;
                 }
 
-                .question-name-field, .question-time-field {
+                .question-name-field,
+                .question-time-field {
                     display: flex;
                     flex-direction: column;
                     gap: 5px;
 
-                    #question-name, #question-time {
+                    #question-name,
+                    #question-time {
                         border: 2px solid $border-input-grey;
                         border-radius: 4px;
                         padding: 0 20px;
@@ -715,19 +717,50 @@
                             right: 20px;
                             top: 50%;
                             font-size: 24px;
+                            cursor: pointer;
+                        }
+
+                        .dropdown-group {
+                            position: absolute;
+                            display: flex;
+                            flex-direction: column;
+                            width: calc(100% - 4px);
+                            background-color: #fff;
+                            z-index: 100;
+                            top: 77px;
+                            border: 2px solid $border-input-grey;
+
+
+                            div {
+                                border-radius: 4px;
+                                padding: 0 20px;
+                                height: 50px;
+                                cursor: pointer;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                            }
+
+                            div:hover {
+                                background-color: #1A6634;
+                                color: #fff;
+                            }
                         }
                     }
                 }
 
-                .question-type-field, .question-cal-point-field{
+                .question-type-field,
+                .question-cal-point-field {
                     position: relative;
 
-                    .question-type, .question-cal-point {
+                    .question-type,
+                    .question-cal-point {
                         display: flex;
                         flex-direction: column;
                         gap: 5px;
 
-                        #question-type, #question-cal-point {
+                        #question-type,
+                        #question-cal-point {
                             border: 2px solid $border-input-grey;
                             border-radius: 4px;
                             padding: 0 20px;
@@ -738,7 +771,8 @@
                             justify-content: center;
                         }
 
-                        .question-type-icon, .question-cal-point-icon {
+                        .question-type-icon,
+                        .question-cal-point-icon {
                             position: absolute;
                             right: 20px;
                             top: 50%;
@@ -747,18 +781,47 @@
                     }
                 }
 
-                .question-time-field, .question-status-field{
+                .question-type-field, .question-cal-point-field, .question-status-field {
+                    .dropdown-type, .dropdown-point, .dropdown-status {
+                        position: absolute;
+                        display: flex;
+                        flex-direction: column;
+                        width: calc(100% - 4px);
+                        background-color: #fff;
+                        z-index: 100;
+                        top: 77px;
+                        border: 2px solid $border-input-grey;
+
+                        div {
+                            border-radius: 4px;
+                            padding: 0 20px;
+                            height: 50px;
+                            cursor: pointer;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                        }
+
+                        div:hover {
+                            background-color: #1A6634;
+                            color: #fff;
+                        }
+                    }
+                }
+
+                .question-time-field,
+                .question-status-field {
                     width: 45%;
                 }
 
-                .question-status-field{
+                .question-status-field {
                     position: relative;
                     display: flex;
                     flex-direction: column;
                     gap: 5px;
                     cursor: pointer;
 
-                    #question-status{
+                    #question-status {
                         border: 2px solid $border-input-grey;
                         border-radius: 4px;
                         padding: 0 20px;
@@ -807,8 +870,10 @@
 
             &_btn-add {
                 background-color: $dark-green-color;
+                box-shadow: $box-shadow-green;
                 color: #fff;
             }
         }
     }
 }
+

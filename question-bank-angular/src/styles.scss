@@ -122,5 +122,22 @@ input {
     cursor: pointer;
     font-family: "Mulish", sans-serif;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.disable-event{
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.5;
+}
+
+/* Ẩn mũi tên lên xuống của input type number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Thay đổi kiểu của input type number để tránh hiển thị màu xanh và bóng đổ mặc định */
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}

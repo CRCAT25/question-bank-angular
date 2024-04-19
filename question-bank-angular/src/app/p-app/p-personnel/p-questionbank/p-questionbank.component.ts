@@ -1,10 +1,13 @@
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 import { ModuleService } from '../../../p-lib/services/module.service';
 import { QuestionDTO } from './shared/question.dto';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { StatusService } from '../../../p-lib/services/status.service';
 import { StatusDTO } from '../../../p-lib/dto/status.dto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDrawer } from '@angular/material/sidenav';
+
 
 @Component({
   selector: 'app-p-questionbank',
@@ -21,6 +24,17 @@ export class PQuestionbankComponent implements OnInit {
   public isCheckAll: boolean = false;
   public isOpenPopupDelete: boolean = false;
   public isOpenDropUp: boolean = false;
+  public isOpenDropDownGroup: boolean = false;
+  public isOpenDropDownType: boolean = false;
+  public isOpenDropDownPoint: boolean = false;
+  public isOpenDropDownStatus: boolean = false;
+  public isOpenDrawer: boolean = false;
+  public isAdding: boolean = false;
+  public isFixing: boolean = false;
+  public dropDownGroupValue: string = '-- Chọn --';
+  public dropDownTypeValue: string = '-- Chọn --';
+  public dropDownPointValue: string = '-- Chọn --';
+  public dropDownStatusValue: string = 'Đang soạn thảo';
   public listNotifi: string[] = [];
   public idDeleted: string = '';
   public nameDeleted: string = '';
@@ -30,6 +44,7 @@ export class PQuestionbankComponent implements OnInit {
   public itemPerPage: number = 25;
   public selectedItemIndex: number = 0;
   public remainingList: number[] = [];
+  public onlyRead: boolean = false;
   public currentPage: number = 1;
   public totalPages: number = 1;
   public startIndex: number = 0; // Chỉ mục bắt đầu của dữ liệu trên trang hiện tại
@@ -45,24 +60,50 @@ export class PQuestionbankComponent implements OnInit {
     { 'Trả về': ['Chỉnh sửa', 'Gửi duyệt'] },
   ];
 
+  public statusAvailableDropDown: { [key: string]: string[] }[] = [
+    { 'Đang soạn thảo': ['Gửi duyệt'] },
+    { 'Gửi duyệt': ['Duyệt áp dụng', 'Trả về'] },
+    { 'Duyệt áp dụng': ['Ngưng áp dụng'] },
+    { 'Ngưng áp dụng': ['Duyệt áp dụng', 'Trả về'] },
+    { 'Trả về': ['Gửi duyệt'] },
+  ];
+
+  public listDropDownGroup: string[] = ["Thương hiệu", "Văn hóa công ty", "Quy định nội bộ"];
+  public listDropDownType: string[] = ["Nhiều lựa chọn", "Một lựa chọn", "Câu hỏi mở", "Câu hỏi yes/no"];
+  public listDropDownPoint: string[] = ["Đúng hết đáp án", "Từng đáp án đúng", "Trừ đáp án sai"];
+  public listDropDownStatus: string[] = ["Đang soạn thảo", "Gửi duyệt", "Duyệt áp dụng", "Ngưng áp dụng", "Trả về"];
+  @ViewChild('drawer') drawer!: MatDrawer;
   questionForm = this.formBuilder.group({
     questionName: ['', Validators.required],
     questionId: ['', Validators.required],
+    questionTime: [''],
   });
-  
+
   constructor(
     private moduleService: ModuleService,
     private router: Router,
     private statusService: StatusService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    @Inject(DOCUMENT) private document: Document
   ) { }
+  public questionTimeInput = this.document.getElementById('question-time') as HTMLInputElement | undefined;
 
   ngOnInit(): void {
+    this.questionForm.reset();
+    this.dropDownGroupValue = '-- Chọn --';
+    this.dropDownTypeValue = '-- Chọn --';
+    this.dropDownPointValue = '-- Chọn --';
+    this.dropDownStatusValue = 'Đang soạn thảo';
+    this.listIdDeleted = [];
+    this.nameDeleted = '';
+    this.idDeleted = '';
+    this.toolBoxId = '';
     this.statusService.getStatus().subscribe(status => this.statuses = status);
     this.moduleService.getCategoryByModule(this.router.url).subscribe(item => {
       this.listQuestion = item.data;
       this.filterQuestions(); // Gọi hàm lọc sau khi nhận được danh sách câu hỏi
       this.calculateTotalPages();
+
     });
   }
 
@@ -161,8 +202,13 @@ export class PQuestionbankComponent implements OnInit {
 
   // Mở toolBox
   openToolBox(id: string) {
-    if (this.toolBoxId !== id) {
-      this.toolBoxId = id;
+    if (id !== '') {
+      if (this.toolBoxId !== id) {
+        this.toolBoxId = id;
+      }
+      else {
+        this.toolBoxId = '';
+      }
     }
     else {
       this.toolBoxId = '';
@@ -197,91 +243,124 @@ export class PQuestionbankComponent implements OnInit {
       // Nếu không phải, đóng toolBox
       this.closeDropUp();
     }
+
+    if (!(event.target as HTMLElement).closest('#question-group') && !(event.target as HTMLElement).closest('.fa')) {
+      // Nếu không phải, đóng toolBox
+      this.isOpenDropDownGroup = false;
+    }
+
+    if (!(event.target as HTMLElement).closest('#question-type') && !(event.target as HTMLElement).closest('.fa')) {
+      // Nếu không phải, đóng toolBox
+      this.isOpenDropDownType = false;
+    }
+
+    if (!(event.target as HTMLElement).closest('#question-cal-point') && !(event.target as HTMLElement).closest('.fa')) {
+      // Nếu không phải, đóng toolBox
+      this.isOpenDropDownPoint = false;
+    }
+
+    if (!(event.target as HTMLElement).closest('#question-status') && !(event.target as HTMLElement).closest('.fa')) {
+      // Nếu không phải, đóng toolBox
+      this.isOpenDropDownStatus = false;
+    }
+
+    if ((event.target as HTMLElement).closest('.mat-drawer-backdrop .mat-drawer-shown')) {
+      console.log('a')
+    }
   }
 
   // Sự kiện dùng để cập nhật trạng thái cho 1 câu hỏi
-  updateStatus(id: string, newStatus: string, question: string): void {
-    this.listNotifi = [];
-    if (!(newStatus === 'Xem chi tiết' || newStatus === 'Chỉnh sửa')) {
-      if (newStatus === 'Phê duyệt') {
-        newStatus = 'Duyệt áp dụng';
-      }
-      if (newStatus === 'Ngưng hiển thị') {
-        newStatus = 'Ngưng áp dụng'
-      }
-      // Gọi API để xóa câu hỏi nếu newStatus là 'Xóa câu hỏi'
-      if (newStatus === 'Xóa câu hỏi') {
-        this.openPopupDelete();
-        this.idDeleted = id;
-        this.nameDeleted = question;
-      } else {
-        // Gọi API để cập nhật trạng thái của câu hỏi
-        this.moduleService.updateQuestionStatus(id, newStatus).subscribe(
-          response => {
-            this.showNotifi(id, [], newStatus);
-            // console.log(response.message); // Log kết quả trả về từ server (nếu cần)
-            // Cập nhật trạng thái mới cho câu hỏi trong mảng listQuestion
-            const updatedQuestionIndex = this.listQuestion.findIndex(question => question.id === id);
-            if (updatedQuestionIndex !== -1) {
-              this.listQuestion[updatedQuestionIndex].status = newStatus;
+  updateStatus(id: string, newStatus: string, question: string, group: string, status: string, time: string, typeQuestion: string): void {
+    if (newStatus !== 'Chỉnh sửa' && newStatus !== 'Xem chi tiết') {
+      this.listNotifi = [];
+      if (!(newStatus === 'Xem chi tiết' || newStatus === 'Chỉnh sửa')) {
+        if (newStatus === 'Phê duyệt') {
+          newStatus = 'Duyệt áp dụng';
+        }
+        if (newStatus === 'Ngưng hiển thị') {
+          newStatus = 'Ngưng áp dụng'
+        }
+        // Gọi API để xóa câu hỏi nếu newStatus là 'Xóa câu hỏi'
+        if (newStatus === 'Xóa câu hỏi') {
+          this.openPopupDelete();
+          this.idDeleted = id;
+          this.nameDeleted = question;
+        } else {
+          // Gọi API để cập nhật trạng thái của câu hỏi
+          this.moduleService.updateQuestionStatus(id, newStatus).subscribe(
+            response => {
+              this.showNotifi(id, [], newStatus);
+              // console.log(response.message); // Log kết quả trả về từ server (nếu cần)
+              // Cập nhật trạng thái mới cho câu hỏi trong mảng listQuestion
+              const updatedQuestionIndex = this.listQuestion.findIndex(question => question.id === id);
+              if (updatedQuestionIndex !== -1) {
+                this.listQuestion[updatedQuestionIndex].status = newStatus;
+              }
+              // Thực hiện các hành động khác sau khi cập nhật thành công (nếu cần)
+            },
+            error => {
+              console.error(error); // Log lỗi nếu có
+              // Xử lý lỗi hoặc thông báo cho người dùng (nếu cần)
             }
-            // Thực hiện các hành động khác sau khi cập nhật thành công (nếu cần)
-          },
-          error => {
-            console.error(error); // Log lỗi nếu có
-            // Xử lý lỗi hoặc thông báo cho người dùng (nếu cần)
-          }
-        );
+          );
+        }
       }
+      this.closeToolBox();
     }
-    this.closeToolBox();
+    else if (newStatus === 'Chỉnh sửa') {
+      this.setFixing(id, question, group, status, time, typeQuestion);
+    }
+    else if (newStatus === 'Xem chi tiết') {
+      this.setFixing(id, question, group, status, time, typeQuestion);
+    }
+
   }
 
   // Sự kiện khi click vào checkbox checkAll
   onClickCheckAll() {
     if (this.currentListQuestion.length !== 0) {
-        // Kiểm tra xem đang ở chế độ checkAll hay không
-        if (this.isCheckAll) {
-            // Xóa các mục đã chọn khỏi danh sách nếu chúng đã tồn tại
-            this.currentListQuestion?.forEach((item) => {
-                const index = this.checkedItems.indexOf(item.id);
-                if (index !== -1) {
-                    this.checkedItems.splice(index, 1);
-                }
-            });
-        } else {
-            // Thêm các mục chưa chọn vào danh sách
-            this.currentListQuestion?.forEach((item) => {
-                if (!this.checkedItems.includes(item.id)) {
-                    this.checkedItems.push(item.id);
-                }
-            });
-        }
-        this.isCheckAll = !this.isCheckAll;
-
-        // Xóa danh sách công cụ hiện tại
-        this.listGeneralTool = [];
-
-        // Duyệt qua danh sách các item đã chọn và thêm các công cụ của chúng vào listGeneralTool
-        this.checkedItems.forEach(itemId => {
-            const searchTextLower = this.searchText.toLowerCase();
-            const selectedItem = this.listQuestion.filter(item =>
-                this.isChecked(item.status) &&
-                (item.id.toLowerCase().includes(searchTextLower) || // Tìm kiếm theo mã câu hỏi
-                    item.question.toLowerCase().includes(searchTextLower))).find(item => item.id === itemId);
-            if (selectedItem) {
-                const selectedStatus = selectedItem.status;
-                const availableToolsForItem = this.toolBoxList(selectedStatus);
-                availableToolsForItem.forEach(tool => {
-                    // Kiểm tra xem công cụ đã tồn tại trong listGeneralTool và không phải là 'Xem chi tiết' hoặc 'Chỉnh sửa'
-                    if (!this.listGeneralTool.includes(tool) && tool !== 'Xem chi tiết' && tool !== 'Chỉnh sửa') {
-                        this.listGeneralTool.push(tool);
-                    }
-                });
-            }
+      // Kiểm tra xem đang ở chế độ checkAll hay không
+      if (this.isCheckAll) {
+        // Xóa các mục đã chọn khỏi danh sách nếu chúng đã tồn tại
+        this.currentListQuestion?.forEach((item) => {
+          const index = this.checkedItems.indexOf(item.id);
+          if (index !== -1) {
+            this.checkedItems.splice(index, 1);
+          }
         });
+      } else {
+        // Thêm các mục chưa chọn vào danh sách
+        this.currentListQuestion?.forEach((item) => {
+          if (!this.checkedItems.includes(item.id)) {
+            this.checkedItems.push(item.id);
+          }
+        });
+      }
+      this.isCheckAll = !this.isCheckAll;
+
+      // Xóa danh sách công cụ hiện tại
+      this.listGeneralTool = [];
+
+      // Duyệt qua danh sách các item đã chọn và thêm các công cụ của chúng vào listGeneralTool
+      this.checkedItems.forEach(itemId => {
+        const searchTextLower = this.searchText.toLowerCase();
+        const selectedItem = this.listQuestion.filter(item =>
+          this.isChecked(item.status) &&
+          (item.id.toLowerCase().includes(searchTextLower) || // Tìm kiếm theo mã câu hỏi
+            item.question.toLowerCase().includes(searchTextLower))).find(item => item.id === itemId);
+        if (selectedItem) {
+          const selectedStatus = selectedItem.status;
+          const availableToolsForItem = this.toolBoxList(selectedStatus);
+          availableToolsForItem.forEach(tool => {
+            // Kiểm tra xem công cụ đã tồn tại trong listGeneralTool và không phải là 'Xem chi tiết' hoặc 'Chỉnh sửa'
+            if (!this.listGeneralTool.includes(tool) && tool !== 'Xem chi tiết' && tool !== 'Chỉnh sửa') {
+              this.listGeneralTool.push(tool);
+            }
+          });
+        }
+      });
     }
-}
+  }
 
 
   // Kiểm tra item đó có trong list được check hay không
@@ -354,10 +433,14 @@ export class PQuestionbankComponent implements OnInit {
   // Sự kiện đóng popup delete cofirm 
   closePopupDelete() {
     this.isOpenPopupDelete = false;
+    this.idDeleted = ''
+    this.listIdDeleted = [];
+    this.nameDeleted = '';
   }
 
   // Sự kiện xóa 1 câu hỏi
   deleteQuestion(id: string) {
+    console.log(this.listIdDeleted)
     this.listNotifi = [];
     this.moduleService.deleteQuestion(id).subscribe(
       response => {
@@ -368,6 +451,9 @@ export class PQuestionbankComponent implements OnInit {
         if (deletedQuestionIndex !== -1) {
           this.listQuestion[deletedQuestionIndex].status = 'Xóa';
           this.listQuestion.splice(deletedQuestionIndex, 1);
+          this.idDeleted = ''
+          this.listIdDeleted = [];
+          this.nameDeleted = '';
         }
         // Thực hiện các hành động khác sau khi xóa thành công (nếu cần)
       },
@@ -377,7 +463,8 @@ export class PQuestionbankComponent implements OnInit {
       }
     );
     this.idDeleted = ''
-    this.nameDeleted = ''
+    this.listIdDeleted = [];
+    this.nameDeleted = '';
     this.closePopupDelete();
   }
 
@@ -493,6 +580,8 @@ export class PQuestionbankComponent implements OnInit {
       );
     this.closePopupCheckMany();
     this.listIdDeleted = [];
+    this.nameDeleted = '';
+    this.idDeleted = '';
     this.closePopupDelete();
   }
 
@@ -566,7 +655,7 @@ export class PQuestionbankComponent implements OnInit {
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.currentPage += 1;
-      if(this.currentPage === this.startPage + 4){
+      if (this.currentPage === this.startPage + 4) {
         this.startPage += 4;
       }
     }
@@ -577,7 +666,7 @@ export class PQuestionbankComponent implements OnInit {
   backPage(): void {
     if (this.currentPage > 1) {
       this.currentPage -= 1;
-      if(this.currentPage === this.startPage - 1){
+      if (this.currentPage === this.startPage - 1) {
         this.startPage -= 4;
       }
     }
@@ -597,7 +686,7 @@ export class PQuestionbankComponent implements OnInit {
   // Sự kiện tiến đến trang cuối cùng
   lastPage(): void {
     this.currentPage = this.totalPages;
-    if(this.totalPages > 4){
+    if (this.totalPages > 4) {
       this.startPage = Math.floor(this.totalPages / 4) * 4 + 1;
     }
     this.calculateTotalPages();
@@ -605,7 +694,7 @@ export class PQuestionbankComponent implements OnInit {
 
   // Hàm dấu 3 chấm next
   dotsNext(): void {
-    if(this.totalPages > 4){
+    if (this.totalPages > 4) {
       if (this.startPage + 4 > this.totalPages) {
         this.startPage = Math.floor(this.totalPages / 4) * 4 + 1;
       }
@@ -613,7 +702,7 @@ export class PQuestionbankComponent implements OnInit {
         this.startPage += 4;
       }
       this.currentPage = this.startPage;
-  
+
       // Tính toán lại danh sách câu hỏi cho trang hiện tại
       this.calculateTotalPages();
     }
@@ -621,7 +710,7 @@ export class PQuestionbankComponent implements OnInit {
 
   // Hàm dấu 3 chấm back
   dotsBack(): void {
-    if(this.currentPage > 4){
+    if (this.currentPage > 4) {
       if (this.startPage - 4 < 0) {
         this.startPage = 1;
         this.currentPage = this.startPage;
@@ -630,7 +719,7 @@ export class PQuestionbankComponent implements OnInit {
         this.startPage -= 4;
         this.currentPage = this.startPage + 3;
       }
-  
+
       // Tính toán lại danh sách câu hỏi cho trang hiện tại
       this.calculateTotalPages();
     }
@@ -641,8 +730,176 @@ export class PQuestionbankComponent implements OnInit {
     this.currentPage = page;
     this.calculateTotalPages();
   }
-  
-  onSubmit(){
 
+  openDropDownGroup() {
+    this.isOpenDropDownGroup = !this.isOpenDropDownGroup;
   }
+
+  openDropDownType() {
+    this.isOpenDropDownType = !this.isOpenDropDownType;
+  }
+
+  openDropDownPoint() {
+    this.isOpenDropDownPoint = !this.isOpenDropDownPoint;
+  }
+
+  openDropDownStatus() {
+    this.isOpenDropDownStatus = !this.isOpenDropDownStatus;
+  }
+
+  setGroupValue(group: string) {
+    this.dropDownGroupValue = group;
+  }
+
+  setTypeValue(type: string) {
+    this.dropDownTypeValue = type;
+    if (type !== 'Nhiều lựa chọn') {
+      this.dropDownPointValue = '-- Chọn --'
+    }
+  }
+
+  setPointValue(point: string) {
+    this.dropDownPointValue = point;
+  }
+
+  setStatusValue(status: string) {
+    this.dropDownStatusValue = status;
+  }
+
+  setAdding() {
+    this.isAdding = true;
+    this.drawer.toggle();
+  }
+
+  setFixing(id: string, question: string, group: string, status: string, time: string, typeQuestion: string) {
+    this.isFixing = true;
+    this.drawer.toggle();
+    if (status === 'Duyệt áp dụng' || status === 'Ngưng áp dụng') {
+      this.onlyRead = true;
+    }
+
+    this.dropDownGroupValue = group;
+    this.dropDownTypeValue = typeQuestion;
+    this.dropDownPointValue = '-- Chọn --';
+    this.dropDownStatusValue = status;
+    this.questionForm.patchValue({
+      questionName: question,
+      questionId: id,
+      questionTime: time.split('s')[0]
+    });
+    console.log(id)
+    console.log(question)
+    console.log(group)
+    console.log(status)
+    console.log(time)
+    console.log(typeQuestion)
+  }
+
+  openDrawer() {
+    this.isOpenDrawer = true;
+  }
+
+  closeDrawer() {
+    this.drawer.close();
+    this.isAdding = false;
+    this.isFixing = false;
+    this.questionForm.reset();
+    this.dropDownGroupValue = '-- Chọn --';
+    this.dropDownTypeValue = '-- Chọn --';
+    this.dropDownPointValue = '-- Chọn --';
+    this.dropDownStatusValue = 'Đang soạn thảo';
+    this.onlyRead = false;
+  }
+
+  onSubmitAdd() {
+    if (this.dropDownGroupValue === '-- Chọn --') {
+      this.dropDownGroupValue = '';
+    }
+    if (this.dropDownTypeValue === '-- Chọn --') {
+      this.dropDownTypeValue = '';
+    }
+    if (this.dropDownPointValue === '-- Chọn --') {
+      this.dropDownPointValue = '';
+    }
+
+    const newQuestion = {
+      id: this.questionForm.get('questionId')?.value,
+      question: this.questionForm.get('questionName')?.value,
+      typeQuestion: this.dropDownTypeValue,
+      group: this.dropDownGroupValue,
+      time: this.questionForm.get('questionTime')?.value,
+      status: this.dropDownStatusValue
+    };
+
+    console.log("Giá trị form: ")
+    console.log(newQuestion.id);
+    console.log(newQuestion.question);
+    console.log(newQuestion.typeQuestion);
+    console.log(newQuestion.group);
+    console.log(newQuestion.time);
+    console.log(newQuestion.status);
+
+    if (newQuestion.id === '' || newQuestion.question === '' || newQuestion.id === null || newQuestion.question === null) {
+      console.error('Nhập thiếu thông tin. Không thể thêm item');
+      this.questionForm.reset();
+      this.dropDownGroupValue = '-- Chọn --';
+      this.dropDownTypeValue = '-- Chọn --';
+      this.dropDownPointValue = '-- Chọn --';
+      this.dropDownStatusValue = 'Đang soạn thảo';
+    }
+    else {
+      this.moduleService.addQuestion(newQuestion).subscribe(
+        (response) => {
+          // Xử lý phản hồi từ server nếu cần
+          // console.log('Successfully added new question:', response);
+          this.showNotifi(newQuestion.id!, [], 'Thêm');
+          this.closeDrawer();
+          // Reset form fields or perform any other actions after successful addition
+        },
+        (error) => {
+          // Xử lý lỗi nếu có
+          console.error('Error adding new question:', error);
+          // Handle error display or perform any other actions
+        }
+      );
+    }
+  }
+
+  onUpdate() {
+    const newQuestion = {
+      id: this.questionForm.get('questionId')?.value,
+      question: this.questionForm.get('questionName')?.value,
+      typeQuestion: this.dropDownTypeValue,
+      group: this.dropDownGroupValue,
+      time: this.questionForm.get('questionTime')?.value,
+      status: this.dropDownStatusValue
+    };
+
+    this.updateQuestionById(newQuestion.id!, newQuestion)
+  }
+
+  // Ví dụ sử dụng trong một component
+  updateQuestionById(questionId: string, updatedQuestionData: any) {
+    this.moduleService.updateQuestionById(questionId, updatedQuestionData).subscribe(response => {
+      // Xử lý phản hồi từ API sau khi cập nhật
+      // console.log('Response:', response);
+      this.showNotifi(questionId, [], 'Cập nhật');
+      this.closeDrawer();
+    }, error => {
+      // Xử lý lỗi nếu có
+      console.error('Error:', error);
+    });
+  }
+
+  isValidStatusChange(status: string) {
+    // Tìm và lấy phần tử có key là dropDownStatusValue
+    const desiredItem = this.statusAvailableDropDown.find(item => Object.keys(item)[0] === this.dropDownStatusValue);
+
+    // Nếu tìm thấy phần tử
+    if (desiredItem) {
+      return !desiredItem[this.dropDownStatusValue].includes(status);
+    }
+    return;
+  }
+
 }

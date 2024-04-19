@@ -68,4 +68,15 @@ export class ModuleService {
         };
         return this.http.post<any>(url, body);
     }
+
+    addQuestion(newQuestion: any): Observable<any> {
+        const url = `${this.apiUrl}/addQuestion`; // Đường dẫn API thêm câu hỏi mới
+        return this.http.post<any>(url, newQuestion);
+    }
+
+    updateQuestionById(questionId: string, updatedQuestionData: any): Observable<any> {
+        const url = `${this.apiUrl}/updateQuestion/${questionId}`;
+        return this.http.post<any>(url, updatedQuestionData);
+    }    
+    
 }

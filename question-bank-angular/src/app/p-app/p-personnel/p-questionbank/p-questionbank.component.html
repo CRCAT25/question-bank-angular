@@ -1,5 +1,5 @@
 <mat-drawer-container class="p-question-container">
-    <mat-drawer #drawer class="drawer-container" position="end" opened="true">
+    <mat-drawer #drawer class="drawer-container" position="end">
         <!-- Nội dung của drawer -->
         <div class="drawer-container_header">
             <div>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="drawer-container_body">
-            <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="questionForm" (ngSubmit)="onSubmitAdd()" [ngClass]="{'disable-event': onlyRead}">
                 <div class="question-name-field">
                     <label class="title-question-name" for="question-name">Tên câu hỏi </label>
                     <input id="question-name" type="text" formControlName="questionName" required>
@@ -34,46 +34,64 @@
                         <input id="question-id" type="text" formControlName="questionId" required>
                     </div>
                     
-                    <div class="question-group-field">
+                    <div class="question-group-field" (click)="openDropDownGroup()">
                         <label class="title-question-name" for="question-name">Phân nhóm </label>
-                        <div id="question-group">-- Chọn --</div>
+                        <div id="question-group">{{dropDownGroupValue}}</div>
                         <i class="fa fa-angle-down question-group-icon"></i>
+                        <div class="dropdown-group" *ngIf="isOpenDropDownGroup">
+                            <div *ngFor="let item of listDropDownGroup" (click)="setGroupValue(item)">{{item}}</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="question-type-field">
+                <div class="question-type-field" (click)="openDropDownType()" [ngClass]="{'disable-event': dropDownGroupValue === '-- Chọn --'}">
                     <div class="question-type">
                         <label class="title-question-type" for="question-type">Loại câu hỏi </label>
-                        <div id="question-type">-- Chọn --</div>
+                        <div id="question-type">{{dropDownTypeValue}}</div>
                         <i class="fa fa-angle-down question-type-icon"></i>
+                    </div>
+
+                    <div class="dropdown-type" *ngIf="isOpenDropDownType">
+                        <div *ngFor="let item of listDropDownType" (click)="setTypeValue(item)">{{item}}</div>
                     </div>
                 </div>
 
-                <div class="question-cal-point-field">
+                <div class="question-cal-point-field" (click)="openDropDownPoint()" [ngClass]="{'disable-event': dropDownTypeValue !== 'Nhiều lựa chọn'}">
                     <div class="question-cal-point">
                         <label class="title-question-cal-point" for="question-cal-point">Cách tính điểm </label>
-                        <div id="question-cal-point">-- Chọn --</div>
+                        <div id="question-cal-point">{{dropDownPointValue}}</div>
                         <i class="fa fa-angle-down question-cal-point-icon"></i>
+                    </div>
+
+                    <div class="dropdown-point" *ngIf="isOpenDropDownPoint">
+                        <div *ngFor="let item of listDropDownPoint" (click)="setPointValue(item)">{{item}}</div>
                     </div>
                 </div>
 
                 <div class="question-time-field">
                     <label class="title-question-time" for="question-time">Thời gian làm bài (giây) </label>
-                    <input id="question-time" type="text" formControlName="questiontime">
+                    <input id="question-time" type="number" min="1" formControlName="questionTime" appNonNegativeNumber>
                 </div>
 
-                <div class="question-status-field">
+                <div class="question-status-field" (click)="openDropDownStatus()" [ngClass]="{'disable-event': isAdding}">
                     <label class="title-question-status" for="question-status">Tình trạng </label>
-                    <div id="question-status">Đang soạn thảo</div>
+                    <div id="question-status">{{dropDownStatusValue}}</div>
                     <i class="fa fa-angle-down question-status-icon"></i>
+
+                    <div class="dropdown-status" *ngIf="isOpenDropDownStatus">
+                        <div *ngFor="let item of listDropDownStatus" (click)="setStatusValue(item)" [ngClass]="{'disable-event': isValidStatusChange(item)}">{{item}}</div>
+                    </div>
                 </div>
                 
             </form>
         </div>
 
         <div class="drawer-container_footer">
-            <div class="drawer-container_footer_btn-close">ĐÓNG</div>
-            <div class="drawer-container_footer_btn-add">THÊM MỚI</div>
+            <div class="drawer-container_footer_btn-close" (click)="closeDrawer()">ĐÓNG</div>
+            <div class="drawer-container_footer_btn-add" (click)="onSubmitAdd()" *ngIf="isAdding">THÊM MỚI</div>
+            <ng-container *ngIf="!onlyRead">
+                <div class="drawer-container_footer_btn-add" (click)="onUpdate()" *ngIf="isFixing">CẬP NHẬT</div>
+            </ng-container>
         </div>
     </mat-drawer>
 
@@ -121,7 +139,7 @@
                         </div>
                         <div>Template</div>
                     </div>
-                    <div class="button_add" title="Thêm mới" (click)="drawer.toggle()">
+                    <div class="button_add" title="Thêm mới" (click)="setAdding()">
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
@@ -252,7 +270,7 @@
 
                             <div class="tool-box" *ngIf="toolBoxId === item.id" (click)="$event.stopPropagation()">
                                 <ng-container *ngFor="let tool of toolBoxList(item.status)">
-                                    <div class="tool-box_item" (click)="updateStatus(item.id, tool, item.question)">
+                                    <div class="tool-box_item" (click)="updateStatus(item.id, tool, item.question, item.group, item.status, item.time, item.typeQuestion)">
                                         <div class="tool-box_item_icon"><img [src]="'assets/' + (tool | toolIcon)"
                                                 alt=""></div>
                                         <div class="tool-box_item_tool">{{tool}}</div>
@@ -326,7 +344,7 @@
                 </div>
                 <div class="box-confirm-delete_footer">
                     <div class="btn-cancel" (click)="closePopupDelete()">KHÔNG XÓA</div>
-                    <div class="btn-delete" *ngIf="nameDeleted" (click)="deleteQuestion(idDeleted)">
+                    <div class="btn-delete" *ngIf="nameDeleted !== ''" (click)="deleteQuestion(idDeleted)">
                         <div>
                             <svg width="15" height="17" viewBox="0 0 15 17" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -341,7 +359,7 @@
                         </div>
                     </div>
 
-                    <div class="btn-delete" *ngIf="listIdDeleted" (click)="deleteManyQuestion()">
+                    <div class="btn-delete" *ngIf="listIdDeleted.length > 0" (click)="deleteManyQuestion()">
                         <div>
                             <svg width="15" height="17" viewBox="0 0 15 17" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
