@@ -11,7 +11,6 @@ import { PMarketingComponent } from './p-app/p-marketing/p-marketing.component';
 import { PEcommerceComponent } from './p-app/p-ecommerce/p-ecommerce.component';
 import { PBusinessComponent } from './p-app/p-business/p-business.component';
 import { PCoordinationComponent } from './p-app/p-coordination/p-coordination.component';
-import { PListPersonnelComponent } from './p-app/p-personnel/p-list-personnel/p-list-personnel.component';
 
 const routes: Routes = [
   {path: 'cau-hinh', component: PConfigComponent},
@@ -24,11 +23,10 @@ const routes: Routes = [
   {
     path: 'nhan-su', component: PPersonnelComponent,
     children: [
-      { path: 'danh-sach-nhan-su', component: PListPersonnelComponent },
       { path: 'khung-nang-luc', component: PCompetencyComponent },
       { path: 'tu-dien-nang-luc', component: PCompetencyDictionaryComponent },
       { path: 'ngan-hang-cau-hoi', component: PQuestionbankComponent },
-      { path: '', redirectTo: 'ngan-hang-cau-hoi', pathMatch: 'full'},
+      { path: '', redirectTo: 'tu-dien-nang-luc', pathMatch: 'full'},
     ]
   },
   { path: '', redirectTo: 'nhan-su', pathMatch: 'full'},

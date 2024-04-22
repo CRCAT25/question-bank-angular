@@ -1,0 +1,41 @@
+<div class="p-date-picker">
+    <div class="date-picker-open" (click)="setOpenCalendar()">
+        <img src="../../../../assets/calendar.svg" alt="">
+        <div class="fulldate-picked">
+            {{fullPickedDate}}
+        </div>
+    </div>
+    <div class="date-container" *ngIf="isOpenCalendar">
+        <div class="date-container_header">
+            <div class="date-container_header_date-picked">
+                <div class="date-container_header_date-picked_month" *ngIf="!isOpenListMonth">{{changeMonthToString(changedMonth)}},</div>
+                <div class="date-container_header_date-picked_year">{{changedYear}}</div>
+            </div>
+            <div class="date-container_header_icon">
+                <i (click)="changeMonth('decre')" class="fa fa-angle-left"></i>
+                <i (click)="changeMonth('incre')" class="fa fa-angle-right"></i>
+            </div>
+        </div>
+
+        <div class="date-picker grid-cols-7">
+            <ng-container *ngIf="indexDateStart">
+                <div class="date-item col-span-1" *ngFor="let date of listDayDisableStartInMonth">
+
+                </div>
+            </ng-container>
+
+            <div class="date-item col-span-1" *ngFor="let date of listDayInMonth" [ngClass]="{
+                    'current-date': checkCurrentDate(date),
+                    'date-item-picked': checkPickedDate(date),
+                    'date-item-disable': checkDisableDate(changedMonth, date, changedYear)
+                }" (click)="pickDate(date, changedMonth, changedYear)">
+                {{date}}
+            </div>
+        </div>
+
+        <!-- <div class="date-container_month-year">
+            <div class="date-container_month-year_year">nam</div>
+            <div class="date-container_month-year_month">thang</div>
+        </div> -->
+    </div>
+</div>

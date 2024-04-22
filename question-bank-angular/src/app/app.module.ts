@@ -17,7 +17,6 @@ import { PCoordinationComponent } from './p-app/p-coordination/p-coordination.co
 import { PMarketingComponent } from './p-app/p-marketing/p-marketing.component';
 import { PEcommerceComponent } from './p-app/p-ecommerce/p-ecommerce.component';
 import { PBusinessComponent } from './p-app/p-business/p-business.component';
-import { PListPersonnelComponent } from './p-app/p-personnel/p-list-personnel/p-list-personnel.component';
 import { StatusColorPipe } from './p-lib/pipe/status-color.pipe';
 import { ToolIconPipe } from './p-lib/pipe/tool-icon.pipe';
 import { ToolIconOutlinePipe } from './p-lib/pipe/tool-icon-outline.pipe';
@@ -29,6 +28,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NonNegativeNumberDirective } from './p-lib/directive/NonNegativeNumberDirective.directive';
+import { DatepickerComponent } from './p-lib/components/datepicker/datepicker.component';
 
 
 @NgModule({
@@ -47,11 +47,11 @@ import { NonNegativeNumberDirective } from './p-lib/directive/NonNegativeNumberD
     PMarketingComponent,
     PEcommerceComponent,
     PBusinessComponent,
-    PListPersonnelComponent,
     StatusColorPipe,
     ToolIconPipe,
     ToolIconOutlinePipe,
-    NonNegativeNumberDirective
+    NonNegativeNumberDirective,
+    DatepickerComponent,
   ],
   imports: [
     BrowserModule,

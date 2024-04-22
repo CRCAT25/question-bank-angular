@@ -19,14 +19,14 @@ export class PNavbarComponent implements OnInit {
     this.getCategoryModuleFromServer();
     // set default khi khởi động component
     this.setSelectedModuleCategory('Đánh giá nhân sự');
-    this.setSelectedSubModuleCategory('Ngân hàng câu hỏi', '/nhan-su/ngan-hang-cau-hoi');
+    this.setSelectedSubModuleCategory('Từ điển năng lực', '/nhan-su/tu-dien-nang-luc');
   }
 
   // Lấy ModuleCategory và SubModuleCategory từ server thông qua service
   getCategoryModuleFromServer() {
     this.moduleService.getCurrentUrl().subscribe(url => {
       if (url === '' || url === '/') {
-        this.router.navigate(['nhan-su' + '/' + 'ngan-hang-cau-hoi'], { relativeTo: this.route })
+        this.router.navigate(['nhan-su' + '/' + 'tu-dien-nang-luc'], { relativeTo: this.route })
       }
       else {
         this.moduleService.getCategoryByModule('/' + url.split('/')[1]).subscribe((response) => {
