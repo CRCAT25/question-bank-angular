@@ -86,14 +86,20 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
       this.fullPickedDate = this.formatDate(this.currentDate, this.currentMonth, this.currentYear);
     }
     else{
-      if(obj !== this.formatDate(this.changedDate, this.changedMonth - 1, this.changedYear)){
+      if(obj !== this.formatDate(this.changedDate, this.changedMonth, this.changedYear)){
+        let newYear = year;
+        if(year > 3000){
+          newYear = 3000;
+        }
         this.changedDate = date;
         this.changedMonth = month;
-        this.changedYear = year;
+        this.changedYear = newYear;
         this.pickedDate = date;
         this.pickedMonth = month;
-        this.pickedYear = year;
+        this.pickedYear = newYear;
+        this.fullPickedDate = this.formatDate(this.changedDate, this.changedMonth - 1, newYear);
         console.log('Value is changed!');
+        this.valueChangeable();
       }
     }
   }
@@ -105,10 +111,12 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
 
   @HostListener('document:click', ['$event'])
   onClick(event: MouseEvent) {
-    if (!(event.target as HTMLElement).closest('.date-container') && !(event.target as HTMLElement).closest('.date-picker-open img')) {
+    if (!(event.target as HTMLElement).closest('.date-container') && !(event.target as HTMLElement).closest('.date-picker-open')) {
       // Nếu không phải, đóng toolBox
+      if(this.isOpenDatePicker === true){
+        console.log('Datepicker is closed');
+      }
       this.isOpenDatePicker = false;
-      console.log('Datepicker is closed');
     }
   }
 
