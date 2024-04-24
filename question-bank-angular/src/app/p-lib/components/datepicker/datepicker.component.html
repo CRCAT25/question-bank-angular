@@ -1,14 +1,12 @@
 <div class="p-date-picker">
-    <div class="date-picker-open" (click)="setOpenCalendar()">
-        <img src="../../../../assets/calendar.svg" alt="">
-        <div class="fulldate-picked">
-            {{fullPickedDate}}
-        </div>
+    <div class="date-picker-open">
+        <img src="../../../../assets/calendar.svg" alt="" (click)="setOpenDatePicker()">
+        <input type="date" (blur)="onBlur(inputDate.value)" [(ngModel)]="fullPickedDate" #inputDate/>
     </div>
-    <div class="date-container" *ngIf="isOpenCalendar">
+    <div class="date-container" *ngIf="isOpenDatePicker">
         <div class="date-container_header">
             <div class="date-container_header_date-picked">
-                <div class="date-container_header_date-picked_month" *ngIf="!isOpenListMonth">{{changeMonthToString(changedMonth)}},</div>
+                <div class="date-container_header_date-picked_month">{{changeMonthToString(changedMonth)}},</div>
                 <div class="date-container_header_date-picked_year">{{changedYear}}</div>
             </div>
             <div class="date-container_header_icon">
@@ -26,16 +24,11 @@
 
             <div class="date-item col-span-1" *ngFor="let date of listDayInMonth" [ngClass]="{
                     'current-date': checkCurrentDate(date),
-                    'date-item-picked': checkPickedDate(date),
-                    'date-item-disable': checkDisableDate(changedMonth, date, changedYear)
+                    'date-item-picked': checkPickedDate(date, changedMonth, changedYear),
+                    'date-item-disable': checkDisableDate(date, changedMonth, changedYear)
                 }" (click)="pickDate(date, changedMonth, changedYear)">
                 {{date}}
             </div>
         </div>
-
-        <!-- <div class="date-container_month-year">
-            <div class="date-container_month-year_year">nam</div>
-            <div class="date-container_month-year_month">thang</div>
-        </div> -->
     </div>
 </div>
