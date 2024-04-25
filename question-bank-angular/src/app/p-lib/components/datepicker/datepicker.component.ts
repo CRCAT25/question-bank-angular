@@ -86,7 +86,7 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
       this.fullPickedDate = this.formatDate(this.currentDate, this.currentMonth, this.currentYear);
     }
     else{
-      if(obj !== this.formatDate(this.changedDate, this.changedMonth, this.changedYear)){
+      if(obj !== this.formatDate(this.changedDate, this.changedMonth + 1, this.changedYear)){
         let newYear = year;
         if(year > 3000){
           newYear = 3000;
