@@ -1,1 +1,40 @@
-<div>Khung năng lực</div>
+<div class="p-competency">
+    <div class="group-btn">
+        <div (click)="openDialog('delete','error')" class="btn btn-error">Error</div>
+        <div (click)="openDialog('infor', 'information')" class="btn btn-information">Information</div>
+        <div (click)="openDialog('complete', 'success')" class="btn btn-success">Success</div>
+    </div>
+
+    <!-- Dialog xóa -->
+    <app-dialog [type]="typeDialog" (confirmClicked)="handleError()" (close)="closeDialog()"
+        *ngIf="dialog === 'delete'">
+
+        <!-- <div title>Cảnh báo</div> -->
+        <!-- <div content>Nội dung cần xóa</div> -->
+        <!-- <div cancelButton>Không xóa</div> -->
+        <!-- <div confirmButton>Xóa</div> -->
+    </app-dialog>
+
+
+    <!-- Dialog thông tin -->
+    <app-dialog [type]="typeDialog" (confirmClicked)="handleError()" (close)="closeDialog()"
+        *ngIf="dialog === 'infor'">
+
+        <div title>Thông tin</div>
+        <div content>Nội dung</div>
+        <div cancelButton>Đóng</div>
+        <div confirmButton>Xác nhận</div>
+    </app-dialog>
+
+
+    <!-- Dialog thành công -->
+    <app-dialog [type]="typeDialog" (confirmClicked)="handleError()" (close)="closeDialog()"
+        *ngIf="dialog === 'complete'">
+
+        <div title>Hoàn tất</div>
+        <div content>Action thành công</div>
+        <div cancelButton>Đóng</div>
+        <div confirmButton>Đồng ý</div>
+    </app-dialog>
+
+</div>

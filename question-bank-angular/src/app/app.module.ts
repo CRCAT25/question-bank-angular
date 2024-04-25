@@ -29,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NonNegativeNumberDirective } from './p-lib/directive/NonNegativeNumberDirective.directive';
 import { DatepickerComponent } from './p-lib/components/datepicker/datepicker.component';
+import { DialogComponent } from './p-lib/components/dialog/dialog.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { DatepickerComponent } from './p-lib/components/datepicker/datepicker.co
     ToolIconOutlinePipe,
     NonNegativeNumberDirective,
     DatepickerComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,

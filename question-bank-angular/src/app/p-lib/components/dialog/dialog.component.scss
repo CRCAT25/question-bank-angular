@@ -1,0 +1,129 @@
+@import '../../../../styles.scss';
+
+.c-dialog {
+    width: calc(100% - 220px);
+    height: calc(100vh - 55px);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    .c-dialog-overlay {
+        background-color: black;
+        width: 100%;
+        height: calc(100vh - 55px);
+        opacity: 0.3;
+        z-index: 100;
+        position: relative;
+    }
+
+    .c-dialog-container {
+        width: 400px;
+        height: 300px;
+        background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        z-index: 101;
+        flex-direction: column;
+
+        .c-dialog-header,
+        .c-dialog-content,
+        .c-dialog-footer {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .c-dialog-header {
+            height: 17%;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+
+            .c-dialog-header-icon,
+            .c-dialog-header-title {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                &_error,
+                &_information,
+                &_success {
+                    color: $red-color;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    font-size: 16px;
+                }
+
+                &_information {
+                    color: #31ADFF;
+                }
+
+                &_success {
+                    color: #4BB304;
+                }
+            }
+
+            &_icon{
+                font-size: 24px;
+                color: $red-color;
+            }
+        }
+
+        .c-dialog-content {
+            height: 66%;
+            border-top: 1px solid $border-input-grey;
+            border-bottom: 1px solid #C3C3C3;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .c-dialog-footer {
+            height: 17%;
+
+            &_cancel,
+            &_error,
+            &_information,
+            &_success {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: calc(50% - 0.5px);
+                cursor: pointer;
+                text-transform: uppercase;
+                user-select: none;
+            }
+
+            &_cancel {
+                color: $grey-text;
+            }
+
+            &_line {
+                width: 1px;
+                background-color: #C3C3C3;
+            }
+
+            &_error {
+                background-color: $red-color;
+                color: #fff;
+            }
+
+            &_information {
+                background-color: #31ADFF;
+                color: #fff;
+            }
+
+            &_success {
+                background-color: #4BB304;
+                color: #fff;
+            }
+        }
+    }
+}

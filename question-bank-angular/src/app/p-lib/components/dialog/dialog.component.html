@@ -1,0 +1,71 @@
+<!-- Khoảng nền overlay -->
+<div class="c-dialog">
+    <div class="c-dialog-overlay"></div>
+
+    <!-- Phần dialog -->
+    <div class="c-dialog-container">
+        <!-- Header Dialog -->
+        <div class="c-dialog-header">
+            <div [ngClass]="checkClass('header-icon', type)">
+                <div #icon>
+                    <ng-content select=[icon]></ng-content>
+                </div>
+
+                <ng-container *ngIf="icon.innerHTML.trim().length === 0">
+                    <i class="fa-regular fa-circle-question"></i>
+                </ng-container>
+            </div>
+            <div [ngClass]="checkClass('header-title', type)">
+                <div #title>
+                    <ng-content select="[title]"></ng-content>
+                </div>
+
+                <ng-container *ngIf="title.innerHTML.trim().length === 0">
+                    Thông báo
+                </ng-container>
+            </div>
+        </div>
+
+
+        <!-- Content Dialog -->
+        <div class="c-dialog-content">
+            <div [ngClass]="checkClass('content', type)">
+                <div #content>
+                    <ng-content select="[content]"></ng-content>
+                </div>
+
+                <ng-container *ngIf="content.innerHTML.trim().length === 0">
+                    Nội dung
+                </ng-container>
+            </div>
+        </div>
+
+
+        <!-- Footer Dialog -->
+        <div class="c-dialog-footer">
+            <div class="c-dialog-footer_cancel" (click)="handleCancelButton()">
+                <div #cancelButton>
+                    <ng-content select="[cancelButton]"></ng-content>
+                </div>
+
+                <ng-container *ngIf="cancelButton.innerHTML.trim().length === 0">
+                    Đóng
+                </ng-container>
+            </div>
+
+            <div class="c-dialog-footer_line"></div>
+
+            <div 
+                (click)="handleConfirmButton()"
+                [ngClass]="checkClass('footer', type)">
+                <div #confirmButton>
+                    <ng-content select="[confirmButton]"></ng-content>
+                </div>
+
+                <ng-container *ngIf="confirmButton.innerHTML.trim().length === 0">
+                    Xác nhận
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

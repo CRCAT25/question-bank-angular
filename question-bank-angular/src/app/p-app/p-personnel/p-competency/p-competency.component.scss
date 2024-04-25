@@ -1,0 +1,30 @@
+@import '../../../../styles.scss';
+
+.p-competency {
+    padding: 20px;
+
+    .group-btn {
+        display: flex;
+        gap: 10px;
+
+        .btn {
+            padding: 8px 16px;
+            display: inline-block;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .btn-error {
+            background-color: $red-color;
+        }
+
+        .btn-information {
+            background-color: #31ADFF;
+        }
+
+        .btn-success {
+            background-color: #4BB304;
+        }
+    }
+}
