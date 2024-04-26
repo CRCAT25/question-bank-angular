@@ -26,7 +26,7 @@ const routes: Routes = [
       { path: 'khung-nang-luc', component: PCompetencyComponent },
       { path: 'tu-dien-nang-luc', component: PCompetencyDictionaryComponent },
       { path: 'ngan-hang-cau-hoi', component: PQuestionbankComponent },
-      { path: '', redirectTo: 'khung-nang-luc', pathMatch: 'full'},
+      { path: '', redirectTo: 'tu-dien-nang-luc', pathMatch: 'full'},
     ]
   },
   { path: '', redirectTo: 'nhan-su', pathMatch: 'full'},
