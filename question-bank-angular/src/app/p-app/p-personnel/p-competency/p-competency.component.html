@@ -9,15 +9,15 @@
     <app-dialog [type]="typeDialog" (confirmClicked)="handleError()" (close)="closeDialog()"
         *ngIf="dialog === 'delete'">
 
-        <div title>Cảnh báo</div>
-        <div content>Nội dung cần xóa</div>
-        <div cancelButton>Không xóa</div>
-        <div confirmButton>Xóa</div>
+        <!-- <div title>Cảnh báo</div> -->
+        <!-- <div content>Nội dung cần xóa</div> -->
+        <!-- <div cancelButton>Không xóa</div> -->
+        <!-- <div confirmButton>Xóa</div> -->
     </app-dialog>
 
 
     <!-- Dialog thông tin -->
-    <app-dialog [type]="typeDialog" (confirmClicked)="handleInformation()" (close)="closeDialog()"
+    <app-dialog [type]="typeDialog" (confirmClicked)="handleError()" (close)="closeDialog()"
         *ngIf="dialog === 'infor'">
 
         <div title>Thông tin</div>
@@ -28,7 +28,7 @@
 
 
     <!-- Dialog thành công -->
-    <app-dialog [type]="typeDialog" (confirmClicked)="handleSuccess()" (close)="closeDialog()"
+    <app-dialog [type]="typeDialog" (confirmClicked)="handleError()" (close)="closeDialog()"
         *ngIf="dialog === 'complete'">
 
         <div title>Hoàn tất</div>
