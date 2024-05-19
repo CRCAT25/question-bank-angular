@@ -3,7 +3,18 @@
         {
             "nameModule": "Cấu hình",
             "link": "/cau-hinh",
-            "moduleCategory": []
+            "moduleCategory": [
+                {
+                    "nameModuleCategory": "Quản trị hệ thống",
+                    "moduleCategory": [
+                        {
+                            "nameSubModuleCategory": "Phân quền",
+                            "link": "/phan-quyen",
+                            "data": []
+                        }
+                    ]
+                }
+            ]
         },
         {
             "nameModule": "Dashboard",
@@ -72,28 +83,12 @@
                             "link": "/ngan-hang-cau-hoi",
                             "data": [
                                 {
-                                    "id": "Q.001",
-                                    "question": "Hệ thống cửa hàng Hachi Hachi có mặt từ năm nào? Hiện nay có bao nhiêu cửa hàng ?",
-                                    "typeQuestion": "Dạng câu một lựa chọn",
-                                    "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30s",
-                                    "status": "Đang soạn thảo"
-                                },
-                                {
-                                    "id": "Q.002",
-                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
-                                    "typeQuestion": "Dạng câu một lựa chọn",
-                                    "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30s",
-                                    "status": "Gửi duyệt"
-                                },
-                                {
                                     "id": "Q.003",
                                     "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
-                                    "typeQuestion": "Dạng câu một lựa chọn",
-                                    "group": "Thương hiệu, văn hóa cty",
-                                    "time": "30s",
-                                    "status": "Gửi duyệt"
+                                    "typeQuestion": "Nhiều lựa chọn",
+                                    "group": "Quy định nội bộ",
+                                    "time": "30",
+                                    "status": "Ngưng áp dụng"
                                 },
                                 {
                                     "id": "Q.004",
@@ -101,10 +96,930 @@
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
                                     "time": "30s",
-                                    "status": "Gửi duyệt"
+                                    "status": "Duyệt áp dụng"
                                 },
                                 {
                                     "id": "Q.005",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Duyệt áp dụng"
+                                },
+                                {
+                                    "id": "Q.006",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Ngưng áp dụng"
+                                },
+                                {
+                                    "id": "Q.007",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.008",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Ngưng áp dụng"
+                                },
+                                {
+                                    "id": "Q.009",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.010",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Câu hỏi mở",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.011",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Ngưng áp dụng"
+                                },
+                                {
+                                    "id": "Q.012",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Ngưng áp dụng"
+                                },
+                                {
+                                    "id": "Q.013",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.014",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.015",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.016",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.017",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.018",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.019",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.020",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.021",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.022",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Đang soạn thảo"
+                                },
+                                {
+                                    "id": "Q.023",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.024",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Đang soạn thảo"
+                                },
+                                {
+                                    "id": "Q.025",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.026",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Đang soạn thảo"
+                                },
+                                {
+                                    "id": "Q.027",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.028",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.029",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.030",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.031",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.032",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.033",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Ngưng áp dụng"
+                                },
+                                {
+                                    "id": "Q.034",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.035",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Ngưng áp dụng"
+                                },
+                                {
+                                    "id": "Q.036",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.037",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Đang soạn thảo"
+                                },
+                                {
+                                    "id": "Q.038",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.039",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.040",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.041",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.042",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.043",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.044",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.045",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.046",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.047",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.048",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.049",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Ngưng áp dụng"
+                                },
+                                {
+                                    "id": "Q.050",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.051",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Ngưng áp dụng"
+                                },
+                                {
+                                    "id": "Q.052",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.053",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Đang soạn thảo"
+                                },
+                                {
+                                    "id": "Q.054",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Đang soạn thảo"
+                                },
+                                {
+                                    "id": "Q.055",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.056",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.057",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.058",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.059",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.060",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.061",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.062",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.063",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.064",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.065",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.066",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.067",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.068",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.069",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.070",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.071",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.072",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.073",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.074",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.075",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.076",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.077",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.078",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.079",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.080",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.081",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Đang soạn thảo"
+                                },
+                                {
+                                    "id": "Q.082",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Duyệt áp dụng"
+                                },
+                                {
+                                    "id": "Q.083",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Đang soạn thảo"
+                                },
+                                {
+                                    "id": "Q.084",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.085",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.086",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.087",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.088",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.089",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.090",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Duyệt áp dụng"
+                                },
+                                {
+                                    "id": "Q.091",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.092",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Duyệt áp dụng"
+                                },
+                                {
+                                    "id": "Q.093",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.094",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.095",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.096",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.097",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.098",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.099",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.100",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.101",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.102",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.103",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Duyệt áp dụng"
+                                },
+                                {
+                                    "id": "Q.104",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.105",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Duyệt áp dụng"
+                                },
+                                {
+                                    "id": "Q.106",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.107",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.108",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.109",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.110",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.111",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.112",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.113",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.114",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.115",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.116",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.117",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.118",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Gửi duyệt"
+                                },
+                                {
+                                    "id": "Q.119",
+                                    "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
+                                    "typeQuestion": "Dạng câu một lựa chọn",
+                                    "group": "Thương hiệu, văn hóa cty",
+                                    "time": "30s",
+                                    "status": "Trả về"
+                                },
+                                {
+                                    "id": "Q.120",
                                     "question": "Hệ thống cửa hàng Hachi Hachi mở cửa từ năm bao nhiêu? Số cửa tại là bao nhiêu Hiện nay có bao nhiêu cửa hàng ?",
                                     "typeQuestion": "Dạng câu một lựa chọn",
                                     "group": "Thương hiệu, văn hóa cty",
