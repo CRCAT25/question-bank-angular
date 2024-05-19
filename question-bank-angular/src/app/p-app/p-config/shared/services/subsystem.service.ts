@@ -1,4 +1,3 @@
-// module.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -7,8 +6,8 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class SubSystemService {
-    // get API company
-    private apiSubSystem = 'https://gist.githubusercontent.com/CRCAT25/a9e8db8c572bf91cba0d9deb9706bec2/raw/b6b1391a3ab10f561b789d4443ad241c9e5c6f8b/subsystem';
+    // get API SubSystem
+    private apiSubSystem = 'https://gist.githubusercontent.com/CRCAT25/a9e8db8c572bf91cba0d9deb9706bec2/raw/926ebcbaad177e31ff98517df047a353fc3dcc05/datasubsystem';
 
     constructor(private http: HttpClient) { }
 
