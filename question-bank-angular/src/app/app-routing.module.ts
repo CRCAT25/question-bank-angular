@@ -11,9 +11,16 @@ import { PMarketingComponent } from './p-app/p-marketing/p-marketing.component';
 import { PEcommerceComponent } from './p-app/p-ecommerce/p-ecommerce.component';
 import { PBusinessComponent } from './p-app/p-business/p-business.component';
 import { PCoordinationComponent } from './p-app/p-coordination/p-coordination.component';
+import { PDecentralizationComponent } from './p-app/p-config/p-decentralization/p-decentralization.component';
 
 const routes: Routes = [
-  {path: 'cau-hinh', component: PConfigComponent},
+  {
+    path: 'cau-hinh', component: PConfigComponent,
+    children: [
+      { path: 'phan-quyen', component: PDecentralizationComponent },
+      { path: '', redirectTo: 'phan-quyen', pathMatch: 'full'},
+    ]
+  },
   {path: 'dashboard', component: PDashboardComponent},
   {path: 'mua-hang', component: PShoppingComponent},
   {path: 'dieu-phoi', component: PCoordinationComponent},
@@ -29,7 +36,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'tu-dien-nang-luc', pathMatch: 'full'},
     ]
   },
-  { path: '', redirectTo: 'nhan-su', pathMatch: 'full'},
+  { path: '', redirectTo: 'cau-hinh', pathMatch: 'full'},
 ];
 
 @NgModule({

@@ -13,6 +13,7 @@ export class ModuleService {
     private apiUrl = 'http://localhost:3000';
     private apiModulesUrl = 'http://localhost:3000/api/modules'; // Đường dẫn API getModules từ máy chủ Node.js
     private apiModuleUrl = 'http://localhost:3000/api'; // Đường dẫn API getModules từ máy chủ Node.js
+    private apiCompany = 'https://gist.githubusercontent.com/CRCAT25/ea08cce0747253bcb59de3daff3c98c6/raw/a670a76a01e67edd53f8f91344c67bbc27b5d8ed/dataCompany'; // Đường dẫn API getModules từ máy chủ Node.js
 
     constructor(private http: HttpClient) { }
 

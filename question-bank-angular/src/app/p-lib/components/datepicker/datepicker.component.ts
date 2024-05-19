@@ -25,6 +25,7 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
   public isCurrentDate: boolean = false;
   public isPickedDate: boolean = false;
   public isDisableDate: boolean = false;
+  private isFocused: boolean = false;
   //value
   public fullPickedDate: any = '';
   // value after change
@@ -54,12 +55,13 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
   ];
 
   constructor() { }
-  
+
   registerOnChange(fn: any): void {
     // throw new Error('Method not implemented.');
   }
   registerOnTouched(fn: any): void {
   }
+
   setDisabledState?(isDisabled: boolean): void {
   }
 
@@ -69,44 +71,46 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
 
   onBlur(value: any) {
     this.OnChange(value);
-  }   
+  }
 
   writeValue(obj: string): void {
     const date = Number(obj.split('-')[2]);
     const month = Number(obj.split('-')[1]);
     const year = Number(obj.split('-')[0]);
-    if(obj < this.formatDate(this.currentDate, this.currentMonth, this.currentYear)){
-      this.changedDate = this.currentDate;
-      this.changedMonth = this.currentMonth + 1;
-      this.changedYear = this.currentYear;
-      this.pickedDate = this.currentDate;
-      this.pickedMonth = this.currentMonth + 1;
-      this.pickedYear = this.currentYear;
-      console.log('Value is invalid');
-      this.valueChangeable();
-      this.fullPickedDate = this.formatDate(this.currentDate, this.currentMonth, this.currentYear);
-    }
-    else{
-      if(obj !== this.formatDate(this.changedDate, this.changedMonth + 1, this.changedYear)){
-        let newYear = year;
-        if(year > 3000){
-          newYear = 3000;
-        }
-        this.changedDate = date;
-        this.changedMonth = month;
-        this.changedYear = newYear;
-        this.pickedDate = date;
-        this.pickedMonth = month;
-        this.pickedYear = newYear;
-        this.fullPickedDate = this.formatDate(this.changedDate, this.changedMonth - 1, newYear);
-        console.log('Value is changed!');
+    if (obj !== '') {
+      if (obj < this.formatDate(this.currentDate, this.currentMonth, this.currentYear)) {
+        this.changedDate = this.currentDate;
+        this.changedMonth = this.currentMonth + 1;
+        this.changedYear = this.currentYear;
+        this.pickedDate = this.currentDate;
+        this.pickedMonth = this.currentMonth + 1;
+        this.pickedYear = this.currentYear;
+        console.log('Value is invalid');
         this.valueChangeable();
+        this.fullPickedDate = this.formatDate(this.currentDate, this.currentMonth, this.currentYear);
+      }
+      else {
+        if (obj !== this.formatDate(this.changedDate, this.changedMonth + 1, this.changedYear)) {
+          let newYear = year;
+          if (year > 3000) {
+            newYear = 3000;
+          }
+          this.changedDate = date;
+          this.changedMonth = month;
+          this.changedYear = newYear;
+          this.pickedDate = date;
+          this.pickedMonth = month;
+          this.pickedYear = newYear;
+          this.fullPickedDate = this.formatDate(this.changedDate, this.changedMonth - 1, newYear);
+          console.log('Value is changed!');
+          this.valueChangeable();
+        }
       }
     }
   }
 
   ngOnInit() {
-    this.fullPickedDate = new Date().toLocaleDateString('en-CA');
+    // this.fullPickedDate = new Date().toLocaleDateString('en-CA');
     this.valueChangeable();
   }
 
@@ -114,7 +118,7 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
   onClick(event: MouseEvent) {
     if (!(event.target as HTMLElement).closest('.date-container') && !(event.target as HTMLElement).closest('.date-picker-open')) {
       // Nếu không phải, đóng toolBox
-      if(this.isOpenDatePicker === true){
+      if (this.isOpenDatePicker === true) {
         console.log('Datepicker is closed');
       }
       this.isOpenDatePicker = false;
@@ -152,8 +156,13 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
         this.changedYear -= 1;
       }
     }
-    console.log('After month change: ', this.changedMonth + '/' + this.changedYear)
     this.valueChangeable();
+  }
+
+  // Listen to focus and blur events
+  @HostListener('focus')
+  onFocus(): void {
+    this.isFocused = true;
   }
 
   // check current date is valid

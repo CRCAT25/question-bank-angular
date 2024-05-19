@@ -18,15 +18,15 @@ export class PNavbarComponent implements OnInit {
   ngOnInit(): void {
     this.getCategoryModuleFromServer();
     // set default khi khởi động component
-    this.setSelectedModuleCategory('Đánh giá nhân sự');
-    this.setSelectedSubModuleCategory('Từ điển năng lực', '/nhan-su/tu-dien-nang-luc');
+    this.setSelectedModuleCategory('Quản trị hệ thống');
+    this.setSelectedSubModuleCategory('Phân quyền', '/cau-hinh/phan-quyen');
   }
 
   // Lấy ModuleCategory và SubModuleCategory từ server thông qua service
   getCategoryModuleFromServer() {
     this.moduleService.getCurrentUrl().subscribe(url => {
       if (url === '' || url === '/') {
-        this.router.navigate(['nhan-su' + '/' + 'tu-dien-nang-luc'], { relativeTo: this.route })
+        this.router.navigate(['cau-hinh' + '/' + 'phan-quyen'], { relativeTo: this.route })
       }
       else {
         this.moduleService.getCategoryByModule('/' + url.split('/')[1]).subscribe((response) => {

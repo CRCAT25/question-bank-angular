@@ -11,18 +11,18 @@
                     <ng-content select=[icon]></ng-content>
                 </div>
 
-                <ng-container *ngIf="icon.innerHTML.trim().length === 0">
+                <!-- <ng-container *ngIf="icon.innerHTML.trim().length === 0">
                     <i class="fa-regular fa-circle-question"></i>
-                </ng-container>
+                </ng-container> -->
             </div>
             <div [ngClass]="checkClass('header-title', type)">
                 <div #title>
                     <ng-content select="[title]"></ng-content>
                 </div>
-
+<!-- 
                 <ng-container *ngIf="title.innerHTML.trim().length === 0">
                     Thông báo
-                </ng-container>
+                </ng-container> -->
             </div>
         </div>
 
@@ -33,10 +33,10 @@
                 <div #content>
                     <ng-content select="[content]"></ng-content>
                 </div>
-
+<!-- 
                 <ng-container *ngIf="content.innerHTML.trim().length === 0">
                     Nội dung
-                </ng-container>
+                </ng-container> -->
             </div>
         </div>
 
@@ -47,10 +47,10 @@
                 <div #cancelButton>
                     <ng-content select="[cancelButton]"></ng-content>
                 </div>
-
+<!-- 
                 <ng-container *ngIf="cancelButton.innerHTML.trim().length === 0">
                     Đóng
-                </ng-container>
+                </ng-container> -->
             </div>
 
             <div class="c-dialog-footer_line"></div>
@@ -61,10 +61,10 @@
                 <div #confirmButton>
                     <ng-content select="[confirmButton]"></ng-content>
                 </div>
-
+<!-- 
                 <ng-container *ngIf="confirmButton.innerHTML.trim().length === 0">
                     Xác nhận
-                </ng-container>
+                </ng-container> -->
             </div>
         </div>
     </div>
