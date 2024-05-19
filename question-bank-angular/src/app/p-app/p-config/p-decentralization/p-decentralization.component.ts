@@ -24,6 +24,7 @@ export class PDecentralizationComponent implements OnInit {
   listRole: DTORole[] = [];
   listRoleOfPresidentDepartment: DTORole[] = [];
   listDepartment: DTODepartment[] = [];
+  listDataTree: DTOGroup[] = [];
 
 
 
@@ -43,6 +44,7 @@ export class PDecentralizationComponent implements OnInit {
     this.getListRole();
     this.getListRoleOfPresidentDepartment();
     this.getListDepartment();
+    this.getTreeList();
   }
 
 
@@ -78,5 +80,12 @@ export class PDecentralizationComponent implements OnInit {
   // get list departments from API department service
   getListDepartment() {
     this.departments.getDepartment().subscribe(data => this.listDepartment = data.dataDepartment);
+  }
+    
+
+
+  // get tree list from API subsystem service
+  getTreeList() {
+    this.subsystems.getDataTreeList().subscribe(data => this.listDataTree = data.dataTreeList);
   }
 }
