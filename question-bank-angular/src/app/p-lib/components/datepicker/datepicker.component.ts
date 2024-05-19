@@ -77,15 +77,30 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
     const date = Number(obj.split('-')[2]);
     const month = Number(obj.split('-')[1]);
     const year = Number(obj.split('-')[0]);
-    if (obj !== '') {
-      if (obj < this.formatDate(this.currentDate, this.currentMonth, this.currentYear)) {
-        this.changedDate = this.currentDate;
-        this.changedMonth = this.currentMonth + 1;
-        this.changedYear = this.currentYear;
-        this.pickedDate = this.currentDate;
-        this.pickedMonth = this.currentMonth + 1;
-        this.pickedYear = this.currentYear;
-        console.log('Value is invalid');
+    if(obj < this.formatDate(this.currentDate, this.currentMonth, this.currentYear)){
+      this.changedDate = this.currentDate;
+      this.changedMonth = this.currentMonth + 1;
+      this.changedYear = this.currentYear;
+      this.pickedDate = this.currentDate;
+      this.pickedMonth = this.currentMonth + 1;
+      this.pickedYear = this.currentYear;
+      console.log('Value is invalid');
+      this.fullPickedDate = this.formatDate(this.currentDate, this.currentMonth, this.currentYear);
+    }
+    else{
+      if(obj !== this.formatDate(this.changedDate, this.changedMonth + 1, this.changedYear)){
+        let newYear = year;
+        if(year > 3000){
+          newYear = 3000;
+        }
+        this.changedDate = date;
+        this.changedMonth = month;
+        this.changedYear = newYear;
+        this.pickedDate = date;
+        this.pickedMonth = month;
+        this.pickedYear = newYear;
+        this.fullPickedDate = this.formatDate(this.changedDate, this.changedMonth - 1, newYear);
+        console.log('Value is changed!');
         this.valueChangeable();
         this.fullPickedDate = this.formatDate(this.currentDate, this.currentMonth, this.currentYear);
       }
@@ -128,7 +143,6 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
   // open calendar
   setOpenDatePicker(): void {
     this.isOpenDatePicker = true;
-    console.log('Datepicker is opened');
   }
 
   // change format month from number to string
@@ -175,7 +189,7 @@ export class DatepickerComponent implements OnInit, ControlValueAccessor {
 
   // all value changeable 
   valueChangeable() {
-    this.dateInMonth = new Date(this.changedYear, this.changedMonth, 0).getDate();
+    this.dateInMonth = new Date(this.changedYear, this.changedMonth + 1, 0).getDate();
     this.indexDateStart = new Date(this.changedYear, this.changedMonth - 1, 1).getDay() - 1; // Calculate index of the first day
     if (this.indexDateStart === -1) {
       this.indexDateStart = 6;

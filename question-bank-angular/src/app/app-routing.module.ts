@@ -33,7 +33,7 @@ const routes: Routes = [
       { path: 'khung-nang-luc', component: PCompetencyComponent },
       { path: 'tu-dien-nang-luc', component: PCompetencyDictionaryComponent },
       { path: 'ngan-hang-cau-hoi', component: PQuestionbankComponent },
-      { path: '', redirectTo: 'tu-dien-nang-luc', pathMatch: 'full'},
+      { path: '', redirectTo: 'khung-nang-luc', pathMatch: 'full'},
     ]
   },
   { path: '', redirectTo: 'cau-hinh', pathMatch: 'full'},
