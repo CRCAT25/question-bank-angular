@@ -1,4 +1,4 @@
-1. Run this project
+1. Open this project
 2. In CLI:
 3. - cd server
    - npm i
