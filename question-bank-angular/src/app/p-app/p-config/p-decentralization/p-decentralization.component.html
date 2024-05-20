@@ -9,19 +9,34 @@
     </div>
 
     <div class="block-filter">
-        <div class="title-filter">
-            <div class="title-filter_icon">
-                <kendo-icon name="filter"></kendo-icon>
+
+        <div>
+            <div class="title-filter">
+                <div class="title-filter_icon">
+                    <kendo-icon name="filter"></kendo-icon>
+                </div>
+                <div class="title-filter_title">Lọc dữ liệu</div>
             </div>
-            <div class="title-filter_title">Lọc dữ liệu</div>
         </div>
+
         <div class="group-filter">
             <div class="group-filter_company">
                 <div class="group-filter_company_title">Công ty</div>
                 <div class="group-filter_company_dropdownlist">
-                    <kendo-dropdownlist [data]="listItems"></kendo-dropdownlist>
+                    <kendo-dropdownlist 
+                        dropdownlistdirective
+                        (valueChange)="valueChange($event, this.selectedValueCompany)"
+                        (filterChange)="handleSearch(this.listDisplayedCompany, this.listOriginCompany, $event, 'Bieft')" 
+                        [filterable]="true" 
+                        [data]="listDisplayedCompany" 
+                        textField="Bieft" 
+                        valueField="Code" 
+                        [value]="defaultValueCompany"
+                        [valuePrimitive]="true">
+                    </kendo-dropdownlist>
                 </div>
             </div>
         </div>
+
     </div>
 </div>

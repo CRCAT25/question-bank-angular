@@ -34,6 +34,7 @@ import { PDecentralizationComponent } from './p-app/p-config/p-decentralization/
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsModule } from '@progress/kendo-angular-icons';
 import { DropDownsModule, DropDownListModule, DropDownTreesModule, MultiSelectModule } from '@progress/kendo-angular-dropdowns';
+import { DropDownListDirective } from './p-app/p-config/shared/directives/dropdownlist.directive';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { DropDownsModule, DropDownListModule, DropDownTreesModule, MultiSelectMo
     DatepickerComponent,
     DialogComponent,
     PDecentralizationComponent,
+    DropDownListDirective
   ],
   imports: [
     BrowserModule,

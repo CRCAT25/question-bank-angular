@@ -15,22 +15,26 @@ import { DTODepartment } from '../shared/dtos/department.dto';
 })
 export class PDecentralizationComponent implements OnInit {
   // Variables
+  defaultValueCompany: number = 1;
 
 
 
   // List
-  listCompany: DTOCompany[] = [];
-  listSubSystem: DTOGroup[] = [];
-  listRole: DTORole[] = [];
-  listRoleOfPresidentDepartment: DTORole[] = [];
-  listDepartment: DTODepartment[] = [];
-  listDataTree: DTOGroup[] = [];
+  listOriginCompany: DTOCompany[] = [];
+  listOriginSubSystem: DTOGroup[] = [];
+  listOriginRole: DTORole[] = [];
+  listOriginRoleOfPresidentDepartment: DTORole[] = [];
+  listOriginDepartment: DTODepartment[] = [];
+  listOriginDataTree: DTOGroup[] = [];
 
-  public listItems: Array<{ text: string; value: number }> = [
-    { text: 'Small', value: 1 },
-    { text: 'Medium', value: 2 },
-    { text: 'Large', value: 3 },
-  ];
+  listDisplayedCompany: DTOCompany[] = [];
+  listDisplayedSubSystem: DTOGroup[] = [];
+  listDisplayedRole: DTORole[] = [];
+  listDisplayedRoleOfPresidentDepartment: DTORole[] = [];
+  listDisplayedDepartment: DTODepartment[] = [];
+  listDisplayedDataTree: DTOGroup[] = [];
+
+  selectedValueCompany: number[] = [];
 
 
 
@@ -51,47 +55,92 @@ export class PDecentralizationComponent implements OnInit {
     this.getListRoleOfPresidentDepartment();
     this.getListDepartment();
     this.getTreeList();
+
   }
 
 
 
   // get list company from API company service
   getListCompany() {
-    this.companies.getCompany().subscribe(data => this.listCompany = data.dataCompany);
+    this.companies.getCompany().subscribe(data => this.listOriginCompany = data.dataCompany);
+    this.addDefaultItem(this.listOriginCompany, new DTOCompany("-- Chọn --", -1));
+    this.listDisplayedCompany = [...this.listOriginCompany];
   }
 
 
 
   // get list subsystem from API subsystem service
   getListSubSystem() {
-    this.subsystems.getSubSystem().subscribe(data => this.listSubSystem = data.datasubsystem);
+    this.subsystems.getSubSystem().subscribe(data => this.listOriginSubSystem = data.datasubsystem);
   }
-  
+
 
 
   // get list role from API role service
   getListRole() {
-    this.roles.getRole().subscribe(data => this.listRole = data.datarole);
+    this.roles.getRole().subscribe(data => this.listOriginRole = data.datarole);
   }
 
 
 
   // get list roles of president department from API role service
   getListRoleOfPresidentDepartment() {
-    this.roles.getRolePresidentByDepartment().subscribe(data => this.listRoleOfPresidentDepartment = data.dataRoleOfPresidentDepartment);
+    this.roles.getRolePresidentByDepartment().subscribe(data => this.listOriginRoleOfPresidentDepartment = data.dataRoleOfPresidentDepartment);
   }
-  
+
 
 
   // get list departments from API department service
   getListDepartment() {
-    this.departments.getDepartment().subscribe(data => this.listDepartment = data.dataDepartment);
+    this.departments.getDepartment().subscribe(data => this.listOriginDepartment = data.dataDepartment);
   }
-    
+
 
 
   // get tree list from API subsystem service
   getTreeList() {
-    this.subsystems.getDataTreeList().subscribe(data => this.listDataTree = data.dataTreeList);
+    this.subsystems.getDataTreeList().subscribe(data => this.listOriginDataTree = data.dataTreeList);
+  }
+
+
+
+  /**
+   * The method that is called when list need to push a new object at the start
+   * @param list a list want to push item at the start
+   * @param obj a object will be addedd into list
+   */
+  addDefaultItem(list: Array<any>, obj: Object) {
+    list.unshift(obj);
+  }
+
+
+
+  /**
+   * This method is called whenever typing into input search of list
+   * @param displayedList list is displayed on screen
+   * @param originList origin list is got from api
+   * @param value value is got from input search
+   * @param property property of Object belong to the displayedList
+   */
+  handleSearch(displayedList: Array<any>, originList: Array<any>, value: any, property: any) {
+    const filteredList = originList.filter(
+      (s) => s[property].toLowerCase().indexOf(value.toLowerCase()) !== -1
+    );
+
+    // Clear the contents of displayedList and push the filtered results
+    displayedList.length = 0;
+    displayedList.push(...filteredList);
+  }
+
+
+
+  /**
+   * This method is called when to set valueGet into valueSet in dropdownlist
+   * @param valueGet selected value on the screen
+   * @param valueSet variable will be assign by valueGet
+   */
+  valueChange(valueGet: any, valueSet: number[]) {
+    valueSet.length = 0;
+    valueSet.push(valueGet);
   }
 }

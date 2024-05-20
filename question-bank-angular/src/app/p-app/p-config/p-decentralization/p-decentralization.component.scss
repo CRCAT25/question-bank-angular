@@ -1,75 +1,183 @@
 @import '../../../../styles.scss';
 
-.p-decentralization {
-    padding: 0 15px 0 20px;
+::ng-deep {
+    .k-list-optionlabel.k-selected {
+        background-color: #1A6634;
+    }
 
-    .breadcrumb{
-        display: flex;
-        gap: 8px;
-        text-transform: uppercase;
-        font-size: 13px;
-        font-weight: 700;
-        width: auto;
-        overflow-x: auto;
-        padding: 15px 10px;
+    .k-list-optionlabel:hover {
+        background-color: #1A6634;
+        color: white;
+    }
 
-        &_item1,
-        &_icon,
-        &_item2{
-            display: flex;
-            align-items: center;
-            text-wrap: nowrap;
-        }
+    .k-checkbox:checked {
+        accent-color: #008000;
+        background-color: #008000;
+        border: 1px solid #008000;
+    }
 
-        &_item1{
-            color: $dark-green-color;
-        }
+    .k-checkbox:focus {
+        box-shadow: none;
+    }
 
-        &_icon kendo-icon{
-            font-size: 20px !important;
-            color: $dark-green-color;
+
+    .k-i-search.k-input-icon.k-icon {
+        display: none;
+    }
+
+    .k-list-optionlabel {
+        color: black;
+    }
+
+    .k-list-optionlabel.k-selected:hover {
+        background-color: #1A6634;
+    }
+
+    .k-list-item.k-selected {
+        background-color: #1A6634;
+    }
+
+    .k-list-item.k-selected:hover {
+        background-color: #1A6634;
+    }
+
+    .k-checkbox:checked:focus {
+        box-shadow: none;
+    }
+
+
+    .k-input-outline:focus-within {
+        border-color: #1A6634;
+        border-width: 2px;
+        box-shadow: none !important;
+        border-radius: 2px;
+    }
+
+    .k-list-item:hover {
+        background-color: #85c098;
+        color: white;
+    }
+
+    .k-list-item {
+        &.k-focus {
+            outline: none;
+            box-shadow: none;
         }
     }
 
-    .block-filter{
-        width: 100%;
-        overflow-x: auto;
-        display: flex;
-        padding: 10px;
-        gap: 10px;
+    .k-picker-solid:focus,
+    .k-picker-solid.k-focus {
+        box-shadow: none !important;
+        border: 1px solid black;
+    }
 
-        .title-filter{
-            color: $grey-text;
-            display: flex;
-            text-transform: uppercase;
-            font-weight: 700;
+    .k-picker-solid:focus-within {
+        box-shadow: none;
+    }
 
-            &_icon,
-            &_title{
-                display: flex;
-                align-items: center;
-                font-size: 13px;
-            }
+    .k-input-value-text {
+        color: #000;
+    }
 
-            &_icon kendo-icon{
-                font-size: 16px !important;
-            }
+    .k-input-inner{
+        background-color: #FFF;
+    }
+    
+    kendo-dropdownlist{
+        box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
+        button{
+            background-color: #FFF !important;
         }
+        
+    }
+}
+
+::ng-deep {
+    app-p-decentralization {
+        .p-decentralization {
+            padding: 0 15px 0 20px;
 
 
-        .group-filter{
-            width: 90%;
+            .breadcrumb {
+                display: flex;
+                gap: 8px;
+                text-transform: uppercase;
+                font-size: 13px;
+                font-weight: 700;
+                width: auto;
+                overflow-x: auto;
+                padding: 15px 10px;
+                border-bottom: 1px solid rgba(143, 155, 166, .4);
 
-            &_company{
-
-                &_title{
-
+                &_item1,
+                &_icon,
+                &_item2 {
+                    display: flex;
+                    align-items: center;
+                    text-wrap: nowrap;
                 }
 
-                &_dropdownlist{
-                    
+                &_item1 {
+                    color: $dark-green-color;
+                }
+
+                &_icon kendo-icon {
+                    font-size: 20px !important;
+                    color: $dark-green-color;
                 }
             }
+
+
+            .block-filter {
+                overflow-x: auto;
+                display: flex;
+                padding: 10px;
+                gap: 10px;
+                border-bottom: 1px solid rgba(143, 155, 166, .4);
+
+                .title-filter {
+                    color: $grey-text;
+                    display: flex;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    padding: 10px 0;
+
+                    &_icon,
+                    &_title {
+                        display: flex;
+                        align-items: center;
+                        font-size: 13px;
+                    }
+
+                    &_icon kendo-icon {
+                        font-size: 16px !important;
+                    }
+                }
+
+
+                .group-filter {
+                    width: 90%;
+
+                    &_company {
+                        width: 200px;
+
+                        &_title {
+                            padding: 10px 0;
+                            color: $grey-text;
+                            font-weight: 700;
+                            font-size: 13px;
+                        }
+
+                        &_dropdownlist {
+
+                            .itemDropDown:hover {
+                                background-color: black !important;
+                            }
+                        }
+                    }
+                }
+            }
+
         }
     }
 }

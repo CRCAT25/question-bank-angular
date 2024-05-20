@@ -6,4 +6,13 @@ export class DTOCompany{
     TypeCompanyName: string | undefined
     Code: number | undefined
     IsSystem: boolean | undefined
+
+    constructor(bieft?: string, code?: number) {
+        if (bieft !== undefined) {
+            this.Bieft = bieft;
+        }
+        if (code !== undefined) {
+            this.Code = code;
+        }
+    }
 }
