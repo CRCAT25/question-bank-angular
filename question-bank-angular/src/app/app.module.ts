@@ -31,7 +31,9 @@ import { NonNegativeNumberDirective } from './p-lib/directive/NonNegativeNumberD
 import { DatepickerComponent } from './p-lib/components/datepicker/datepicker.component';
 import { DialogComponent } from './p-lib/components/dialog/dialog.component';
 import { PDecentralizationComponent } from './p-app/p-config/p-decentralization/p-decentralization.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IconsModule } from '@progress/kendo-angular-icons';
+import { DropDownsModule, DropDownListModule, DropDownTreesModule, MultiSelectModule } from '@progress/kendo-angular-dropdowns';
 
 @NgModule({
   declarations: [
@@ -67,12 +69,22 @@ import { PDecentralizationComponent } from './p-app/p-config/p-decentralization/
     MatListModule,
     MatButtonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    IconsModule,
+    DropDownListModule,
+    DropDownTreesModule,
+    DropDownsModule,
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync()
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    DropDownListModule,
+    DropDownTreesModule,
+    DropDownsModule,
+  ]
 })
 export class AppModule { }

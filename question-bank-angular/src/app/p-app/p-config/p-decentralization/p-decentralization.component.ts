@@ -26,6 +26,12 @@ export class PDecentralizationComponent implements OnInit {
   listDepartment: DTODepartment[] = [];
   listDataTree: DTOGroup[] = [];
 
+  public listItems: Array<{ text: string; value: number }> = [
+    { text: 'Small', value: 1 },
+    { text: 'Medium', value: 2 },
+    { text: 'Large', value: 3 },
+  ];
+
 
 
   //Function

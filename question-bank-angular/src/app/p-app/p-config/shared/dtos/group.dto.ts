@@ -1,6 +1,8 @@
+import { DTOFunction } from "./function.dto"
+
 export class DTOGroup{
     ListGroup: DTOGroup[] | undefined
-    ListFunctions: any
+    ListFunctions: DTOFunction[] | undefined
     ListAPI: any
     Company: number | undefined // idCompany
     Code: number | undefined

@@ -1,5 +1,7 @@
+import { DTOPosition } from "./position.dto"
+
 export class DTORole{
-    ListPositionApply: any[] | undefined
+    ListPositionApply: DTOPosition[] | undefined
     Code: number | undefined
     Company: number | undefined
     RoleName: string | undefined
