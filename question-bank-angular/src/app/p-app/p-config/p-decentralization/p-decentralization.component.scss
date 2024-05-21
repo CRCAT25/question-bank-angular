@@ -83,6 +83,10 @@
         background-color: #FFF;
     }
 
+    .k-input-solid:focus, .k-input-solid.k-focus{
+        box-shadow: none !important;
+    }
+
     kendo-dropdownlist {
         box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
 
@@ -101,6 +105,11 @@
 
     .k-input-prefix{
         padding: 0 5px;
+    }
+
+    kendo-multiselecttree{
+        box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
+        cursor: pointer;
     }
 }
 
@@ -171,6 +180,7 @@
                     width: 90%;
                     display: flex;
                     justify-content: space-between;
+                    gap: 10px;
 
                     &_company {
                         width: 16%;
@@ -192,7 +202,8 @@
                     }
 
                     &_subsystem{
-                        width: 250px;
+                        width: 20%;
+                        min-width: 250px;
 
                         &_title{
                             padding: 10px 0;

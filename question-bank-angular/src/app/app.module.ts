@@ -36,6 +36,7 @@ import { IconsModule } from '@progress/kendo-angular-icons';
 import { DropDownsModule, DropDownListModule, DropDownTreesModule, MultiSelectModule } from '@progress/kendo-angular-dropdowns';
 import { DropDownListDirective } from './p-app/p-config/shared/directives/dropdownlist.directive';
 import { DropDownTreeListDirective } from './p-app/p-config/shared/directives/dropdowntreelist.directive';
+import { MultiSelectTreeDirective } from './p-app/p-config/shared/directives/multiselecttree.directive';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { DropDownTreeListDirective } from './p-app/p-config/shared/directives/dr
     DialogComponent,
     PDecentralizationComponent,
     DropDownListDirective,
-    DropDownTreeListDirective
+    DropDownTreeListDirective,
+    MultiSelectTreeDirective
   ],
   imports: [
     BrowserModule,

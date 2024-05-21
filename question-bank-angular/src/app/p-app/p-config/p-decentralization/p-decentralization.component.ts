@@ -45,7 +45,7 @@ export class PDecentralizationComponent implements OnInit {
     Code: -1,
     ProductID: undefined,
     ModuleID: undefined,
-    Vietnamese: 'Tất cả',
+    Vietnamese: '-- Chọn --',
     English: undefined,
     Japanese: undefined,
     Chinese: undefined,
@@ -112,13 +112,7 @@ export class PDecentralizationComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.getListCompany();
-    this.getListSubSystem();
-    this.getListRole();
-    this.getListRoleOfPresidentDepartment();
-    this.getListDepartment();
-    this.getTreeList();
-    console.log(this.listOriginDepartment);
+    this.initData();
   }
 
 
@@ -135,7 +129,7 @@ export class PDecentralizationComponent implements OnInit {
   // get list subsystem from API subsystem service
   getListSubSystem() {
     this.subsystems.getSubSystem().subscribe(data => this.listOriginSubSystem = data.datasubsystem);
-    this.addDefaultItem(this.listOriginSubSystem, new DTOGroup("Tất cả", -1));
+    this.addDefaultItem(this.listOriginSubSystem, new DTOGroup("-- Chọn --", -1));
     this.listDisplayedSubSystem = [...this.listOriginSubSystem];
   }
 
@@ -166,6 +160,22 @@ export class PDecentralizationComponent implements OnInit {
   // get tree list from API subsystem service
   getTreeList() {
     this.subsystems.getDataTreeList().subscribe(data => this.listOriginDataTree = data.dataTreeList);
+  }
+
+
+
+  // Synthetic all method get list above
+  initData(){
+    this.getListCompany();
+    this.getListSubSystem();
+    this.getListRole();
+    this.getListRoleOfPresidentDepartment();
+    this.getListDepartment();
+    this.getTreeList();
+
+    // set selectedValue after all dropdown list binded
+    this.valueChange(1, this.selectedValueCompany, this.listOriginCompany, 'Code', 'Bieft');
+    this.valueChange(-1, this.selectedValueSubSystem, this.listOriginSubSystem, 'Code', 'Vietnamese');
   }
 
 
@@ -212,6 +222,8 @@ export class PDecentralizationComponent implements OnInit {
   valueChange(valueGet: any, valueSet: any[], originList: Array<any>, propertyCondition: any, propertyFound: any) {
     const valueFound = originList.find((a) => a[propertyCondition] === valueGet)
     valueSet.length = 0;
-    valueSet.push(valueFound[propertyFound]);
+    if (valueFound) {
+      valueSet.push(valueFound[propertyFound]);
+    }
   }
 }
