@@ -19,4 +19,13 @@ export class DTODepartment{
     TypeData: number | undefined
     OrderBy: number | undefined
     StatusID: number | undefined
+
+    constructor(Department?: string, code?: number) {
+        if (Department !== undefined) {
+            this.Department = Department;
+        }
+        if (code !== undefined) {
+            this.Code = code;
+        }
+    }
 }

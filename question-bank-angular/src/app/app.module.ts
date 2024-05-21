@@ -35,6 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsModule } from '@progress/kendo-angular-icons';
 import { DropDownsModule, DropDownListModule, DropDownTreesModule, MultiSelectModule } from '@progress/kendo-angular-dropdowns';
 import { DropDownListDirective } from './p-app/p-config/shared/directives/dropdownlist.directive';
+import { DropDownTreeListDirective } from './p-app/p-config/shared/directives/dropdowntreelist.directive';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { DropDownListDirective } from './p-app/p-config/shared/directives/dropdo
     DatepickerComponent,
     DialogComponent,
     PDecentralizationComponent,
-    DropDownListDirective
+    DropDownListDirective,
+    DropDownTreeListDirective
   ],
   imports: [
     BrowserModule,

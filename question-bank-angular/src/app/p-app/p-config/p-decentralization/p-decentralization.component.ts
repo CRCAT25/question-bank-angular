@@ -14,8 +14,70 @@ import { DTODepartment } from '../shared/dtos/department.dto';
   styleUrl: './p-decentralization.component.scss'
 })
 export class PDecentralizationComponent implements OnInit {
-  // Variables
-  defaultValueCompany: number = 1;
+  // Variables & Object
+  dataDepartmentDefaul: DTODepartment = {
+    StatusName: undefined,
+    ParentCode: undefined,
+    ListLocationCode: undefined,
+    ListLocation: undefined,
+    ListDepartment: undefined,
+    ListPosition: undefined,
+    IsTree: undefined,
+    Company: undefined,
+    Code: 2,
+    ParentID: undefined,
+    DepartmentID: undefined,
+    Department: 'Ban giám đốc',
+    Brieft: undefined,
+    Phone: undefined,
+    Fax: undefined,
+    Remark: undefined,
+    Config: undefined,
+    TypeData: undefined,
+    OrderBy: undefined,
+    StatusID: undefined
+  }
+  dataSubSystemDefault: DTOGroup = {
+    ListGroup: undefined,
+    ListFunctions: undefined,
+    ListAPI: undefined,
+    Company: undefined,
+    Code: -1,
+    ProductID: undefined,
+    ModuleID: undefined,
+    Vietnamese: 'Tất cả',
+    English: undefined,
+    Japanese: undefined,
+    Chinese: undefined,
+    OrderBy: undefined,
+    GroupID: undefined,
+    IsVisible: undefined,
+    TypeData: undefined,
+    ImageSetting: undefined,
+    Icon: undefined
+  }
+  dataDepartmentDefault: DTODepartment = {
+    StatusName: undefined,
+    ParentCode: undefined,
+    ListLocationCode: undefined,
+    ListLocation: undefined,
+    ListDepartment: undefined,
+    ListPosition: undefined,
+    IsTree: undefined,
+    Company: undefined,
+    Code: undefined,
+    ParentID: undefined,
+    DepartmentID: undefined,
+    Department: undefined,
+    Brieft: undefined,
+    Phone: undefined,
+    Fax: undefined,
+    Remark: undefined,
+    Config: undefined,
+    TypeData: undefined,
+    OrderBy: undefined,
+    StatusID: undefined
+  }
 
 
 
@@ -34,7 +96,8 @@ export class PDecentralizationComponent implements OnInit {
   listDisplayedDepartment: DTODepartment[] = [];
   listDisplayedDataTree: DTOGroup[] = [];
 
-  selectedValueCompany: number[] = [];
+  selectedValueCompany: any[] = [];
+  selectedValueSubSystem: number[] = [];
 
 
 
@@ -55,7 +118,7 @@ export class PDecentralizationComponent implements OnInit {
     this.getListRoleOfPresidentDepartment();
     this.getListDepartment();
     this.getTreeList();
-
+    console.log(this.listOriginDepartment);
   }
 
 
@@ -72,6 +135,8 @@ export class PDecentralizationComponent implements OnInit {
   // get list subsystem from API subsystem service
   getListSubSystem() {
     this.subsystems.getSubSystem().subscribe(data => this.listOriginSubSystem = data.datasubsystem);
+    this.addDefaultItem(this.listOriginSubSystem, new DTOGroup("Tất cả", -1));
+    this.listDisplayedSubSystem = [...this.listOriginSubSystem];
   }
 
 
@@ -93,6 +158,7 @@ export class PDecentralizationComponent implements OnInit {
   // get list departments from API department service
   getListDepartment() {
     this.departments.getDepartment().subscribe(data => this.listOriginDepartment = data.dataDepartment);
+    this.listDisplayedDepartment = [...this.listOriginDepartment];
   }
 
 
@@ -135,12 +201,17 @@ export class PDecentralizationComponent implements OnInit {
 
 
   /**
-   * This method is called when to set valueGet into valueSet in dropdownlist
-   * @param valueGet selected value on the screen
-   * @param valueSet variable will be assign by valueGet
+   * This method is called when selecting an item in some list. It will get valueGet
+   * and find in originList, then assign that value for valueSet
+   * @param valueGet value obtained when selecting an item in the list that is also valueField
+   * @param valueSet variable use for contain value after run this method
+   * @param originList the list use for filtering
+   * @param propertyCondition condition property to compare to valueGet
+   * @param propertyFound property need get of found object
    */
-  valueChange(valueGet: any, valueSet: number[]) {
+  valueChange(valueGet: any, valueSet: any[], originList: Array<any>, propertyCondition: any, propertyFound: any) {
+    const valueFound = originList.find((a) => a[propertyCondition] === valueGet)
     valueSet.length = 0;
-    valueSet.push(valueGet);
+    valueSet.push(valueFound[propertyFound]);
   }
 }

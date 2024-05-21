@@ -18,4 +18,13 @@ export class DTOGroup{
     TypeData: any
     ImageSetting: any
     Icon: any
+
+    constructor(Vietnamese?: string, code?: number) {
+        if (Vietnamese !== undefined) {
+            this.Vietnamese = Vietnamese;
+        }
+        if (code !== undefined) {
+            this.Code = code;
+        }
+    }
 }

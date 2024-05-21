@@ -79,16 +79,28 @@
         color: #000;
     }
 
-    .k-input-inner{
+    .k-input-inner {
         background-color: #FFF;
     }
-    
-    kendo-dropdownlist{
+
+    kendo-dropdownlist {
         box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
-        button{
+
+        button {
             background-color: #FFF !important;
         }
-        
+    }
+
+    kendo-dropdowntree{
+        box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
+
+        button {
+            background-color: #FFF !important;
+        }
+    }
+
+    .k-input-prefix{
+        padding: 0 5px;
     }
 }
 
@@ -96,7 +108,6 @@
     app-p-decentralization {
         .p-decentralization {
             padding: 0 15px 0 20px;
-
 
             .breadcrumb {
                 display: flex;
@@ -141,6 +152,7 @@
                     text-transform: uppercase;
                     font-weight: 700;
                     padding: 10px 0;
+                    text-wrap: nowrap;
 
                     &_icon,
                     &_title {
@@ -157,9 +169,12 @@
 
                 .group-filter {
                     width: 90%;
+                    display: flex;
+                    justify-content: space-between;
 
                     &_company {
-                        width: 200px;
+                        width: 16%;
+                        min-width: 200px;
 
                         &_title {
                             padding: 10px 0;
@@ -173,6 +188,28 @@
                             .itemDropDown:hover {
                                 background-color: black !important;
                             }
+                        }
+                    }
+
+                    &_subsystem{
+                        width: 250px;
+
+                        &_title{
+                            padding: 10px 0;
+                            color: $grey-text;
+                            font-weight: 700;
+                            font-size: 13px;
+                        }
+                    }
+
+                    &_department{
+                        width: 300px;
+
+                        &_title{
+                            padding: 10px 0;
+                            color: $grey-text;
+                            font-weight: 700;
+                            font-size: 13px;
                         }
                     }
                 }
