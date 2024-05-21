@@ -8,7 +8,6 @@ import { AfterViewInit, Directive, ElementRef, Renderer2 } from '@angular/core';
 })
 export class MultiSelectTreeDirective implements AfterViewInit {
   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
-
   ngAfterViewInit(): void {
     const element = this.elementRef.nativeElement as HTMLElement;
     if (element) {
@@ -23,6 +22,7 @@ export class MultiSelectTreeDirective implements AfterViewInit {
           this.renderer.appendChild(spanInputInnerElement, newSpan); 
         }
       }
+
     }
   }
 }

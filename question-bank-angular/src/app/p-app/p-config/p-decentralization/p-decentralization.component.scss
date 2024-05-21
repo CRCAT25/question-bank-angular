@@ -83,33 +83,65 @@
         background-color: #FFF;
     }
 
-    .k-input-solid:focus, .k-input-solid.k-focus{
+    .k-input-solid:focus,
+    .k-input-solid.k-focus {
         box-shadow: none !important;
+    }
+
+    .k-treeview-leaf:focus,
+    .k-treeview-leaf.k-focus {
+        box-shadow: none !important;
+    }
+
+    .k-treeview-leaf.k-selected {
+        background-color: #008000;
     }
 
     kendo-dropdownlist {
         box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
+        max-height: 33px;
 
         button {
             background-color: #FFF !important;
         }
     }
 
-    kendo-dropdowntree{
+    kendo-dropdowntree {
         box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
+        max-height: 33px;
 
         button {
             background-color: #FFF !important;
         }
     }
 
-    .k-input-prefix{
-        padding: 0 5px;
-    }
-
-    kendo-multiselecttree{
+    kendo-multiselecttree {
+        max-height: 30px;
         box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
         cursor: pointer;
+
+        .k-input-values {
+            max-width: 90% !important;
+            padding: 0 !important;
+        }
+
+        kendo-taglist {
+            overflow-y: auto;
+        }
+
+
+        .k-input-inner {
+            display: flex;
+            justify-content: right;
+        }
+
+        .k-clear-value {
+            display: none;
+        }
+    }
+
+    .k-input-prefix {
+        padding: 0 5px;
     }
 }
 
@@ -160,7 +192,7 @@
                     display: flex;
                     text-transform: uppercase;
                     font-weight: 700;
-                    padding: 10px 0;
+                    padding: 8px 0;
                     text-wrap: nowrap;
 
                     &_icon,
@@ -187,8 +219,8 @@
                         min-width: 200px;
 
                         &_title {
-                            padding: 10px 0;
-                            color: $grey-text;
+                            padding: 8px 0;
+                            color: #343A40;
                             font-weight: 700;
                             font-size: 13px;
                         }
@@ -201,24 +233,25 @@
                         }
                     }
 
-                    &_subsystem{
+                    &_subsystem {
                         width: 20%;
                         min-width: 250px;
 
-                        &_title{
-                            padding: 10px 0;
-                            color: $grey-text;
+                        &_title {
+                            padding: 8px 0;
+                            color: #343A40;
                             font-weight: 700;
                             font-size: 13px;
                         }
                     }
 
-                    &_department{
-                        width: 300px;
+                    &_department {
+                        min-width: 300px;
+                        width: 22%;
 
-                        &_title{
-                            padding: 10px 0;
-                            color: $grey-text;
+                        &_title {
+                            padding: 8px 0;
+                            color: #343A40;
                             font-weight: 700;
                             font-size: 13px;
                         }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CompanyService } from '../shared/services/company.service';
 import { DTOCompany } from '../shared/dtos/company.dto';
 import { SubSystemService } from '../shared/services/subsystem.service';
@@ -106,7 +106,8 @@ export class PDecentralizationComponent implements OnInit {
     private companies: CompanyService,
     private subsystems: SubSystemService,
     private roles: RoleService,
-    private departments: DepartmentService
+    private departments: DepartmentService,
+    private renderer: Renderer2
   ) { }
 
 
@@ -117,7 +118,7 @@ export class PDecentralizationComponent implements OnInit {
 
 
 
-  // get list company from API company service
+  /**Get list company from API company service */
   getListCompany() {
     this.companies.getCompany().subscribe(data => this.listOriginCompany = data.dataCompany);
     this.addDefaultItem(this.listOriginCompany, new DTOCompany("-- Chọn --", -1));
@@ -126,7 +127,7 @@ export class PDecentralizationComponent implements OnInit {
 
 
 
-  // get list subsystem from API subsystem service
+  /**Get list subsystem from API subsystem service */
   getListSubSystem() {
     this.subsystems.getSubSystem().subscribe(data => this.listOriginSubSystem = data.datasubsystem);
     this.addDefaultItem(this.listOriginSubSystem, new DTOGroup("-- Chọn --", -1));
@@ -135,21 +136,21 @@ export class PDecentralizationComponent implements OnInit {
 
 
 
-  // get list role from API role service
+  /**Get list role from API role service */
   getListRole() {
     this.roles.getRole().subscribe(data => this.listOriginRole = data.datarole);
   }
 
 
 
-  // get list roles of president department from API role service
+  /**Get list roles of president department from API role service */
   getListRoleOfPresidentDepartment() {
     this.roles.getRolePresidentByDepartment().subscribe(data => this.listOriginRoleOfPresidentDepartment = data.dataRoleOfPresidentDepartment);
   }
 
 
 
-  // get list departments from API department service
+  /**Get list departments from API department service */
   getListDepartment() {
     this.departments.getDepartment().subscribe(data => this.listOriginDepartment = data.dataDepartment);
     this.listDisplayedDepartment = [...this.listOriginDepartment];
@@ -157,14 +158,14 @@ export class PDecentralizationComponent implements OnInit {
 
 
 
-  // get tree list from API subsystem service
+  /**Get tree list from API subsystem service */
   getTreeList() {
     this.subsystems.getDataTreeList().subscribe(data => this.listOriginDataTree = data.dataTreeList);
   }
 
 
 
-  // Synthetic all method get list above
+  /**Synthetic all method get list above */
   initData(){
     this.getListCompany();
     this.getListSubSystem();
@@ -224,6 +225,27 @@ export class PDecentralizationComponent implements OnInit {
     valueSet.length = 0;
     if (valueFound) {
       valueSet.push(valueFound[propertyFound]);
+    }
+  }
+
+
+
+  /**
+   * This method is called until open dropdown (meaning after popup opend)
+   */
+  opendDropDownDepartment(){
+    const body = this.renderer.selectRootElement('body', true) as HTMLElement;
+    const popupElement = body.querySelector('kendo-popup');
+    if(popupElement){
+      const checkboxElement = popupElement.querySelectorAll('kendo-checkbox')
+      if(checkboxElement){
+        checkboxElement.forEach(checkbox => {
+          const checkboxItem = checkbox as HTMLElement;
+          if(checkboxItem){
+            checkboxItem.style.display = 'none'
+          }
+        })
+      }
     }
   }
 }

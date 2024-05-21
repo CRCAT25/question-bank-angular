@@ -66,6 +66,7 @@
                 <div class="group-filter_department_title">Bộ phận</div>
                 <div class="group-filter_department_dropdownlist">
                     <kendo-multiselecttree
+                        (opened)="opendDropDownDepartment()"
                         multiselecttreedirective
                         kendoMultiSelectTreeExpandable
                         [kendoMultiSelectTreeHierarchyBinding]="listDisplayedDepartment"
