@@ -37,6 +37,7 @@ import { DropDownsModule, DropDownListModule, DropDownTreesModule, MultiSelectMo
 import { DropDownListDirective } from './p-app/p-config/shared/directives/dropdownlist.directive';
 import { DropDownTreeListDirective } from './p-app/p-config/shared/directives/dropdowntreelist.directive';
 import { MultiSelectTreeDirective } from './p-app/p-config/shared/directives/multiselecttree.directive';
+import { TreeListModule } from '@progress/kendo-angular-treelist';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { MultiSelectTreeDirective } from './p-app/p-config/shared/directives/mul
     DropDownListModule,
     DropDownTreesModule,
     DropDownsModule,
+    TreeListModule
   ],
   providers: [
     provideClientHydration(),

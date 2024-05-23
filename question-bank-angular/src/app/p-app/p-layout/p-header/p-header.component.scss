@@ -85,6 +85,7 @@
                 flex-direction: column;
                 justify-content: center;
                 text-transform: uppercase;
+                text-wrap: nowrap;
 
                 &:hover {
                     color: $dark-green-color;

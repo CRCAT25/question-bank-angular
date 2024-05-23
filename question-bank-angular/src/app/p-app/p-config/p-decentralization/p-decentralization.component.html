@@ -26,15 +26,14 @@
                 <div class="group-filter_company_title">Công ty</div>
                 <div class="group-filter_company_dropdownlist">
                     <kendo-dropdownlist 
-                        dropdownlistdirective
-                        (valueChange)="valueChange($event, selectedValueCompany, listOriginCompany, 'Code', 'Bieft')"
-                        (filterChange)="handleSearch(listDisplayedCompany, listOriginCompany, $event, 'Bieft')" 
+                        dropdownlistdirective 
+                        (valueChange)="valueChange($event, selectedValueCompany)"
+                        (filterChange)="handleSearch(listDisplayedCompany, listOriginCompany, $event, 'Bieft')"
                         [filterable]="true" 
                         [data]="listDisplayedCompany" 
                         textField="Bieft" 
-                        valueField="Code" 
-                        [value]="1"
-                        [valuePrimitive]="true">
+                        valueField="Code"
+                        [value]="dataCompanyDefault">
                     </kendo-dropdownlist>
                 </div>
             </div>
@@ -44,17 +43,15 @@
             <div class="group-filter_subsystem">
                 <div class="group-filter_subsystem_title">Phân hệ</div>
                 <div class="group-filter_subsystem_dropdownlist">
-                    <kendo-dropdowntree
-                        kendoDropDownTreeExpandable
+                    <kendo-dropdowntree 
+                        kendoDropDownTreeExpandable 
                         dropdowntreelistdirective
-                        (valueChange)="valueChange($event, selectedValueSubSystem, listOriginSubSystem, 'Code', 'Vietnamese')"
-                        [kendoDropDownTreeHierarchyBinding]="listDisplayedSubSystem"
+                        (valueChange)="valueChange($event, selectedValueSubSystem)"
+                        [kendoDropDownTreeHierarchyBinding]="listDisplayedSubSystem" 
                         textField="Vietnamese"
-                        valueField="Code"
+                        valueField="Code" 
                         [filterable]="true" 
-                        [value]="dataSubSystemDefault.Code"
-                        [valuePrimitive]="true"
-                        [dataItem]="dataSubSystemDefault"
+                        placeholder="Tất cả"
                         childrenField="ListGroup">
                     </kendo-dropdowntree>
                 </div>
@@ -65,18 +62,32 @@
             <div class="group-filter_department">
                 <div class="group-filter_department_title">Bộ phận</div>
                 <div class="group-filter_department_dropdownlist">
-                    <kendo-multiselecttree
-                        (opened)="opendDropDownDepartment()"
+                    <kendo-multiselecttree 
+                        (valueChange)="valueChange($event, selectedValueDepartment)" 
                         multiselecttreedirective
-                        kendoMultiSelectTreeExpandable
+                        kendoMultiSelectTreeExpandable 
                         [kendoMultiSelectTreeHierarchyBinding]="listDisplayedDepartment"
-                        textField="Department"
-                        valueField="Code"
+                        textField="Department" 
+                        valueField="Code" 
                         childrenField="ListDepartment"
-                        [expandedKeys]="['0']"
-                        placeholder="-- Chọn --"
-                    >
+                        placeholder="-- Chọn --">
                     </kendo-multiselecttree>
+                </div>
+            </div>
+
+
+            <!-- DROPDOWN LIST ROLE -->
+            <div class="group-filter_role">
+                <div class="group-filter_role_title">Vai trò</div>
+                <div class="group-filter_role_dropdownlist">
+                    <kendo-multiselect 
+                        [data]="listDisplayedRole" 
+                        (valueChange)="valueChange($event, selectedValueRole)"
+                        [filterable]="true" 
+                        textField="RoleName" 
+                        valueField="Code" placeholder="-- Chọn --"
+                        (filterChange)="onFilterChange($event)">
+                    </kendo-multiselect>
                 </div>
             </div>
 
@@ -85,7 +96,22 @@
     </div>
 
     <div class="grid-container">
-        <div *ngIf="selectedValueCompany">{{selectedValueCompany[0]}}</div>
-        <div *ngIf="selectedValueSubSystem">{{selectedValueSubSystem[0]}}</div>
+
+        <kendo-treelist 
+            [data]="listDisplayedDataTree" 
+            [height]="710" 
+            [fetchChildren]="fetchChildren"
+            [hasChildren]="hasChildren"
+            [initiallyExpanded]="true"
+            kendoTreeListExpandable>
+
+            <kendo-treelist-column [expandable]="true" title="Chức năng phân quyền" [width]="300">
+                <ng-template kendoTreeListCellTemplate let-dataItem>
+                    {{ dataItem.Vietnamese ? dataItem.Vietnamese : dataItem.ModuleName }}
+                </ng-template>
+            </kendo-treelist-column>
+
+        </kendo-treelist>
+
     </div>
 </div>

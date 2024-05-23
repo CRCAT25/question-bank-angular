@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { CompanyService } from '../shared/services/company.service';
 import { DTOCompany } from '../shared/dtos/company.dto';
 import { SubSystemService } from '../shared/services/subsystem.service';
@@ -7,6 +7,7 @@ import { RoleService } from '../shared/services/role.service';
 import { DTORole } from '../shared/dtos/role.dto';
 import { DepartmentService } from '../shared/services/department.service';
 import { DTODepartment } from '../shared/dtos/department.dto';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-p-decentralization',
@@ -15,6 +16,15 @@ import { DTODepartment } from '../shared/dtos/department.dto';
 })
 export class PDecentralizationComponent implements OnInit {
   // Variables & Object
+  dataCompanyDefault: DTOCompany = {
+    VNNameL: undefined,
+    CompanyID: undefined,
+    Bieft: 'Việt Hạ Chí',
+    CountryName: undefined,
+    TypeCompanyName: undefined,
+    Code: 1,
+    IsSystem: undefined
+  }
   dataDepartmentDefaul: DTODepartment = {
     StatusName: undefined,
     ParentCode: undefined,
@@ -38,46 +48,29 @@ export class PDecentralizationComponent implements OnInit {
     StatusID: undefined
   }
   dataSubSystemDefault: DTOGroup = {
-    ListGroup: undefined,
-    ListFunctions: undefined,
-    ListAPI: undefined,
-    Company: undefined,
-    Code: -1,
-    ProductID: undefined,
-    ModuleID: undefined,
-    Vietnamese: '-- Chọn --',
-    English: undefined,
-    Japanese: undefined,
-    Chinese: undefined,
-    OrderBy: undefined,
-    GroupID: undefined,
-    IsVisible: undefined,
-    TypeData: undefined,
-    ImageSetting: undefined,
-    Icon: undefined
+    ListGroup: [],
+    ListFunctions: [],
+    ListAPI: [],
+    Company: 0,
+    Code: 0,
+    ProductID: 0,
+    ModuleID: 0,
+    Vietnamese: 'Tất cả',
+    English: "",
+    Japanese: "",
+    Chinese: "",
+    OrderBy: 1,
+    GroupID: 1,
+    IsVisible: false,
+    TypeData: "",
+    ImageSetting: "",
+    Icon: ""
   }
-  dataDepartmentDefault: DTODepartment = {
-    StatusName: undefined,
-    ParentCode: undefined,
-    ListLocationCode: undefined,
-    ListLocation: undefined,
-    ListDepartment: undefined,
-    ListPosition: undefined,
-    IsTree: undefined,
-    Company: undefined,
-    Code: undefined,
-    ParentID: undefined,
-    DepartmentID: undefined,
-    Department: undefined,
-    Brieft: undefined,
-    Phone: undefined,
-    Fax: undefined,
-    Remark: undefined,
-    Config: undefined,
-    TypeData: undefined,
-    OrderBy: undefined,
-    StatusID: undefined
-  }
+
+  
+  selectedValueCompany: DTOCompany = this.dataCompanyDefault;
+  selectedValueSubSystem?: DTOGroup;
+  selectedValueDepartment: DTODepartment = this.dataDepartmentDefaul;
 
 
 
@@ -96,8 +89,7 @@ export class PDecentralizationComponent implements OnInit {
   listDisplayedDepartment: DTODepartment[] = [];
   listDisplayedDataTree: DTOGroup[] = [];
 
-  selectedValueCompany: any[] = [];
-  selectedValueSubSystem: number[] = [];
+  selectedValueRole: DTORole[] = [];
 
 
 
@@ -108,12 +100,13 @@ export class PDecentralizationComponent implements OnInit {
     private roles: RoleService,
     private departments: DepartmentService,
     private renderer: Renderer2
-  ) { }
+    ) { }
 
 
 
   ngOnInit(): void {
     this.initData();
+    // console.log(this.listOriginDataTree);
   }
 
 
@@ -121,7 +114,7 @@ export class PDecentralizationComponent implements OnInit {
   /**Get list company from API company service */
   getListCompany() {
     this.companies.getCompany().subscribe(data => this.listOriginCompany = data.dataCompany);
-    this.addDefaultItem(this.listOriginCompany, new DTOCompany("-- Chọn --", -1));
+    this.addDefaultItem(this.listOriginCompany, new DTOCompany("-- Chọn --", 0));
     this.listDisplayedCompany = [...this.listOriginCompany];
   }
 
@@ -130,8 +123,8 @@ export class PDecentralizationComponent implements OnInit {
   /**Get list subsystem from API subsystem service */
   getListSubSystem() {
     this.subsystems.getSubSystem().subscribe(data => this.listOriginSubSystem = data.datasubsystem);
-    this.addDefaultItem(this.listOriginSubSystem, new DTOGroup("-- Chọn --", -1));
-    this.listDisplayedSubSystem = [...this.listOriginSubSystem];
+    this.addDefaultItem(this.listOriginSubSystem, this.dataSubSystemDefault);
+    this.listDisplayedSubSystem.push(...this.listOriginSubSystem);
   }
 
 
@@ -139,6 +132,13 @@ export class PDecentralizationComponent implements OnInit {
   /**Get list role from API role service */
   getListRole() {
     this.roles.getRole().subscribe(data => this.listOriginRole = data.datarole);
+    this.listOriginRole.push(...this.listOriginRoleOfPresidentDepartment);
+    this.listDisplayedRole = [];
+    this.listOriginRole.forEach(role => {
+      if(role.Company === this.selectedValueCompany.Code){
+        this.listDisplayedRole.push(role);
+      }
+    })
   }
 
 
@@ -153,7 +153,12 @@ export class PDecentralizationComponent implements OnInit {
   /**Get list departments from API department service */
   getListDepartment() {
     this.departments.getDepartment().subscribe(data => this.listOriginDepartment = data.dataDepartment);
-    this.listDisplayedDepartment = [...this.listOriginDepartment];
+    this.listDisplayedDepartment = [];
+    this.listOriginDepartment.forEach(department => {
+      if(department.Company === this.selectedValueCompany.Code){
+        this.listDisplayedDepartment.push(department);
+      }
+    })
   }
 
 
@@ -161,22 +166,19 @@ export class PDecentralizationComponent implements OnInit {
   /**Get tree list from API subsystem service */
   getTreeList() {
     this.subsystems.getDataTreeList().subscribe(data => this.listOriginDataTree = data.dataTreeList);
+    this.listDisplayedDataTree = [...this.listOriginDataTree];
   }
 
 
 
   /**Synthetic all method get list above */
-  initData(){
+  initData() {
     this.getListCompany();
     this.getListSubSystem();
-    this.getListRole();
     this.getListRoleOfPresidentDepartment();
     this.getListDepartment();
     this.getTreeList();
-
-    // set selectedValue after all dropdown list binded
-    this.valueChange(1, this.selectedValueCompany, this.listOriginCompany, 'Code', 'Bieft');
-    this.valueChange(-1, this.selectedValueSubSystem, this.listOriginSubSystem, 'Code', 'Vietnamese');
+    this.getListRole();
   }
 
 
@@ -212,40 +214,116 @@ export class PDecentralizationComponent implements OnInit {
 
 
   /**
-   * This method is called when selecting an item in some list. It will get valueGet
-   * and find in originList, then assign that value for valueSet
+   * This method is called when selecting an item in some list
    * @param valueGet value obtained when selecting an item in the list that is also valueField
    * @param valueSet variable use for contain value after run this method
-   * @param originList the list use for filtering
-   * @param propertyCondition condition property to compare to valueGet
-   * @param propertyFound property need get of found object
    */
-  valueChange(valueGet: any, valueSet: any[], originList: Array<any>, propertyCondition: any, propertyFound: any) {
-    const valueFound = originList.find((a) => a[propertyCondition] === valueGet)
-    valueSet.length = 0;
-    if (valueFound) {
-      valueSet.push(valueFound[propertyFound]);
+  valueChange(valueGet: any, valueSet: any) {
+    if(valueGet){
+      if(valueSet === this.selectedValueCompany){
+        this.selectedValueCompany = valueGet;
+        this.getListDepartment();
+        this.getListRole();
+      }
+      if(valueSet === this.selectedValueDepartment){
+        this.selectedValueDepartment = valueGet;
+      }
+      if(valueSet === this.selectedValueSubSystem){
+        this.selectedValueSubSystem = valueGet;
+        this.onSubsystemSelect(valueGet);
+        console.log(this.listDisplayedDataTree);
+      }
+      if(valueSet === this.selectedValueRole){
+        this.selectedValueRole = [...valueGet];
+      }
     }
+
   }
 
 
 
-  /**
-   * This method is called until open dropdown (meaning after popup opend)
-   */
-  opendDropDownDepartment(){
-    const body = this.renderer.selectRootElement('body', true) as HTMLElement;
-    const popupElement = body.querySelector('kendo-popup');
-    if(popupElement){
-      const checkboxElement = popupElement.querySelectorAll('kendo-checkbox')
-      if(checkboxElement){
-        checkboxElement.forEach(checkbox => {
-          const checkboxItem = checkbox as HTMLElement;
-          if(checkboxItem){
-            checkboxItem.style.display = 'none'
-          }
-        })
+  onFilterChange(searchTerm: string): void {
+    // const contains = (value: string) => (item: { text: string; value: number }) =>
+    //   item.text.toLowerCase().includes(value.toLowerCase());
+
+    // this.listDisplayedRole = this.listOriginRole.filter(contains(searchTerm));
+    console.log(searchTerm);
+  }
+
+
+
+  fetchChildren = (item: any): Observable<any[]> => {
+    if (item.ListAction) return of(item.ListAction);
+
+    else if (item.ListFunctions) return of(item.ListFunctions);
+
+    else if (item.ListGroup) return of(item.ListGroup);
+
+    return of([]);
+  };
+
+
+
+  hasChildren = (item: any): boolean => {
+    return item.ListGroup?.length > 0 || item.ListFunctions?.length > 0 || item.ListAction?.length > 0
+  };
+
+
+
+  onSubsystemSelect(value: any) {
+    // this.initiallyExpanded = true;
+    if (value.Vietnamese && value.Vietnamese == 'Tất cả') {
+      this.listDisplayedDataTree = this.listOriginDataTree;
+    }
+    else {
+      const nullcheck = this.getListSubSystemDataModuleByID(value, this.listOriginDataTree)
+      if(nullcheck){
+        this.listDisplayedDataTree = [this.getListSubSystemDataModuleByID(value, this.listOriginDataTree)]
+      }else{
+        this.listDisplayedDataTree = []
       }
     }
   }
+
+
+  
+  getListSubSystemDataModuleByID(object: any, list: any[]): any {
+    for (let module of list) {
+      if (module.Code == object.Code) {
+        return module;
+      }
+
+      if (module.ListGroup) {
+        const result = this.getListSubSystemDataModuleByID(object, module.ListGroup);
+        if (result) {
+          return result;
+        }
+      }
+    }
+    return null;
+  }
+
+
+  // generateColumns(data: DTORole[]) {
+  //   let columns: any[] = [];
+  //   data.forEach(role => {
+  //     columns.push({ RoleName: role.RoleName, RoleID: role.RoleID, RoleCode: role.Code })
+  //   });
+
+  //   this.columnList = columns;
+  //   this.initiallyExpanded = true;
+  // }
+
+  // inputCheckedCheck(ListOfRoles: DTORole[], checkedRoleID: number) : boolean {
+  //   if(ListOfRoles){
+  //     for(let role of ListOfRoles){
+  //       if(role.RoleID.toString() == checkedRoleID.toString()){
+  //         return true;
+  //       }
+  //     }
+  //   }
+  //   return false;
+  // }
+
+
 }

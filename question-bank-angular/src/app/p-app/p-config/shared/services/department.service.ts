@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class DepartmentService {
     // get API Department
-    private apiDepartment = 'https://gist.githubusercontent.com/CRCAT25/780f79f235157e8c685708ab1538cd8e/raw/9add0a4e4c6af92a88299c49880d8edc227a9557/datadepartment';
+    private apiDepartment = 'https://gist.githubusercontent.com/CRCAT25/780f79f235157e8c685708ab1538cd8e/raw/2bcab5dce766e6b1384d47c6e879098adac1b66d/datadepartment';
 
     constructor(private http: HttpClient) { }
 

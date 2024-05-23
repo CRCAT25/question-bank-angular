@@ -1,23 +1,23 @@
 import { DTOFunction } from "./function.dto"
 
 export class DTOGroup{
-    ListGroup: DTOGroup[] | undefined
-    ListFunctions: DTOFunction[] | undefined
-    ListAPI: any
-    Company: number | undefined // idCompany
-    Code: number | undefined
-    ProductID: any
-    ModuleID: any
-    Vietnamese: string | undefined
-    English: string | undefined
-    Japanese: string | undefined
-    Chinese: string | undefined
-    OrderBy: number | undefined
-    GroupID: number | undefined
-    IsVisible: boolean | undefined
-    TypeData: any
-    ImageSetting: any
-    Icon: any
+    ListGroup?: DTOGroup[]
+    ListFunctions?: any
+    ListAPI?: any
+    Company?: number // idCompany
+    Code?: any
+    ProductID?: any
+    ModuleID?: any
+    Vietnamese?: string
+    English?: any
+    Japanese?: any
+    Chinese?: any
+    OrderBy?: number
+    GroupID?: number
+    IsVisible?: boolean
+    TypeData?: any
+    ImageSetting?: any
+    Icon?: any
 
     constructor(Vietnamese?: string, code?: number) {
         if (Vietnamese !== undefined) {

@@ -1,5 +1,6 @@
 @import '../../../../styles.scss';
 
+
 ::ng-deep {
     .k-list-optionlabel.k-selected {
         background-color: #1A6634;
@@ -99,6 +100,7 @@
 
     kendo-dropdownlist {
         box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
+        height: 33px;
         max-height: 33px;
 
         button {
@@ -108,15 +110,22 @@
 
     kendo-dropdowntree {
         box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
+        height: 33px;
         max-height: 33px;
 
         button {
             background-color: #FFF !important;
         }
     }
+    
+    .k-checkbox{
+        display: none;
+    }
+
 
     kendo-multiselecttree {
-        max-height: 30px;
+        height: 33px;
+        max-height: 33px;
         box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
         cursor: pointer;
 
@@ -127,6 +136,7 @@
 
         kendo-taglist {
             overflow-y: auto;
+            cursor: pointer !important;
         }
 
 
@@ -138,14 +148,39 @@
         .k-clear-value {
             display: none;
         }
+
+        .k-chip{
+            background-color: #fff;
+            border: none;
+            height: 32px;
+            border-radius: 0;
+        }
+    }
+
+    kendo-multiselect{
+        height: 33px;
+        max-height: 33px;
+        box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
+        cursor: pointer;
+
+        .k-input-values{
+            overflow-y: auto;
+        }
+
+        .k-chip{
+            background-color: #fff;
+            border: none;
+            height: 27px;
+            border-radius: 0;
+        }
     }
 
     .k-input-prefix {
         padding: 0 5px;
     }
-}
 
-::ng-deep {
+
+
     app-p-decentralization {
         .p-decentralization {
             padding: 0 15px 0 20px;
@@ -247,7 +282,19 @@
 
                     &_department {
                         min-width: 300px;
-                        width: 22%;
+                        width: 28%;
+
+                        &_title {
+                            padding: 8px 0;
+                            color: #343A40;
+                            font-weight: 700;
+                            font-size: 13px;
+                        }
+                    }
+
+                    &_role {
+                        min-width: 300px;
+                        width: 28%;
 
                         &_title {
                             padding: 8px 0;
