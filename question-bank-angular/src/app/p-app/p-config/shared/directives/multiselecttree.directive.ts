@@ -22,7 +22,6 @@ export class MultiSelectTreeDirective implements AfterViewInit {
           this.renderer.appendChild(spanInputInnerElement, newSpan); 
         }
       }
-
     }
   }
 }

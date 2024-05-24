@@ -25,14 +25,9 @@
             <div class="group-filter_company">
                 <div class="group-filter_company_title">Công ty</div>
                 <div class="group-filter_company_dropdownlist">
-                    <kendo-dropdownlist 
-                        dropdownlistdirective 
-                        (valueChange)="valueChange($event, selectedValueCompany)"
+                    <kendo-dropdownlist dropdownlistdirective (valueChange)="valueChange($event, selectedValueCompany)"
                         (filterChange)="handleSearch(listDisplayedCompany, listOriginCompany, $event, 'Bieft')"
-                        [filterable]="true" 
-                        [data]="listDisplayedCompany" 
-                        textField="Bieft" 
-                        valueField="Code"
+                        [filterable]="true" [data]="listDisplayedCompany" textField="Bieft" valueField="Code"
                         [value]="dataCompanyDefault">
                     </kendo-dropdownlist>
                 </div>
@@ -43,16 +38,10 @@
             <div class="group-filter_subsystem">
                 <div class="group-filter_subsystem_title">Phân hệ</div>
                 <div class="group-filter_subsystem_dropdownlist">
-                    <kendo-dropdowntree 
-                        kendoDropDownTreeExpandable 
-                        dropdowntreelistdirective
+                    <kendo-dropdowntree kendoDropDownTreeExpandable dropdowntreelistdirective
                         (valueChange)="valueChange($event, selectedValueSubSystem)"
-                        [kendoDropDownTreeHierarchyBinding]="listDisplayedSubSystem" 
-                        textField="Vietnamese"
-                        valueField="Code" 
-                        [filterable]="true" 
-                        placeholder="Tất cả"
-                        childrenField="ListGroup">
+                        [kendoDropDownTreeHierarchyBinding]="listDisplayedSubSystem" textField="Vietnamese"
+                        valueField="Code" [filterable]="true" placeholder="Tất cả" childrenField="ListGroup">
                     </kendo-dropdowntree>
                 </div>
             </div>
@@ -62,15 +51,11 @@
             <div class="group-filter_department">
                 <div class="group-filter_department_title">Bộ phận</div>
                 <div class="group-filter_department_dropdownlist">
-                    <kendo-multiselecttree 
-                        (valueChange)="valueChange($event, selectedValueDepartment)" 
-                        multiselecttreedirective
-                        kendoMultiSelectTreeExpandable 
-                        [kendoMultiSelectTreeHierarchyBinding]="listDisplayedDepartment"
-                        textField="Department" 
-                        valueField="Code" 
-                        childrenField="ListDepartment"
-                        placeholder="-- Chọn --">
+                    <kendo-multiselecttree (valueChange)="valueChange($event, selectedValueDepartment)"
+                        multiselecttreedirective kendoMultiSelectTreeExpandable
+                        [(ngModel)]="selectedItemsDepartment"
+                        [kendoMultiSelectTreeHierarchyBinding]="listDisplayedDepartment" textField="Department"
+                        valueField="Code" childrenField="ListDepartment" placeholder="-- Chọn --">
                     </kendo-multiselecttree>
                 </div>
             </div>
@@ -80,13 +65,9 @@
             <div class="group-filter_role">
                 <div class="group-filter_role_title">Vai trò</div>
                 <div class="group-filter_role_dropdownlist">
-                    <kendo-multiselect 
-                        [data]="listDisplayedRole" 
-                        (valueChange)="valueChange($event, selectedValueRole)"
-                        [filterable]="true" 
-                        textField="RoleName" 
-                        valueField="Code" placeholder="-- Chọn --"
-                        (filterChange)="onFilterChange($event)">
+                    <kendo-multiselect [data]="listDisplayedRole" (valueChange)="valueChange($event, selectedValueRole)"
+                        [(ngModel)]="selectedItems" [filterable]="true" textField="RoleName" valueField="Code"
+                        placeholder="-- Chọn --" (filterChange)="onFilterChange($event)">
                     </kendo-multiselect>
                 </div>
             </div>
@@ -97,19 +78,42 @@
 
     <div class="grid-container">
 
-        <kendo-treelist 
-            [data]="listDisplayedDataTree" 
-            [height]="710" 
-            [fetchChildren]="fetchChildren"
-            [hasChildren]="hasChildren"
-            [initiallyExpanded]="true"
-            kendoTreeListExpandable>
 
-            <kendo-treelist-column [expandable]="true" title="Chức năng phân quyền" [width]="300">
+        <kendo-treelist class="kendo-treelist-custom" [data]="listDisplayedDataTree" [fetchChildren]="fetchChildren"
+            [hasChildren]="hasChildren" [initiallyExpanded]="true" kendoTreeListExpandable>
+
+
+
+            <kendo-treelist-column [locked]="true" class="treelist-column-custom" [expandable]="true"
+                title="Chức năng phân quyền" [width]="350">
                 <ng-template kendoTreeListCellTemplate let-dataItem>
-                    {{ dataItem.Vietnamese ? dataItem.Vietnamese : dataItem.ModuleName }}
+                    <span [ngStyle]="{'font-weight': dataItem.Vietnamese ? '700' : 'normal'}">
+                    {{ getDisplayValue(dataItem) }}</span>
                 </ng-template>
             </kendo-treelist-column>
+
+            <kendo-treelist-column title="Vietnamese" [width]="1"></kendo-treelist-column>
+
+            <ng-container *ngFor="let role of selectedDisplayValueRole">
+                <kendo-treelist-column [width]="200">
+                    
+                    <ng-template kendoTreeListHeaderTemplate>
+                        <div class="title-role">
+                            <div class="title-role_id" [title]="role.RoleID">{{role.RoleID}}</div>
+                            <div class="title-role_name" [title]="role.RoleName">{{role.RoleName}}</div>
+                        </div>
+                    </ng-template>
+
+                    <ng-template kendoTreeListCellTemplate let-dataItem>
+                        <ng-container *ngIf="dataItem.ModuleName && !dataItem.ListAction">
+                            <ng-container *ngIf="role.Code">
+                                <input type="checkbox" [checked]="inputCheckedCheck(dataItem.ListDataPermission, role.Code)" />
+                            </ng-container>
+                            <!-- <div>{{role.Code}}</div> -->
+                        </ng-container>
+                    </ng-template>
+                </kendo-treelist-column>
+            </ng-container>
 
         </kendo-treelist>
 

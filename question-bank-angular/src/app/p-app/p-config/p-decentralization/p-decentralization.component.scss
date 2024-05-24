@@ -1,7 +1,17 @@
 @import '../../../../styles.scss';
 
 
+
 ::ng-deep {
+    div.k-treeview-top:hover,
+    .k-treeview-mid:hover,
+    .k-treeview-bot:hover,
+    .k-treeview-leaf:hover{
+        background-color: #85c098;
+        color: #000;
+        cursor: pointer;
+    }
+
     .k-list-optionlabel.k-selected {
         background-color: #1A6634;
     }
@@ -57,6 +67,10 @@
     .k-list-item:hover {
         background-color: #85c098;
         color: white;
+    }
+
+    .k-clear-value {
+        display: none;
     }
 
     .k-list-item {
@@ -117,9 +131,11 @@
             background-color: #FFF !important;
         }
     }
-    
-    .k-checkbox{
-        display: none;
+
+    kendo-popup {
+        .k-checkbox {
+            display: none;
+        }
     }
 
 
@@ -149,25 +165,25 @@
             display: none;
         }
 
-        .k-chip{
+        .k-chip {
             background-color: #fff;
             border: none;
-            height: 32px;
+            height: 31px;
             border-radius: 0;
         }
     }
 
-    kendo-multiselect{
+    kendo-multiselect {
         height: 33px;
         max-height: 33px;
         box-shadow: 1px 3px 6px 1px #8f9ba633 !important;
         cursor: pointer;
 
-        .k-input-values{
+        .k-input-values {
             overflow-y: auto;
         }
 
-        .k-chip{
+        .k-chip {
             background-color: #fff;
             border: none;
             height: 27px;
@@ -306,6 +322,105 @@
                 }
             }
 
+
+            .grid-container {
+                height: calc(100vh - 54px - 51px - 111px);
+                // box-shadow: $box-shadow1;
+
+
+                th[aria-colindex="1"] {
+                    padding-bottom: 25px;
+                    text-align: center;
+                    font-weight: 700;
+                }
+
+                th {
+                    background-color: #fff;
+                }
+
+                .k-grid {
+                    border: none;
+                }
+
+
+                .kendo-treelist-custom {
+                    height: 100%;
+
+                    .k-grid-header {
+                        background-color: #e6e6e6 !important;
+                        border: none !important;
+                        padding: 0 !important;
+
+
+
+                        .k-header.k-table-th {
+                            border: none;
+                            height: 100%;
+                        }
+
+                        .row-role-id {
+                            background-color: #000;
+                        }
+
+                        thead {
+                            background-color: #F0F3F5;
+                        }
+
+                        .title-role {
+                            height: 58px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+
+                            &_id,
+                            &_name {
+                                max-width: 176px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                        }
+
+                        .k-grid-header-wrap {
+                            height: 75px;
+                            max-height: 75px;
+                            color: #343A40;
+                            font-weight: 700;
+                            background-color: #fff;
+
+
+                            th {
+                                text-align: center;
+                            }
+
+                            table.k-grid-header-table {
+                                height: 74px;
+                                max-height: 74px;
+                            }
+                        }
+
+                    }
+
+                    .k-grid-container {
+                        td {
+                            background-color: #fff;
+                            height: 38px;
+                            text-align: center;
+                        }
+
+                        td[aria-colindex="1"] {
+                            text-align: left;
+                            background-color: #C5D6CE;
+                        }
+
+                        .k-grid-table-wrap table {
+                            border-spacing: 0 4px;
+                            background-color: #F0F3F5;
+                        }
+
+
+                    }
+                }
+            }
         }
     }
 }

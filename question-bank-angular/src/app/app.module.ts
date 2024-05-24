@@ -82,7 +82,7 @@ import { TreeListModule } from '@progress/kendo-angular-treelist';
     DropDownListModule,
     DropDownTreesModule,
     DropDownsModule,
-    TreeListModule
+    TreeListModule,
   ],
   providers: [
     provideClientHydration(),

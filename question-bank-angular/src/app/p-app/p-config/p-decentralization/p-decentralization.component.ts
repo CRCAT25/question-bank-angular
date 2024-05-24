@@ -67,7 +67,7 @@ export class PDecentralizationComponent implements OnInit {
     Icon: ""
   }
 
-  
+
   selectedValueCompany: DTOCompany = this.dataCompanyDefault;
   selectedValueSubSystem?: DTOGroup;
   selectedValueDepartment: DTODepartment = this.dataDepartmentDefaul;
@@ -90,6 +90,11 @@ export class PDecentralizationComponent implements OnInit {
   listDisplayedDataTree: DTOGroup[] = [];
 
   selectedValueRole: DTORole[] = [];
+  selectedDisplayValueRole: DTORole[] = [];
+  selectedDropDownRole: DTORole[] = [];
+
+  selectedItems = [];
+  selectedItemsDepartment = [];
 
 
 
@@ -100,13 +105,12 @@ export class PDecentralizationComponent implements OnInit {
     private roles: RoleService,
     private departments: DepartmentService,
     private renderer: Renderer2
-    ) { }
+  ) { }
 
 
 
   ngOnInit(): void {
     this.initData();
-    // console.log(this.listOriginDataTree);
   }
 
 
@@ -135,7 +139,7 @@ export class PDecentralizationComponent implements OnInit {
     this.listOriginRole.push(...this.listOriginRoleOfPresidentDepartment);
     this.listDisplayedRole = [];
     this.listOriginRole.forEach(role => {
-      if(role.Company === this.selectedValueCompany.Code){
+      if (role.Company === this.selectedValueCompany.Code) {
         this.listDisplayedRole.push(role);
       }
     })
@@ -146,6 +150,7 @@ export class PDecentralizationComponent implements OnInit {
   /**Get list roles of president department from API role service */
   getListRoleOfPresidentDepartment() {
     this.roles.getRolePresidentByDepartment().subscribe(data => this.listOriginRoleOfPresidentDepartment = data.dataRoleOfPresidentDepartment);
+    this.listDisplayedRoleOfPresidentDepartment = [...this.listOriginRoleOfPresidentDepartment];
   }
 
 
@@ -155,7 +160,7 @@ export class PDecentralizationComponent implements OnInit {
     this.departments.getDepartment().subscribe(data => this.listOriginDepartment = data.dataDepartment);
     this.listDisplayedDepartment = [];
     this.listOriginDepartment.forEach(department => {
-      if(department.Company === this.selectedValueCompany.Code){
+      if (department.Company === this.selectedValueCompany.Code) {
         this.listDisplayedDepartment.push(department);
       }
     })
@@ -179,6 +184,7 @@ export class PDecentralizationComponent implements OnInit {
     this.getListDepartment();
     this.getTreeList();
     this.getListRole();
+    console.log(this.listOriginDataTree);
   }
 
 
@@ -219,41 +225,47 @@ export class PDecentralizationComponent implements OnInit {
    * @param valueSet variable use for contain value after run this method
    */
   valueChange(valueGet: any, valueSet: any) {
-    if(valueGet){
-      if(valueSet === this.selectedValueCompany){
+    if (valueGet) {
+      if (valueSet === this.selectedValueCompany) {
         this.selectedValueCompany = valueGet;
         this.getListDepartment();
         this.getListRole();
+        this.selectedItems = [];
+        this.selectedDisplayValueRole = [];
+        this.selectedItemsDepartment = []
       }
-      if(valueSet === this.selectedValueDepartment){
-        this.selectedValueDepartment = valueGet;
-      }
-      if(valueSet === this.selectedValueSubSystem){
+      if (valueSet === this.selectedValueSubSystem) {
         this.selectedValueSubSystem = valueGet;
         this.onSubsystemSelect(valueGet);
-        console.log(this.listDisplayedDataTree);
       }
-      if(valueSet === this.selectedValueRole){
-        this.selectedValueRole = [...valueGet];
+      if (valueSet === this.selectedValueDepartment) {
+        this.selectedValueDepartment = valueGet;
+        this.addSelectedRole(valueGet, this.listDisplayedDepartment);
+      }
+      if (valueSet === this.selectedValueRole) {
+        // this.selectedValueRole = [...valueGet];
+        this.addSelectedRole(valueGet, this.listDisplayedRole);
       }
     }
-
+    console.log(this.selectedDisplayValueRole);
   }
 
 
 
-  onFilterChange(searchTerm: string): void {
-    // const contains = (value: string) => (item: { text: string; value: number }) =>
-    //   item.text.toLowerCase().includes(value.toLowerCase());
+  public onFilterChange(searchTerm: any): void {
+    const contains =
+      (value: string) => (item: DTORole) =>
+        item.RoleName?.toLowerCase().includes(value.toLowerCase());
 
-    // this.listDisplayedRole = this.listOriginRole.filter(contains(searchTerm));
-    console.log(searchTerm);
+    this.listDisplayedRole = this.listOriginRole.filter(contains(searchTerm));
   }
 
 
 
   fetchChildren = (item: any): Observable<any[]> => {
-    if (item.ListAction) return of(item.ListAction);
+    if (item.ListAction){
+      return of(item.ListAction);
+    } 
 
     else if (item.ListFunctions) return of(item.ListFunctions);
 
@@ -268,6 +280,23 @@ export class PDecentralizationComponent implements OnInit {
     return item.ListGroup?.length > 0 || item.ListFunctions?.length > 0 || item.ListAction?.length > 0
   };
 
+  
+
+  getDisplayValue(dataItem: any): string {
+    
+    if (dataItem.ActionName !== undefined) {
+      return dataItem.ActionName;
+    }
+    else if (dataItem.FunctionName !== undefined) {
+      return dataItem.FunctionName;
+    }  
+    else if (dataItem.Vietnamese !== undefined) {
+        return dataItem.Vietnamese;
+    } 
+
+    return '';
+  }
+
 
 
   onSubsystemSelect(value: any) {
@@ -277,16 +306,16 @@ export class PDecentralizationComponent implements OnInit {
     }
     else {
       const nullcheck = this.getListSubSystemDataModuleByID(value, this.listOriginDataTree)
-      if(nullcheck){
+      if (nullcheck) {
         this.listDisplayedDataTree = [this.getListSubSystemDataModuleByID(value, this.listOriginDataTree)]
-      }else{
+      } else {
         this.listDisplayedDataTree = []
       }
     }
   }
 
 
-  
+
   getListSubSystemDataModuleByID(object: any, list: any[]): any {
     for (let module of list) {
       if (module.Code == object.Code) {
@@ -304,26 +333,48 @@ export class PDecentralizationComponent implements OnInit {
   }
 
 
-  // generateColumns(data: DTORole[]) {
-  //   let columns: any[] = [];
-  //   data.forEach(role => {
-  //     columns.push({ RoleName: role.RoleName, RoleID: role.RoleID, RoleCode: role.Code })
-  //   });
 
-  //   this.columnList = columns;
-  //   this.initiallyExpanded = true;
-  // }
+  addSelectedRole(role: Array<any>, selectedList: any) {
+    if (selectedList === this.listDisplayedRole) {
+      this.selectedDropDownRole = role;
+    }
+    else if (selectedList === this.listDisplayedDepartment) {
+      let isAdding = false;
+      role.forEach(item => {
+        if (item) {
+          if (item.Department === 'Ban Giám đốc') {
+            isAdding = true;
+            stop();
+          }
+        }
+      })
+      if (isAdding) {
+        this.selectedDropDownRole = [];
+        this.selectedValueRole = this.listDisplayedRoleOfPresidentDepartment;
+        this.roles.getRole().subscribe(data => this.listDisplayedRole = data.datarole);
+      }
+      else {
+        this.selectedDropDownRole = [];
+        this.selectedValueRole = [];
+        this.listDisplayedRole = this.listOriginRole;
+      }
+      this.selectedItems = [];
+      this.selectedDisplayValueRole = this.selectedValueRole;
+    }
 
-  // inputCheckedCheck(ListOfRoles: DTORole[], checkedRoleID: number) : boolean {
-  //   if(ListOfRoles){
-  //     for(let role of ListOfRoles){
-  //       if(role.RoleID.toString() == checkedRoleID.toString()){
-  //         return true;
-  //       }
-  //     }
-  //   }
-  //   return false;
-  // }
+    this.selectedDisplayValueRole = [...this.selectedValueRole, ...this.selectedDropDownRole];
+  }
 
 
+
+  inputCheckedCheck(ListOfRoles: DTORole[], checkedRoleID: number) : boolean {
+    if(ListOfRoles){
+      for(let role of ListOfRoles){
+        if(role.RoleID.toString() == checkedRoleID.toString()){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }

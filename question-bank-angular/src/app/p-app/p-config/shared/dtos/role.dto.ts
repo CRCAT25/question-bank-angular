@@ -12,7 +12,7 @@ export class DTORole{
     CreateTime: Date | undefined
     LastModifiedBy: any
     LastModifiedTime: any
-    RoleID: string | undefined
+    RoleID: any
     Remark: any
     Role: any
     OrderBy: number | undefined
